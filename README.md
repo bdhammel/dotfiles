@@ -4,7 +4,7 @@ Move `vim` `vimrc` and `gvimrc` files to home directory
 
 ~~~bash
 $ cd path/to/cloned/repo
-$ mv vim ~/.vim
-$ mv vimrc ~/.vimrc
-$ mv gvimrc ~/.gvimrc
+$ ln -s vim ~/.vim
+$ ln -s vimrc ~/.vimrc
+$ ln -s gvimrc ~/.gvimrc
 ~~~
