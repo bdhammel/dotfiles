@@ -16,9 +16,9 @@ colorscheme koehler
 au BufNewFile,BufRead *.html set filetype=htmldjango
 
 " set the backup director for swap files directory
-set backupdir=~/.vim.tmp
+set backupdir=~/.vim_tmp
 set swapfile
-set directory=~/.vim.tmp
+set directory=~/.vim_tmp
 
 set spell
 set nowrap
