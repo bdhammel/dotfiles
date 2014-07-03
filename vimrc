@@ -14,9 +14,9 @@ colorscheme koehler
 au BufNewFile,BufRead *.html set filetype=htmldjango
 
 " set the backup director for swap files directory
-set backupdir=~/.vim-tmp
+set backupdir=~/.vim.tmp
 set swapfile
-set directory=~/.vim-tmp
+set directory=~/.vim.tmp
 
 set spell
 set nowrap
@@ -66,30 +66,13 @@ autocmd FileType python set omnifunc=pythoncomplete#Complete
 autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
 autocmd FileType css set omnifunc=csscomplete#CompleteCSS
 autocmd Filetype gitcommit setlocal spell textwidth=72
+autocmd Filetype '' setlocal nospell
 
 inoremap <C-space> <C-x><C-o>
-
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                      bracket completion                    "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"inoremap {  {}<Left>
-"inoremap (  ()<Left>
-"inoremap [  []<Left>
-"inoremap '  ''<Left>
-"inoremap "  ""<Left>
-
-"inoremap {{ {{  }}<left><left><left>
-"inoremap {% {%  %}<left><left><left>
-
-"autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
-
-"inoremap <!- <!--  --><left><left><left><left>
-
-"inoremap /* /*  */<left><left><left>
-inoremap /**  /***********************************************************************<CR><CR><left>**********************************************************************/<Esc><up>A
-inoremap #-   #----------------------------------------------------------------------#<CR>#   <CR>#----------------------------------------------------------------------#<Esc><up>A
-inoremap #=   #==============================================================================#<CR>#   <CR>#==============================================================================#<Esc><up>A
 inoremap #    #x<C-h>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
