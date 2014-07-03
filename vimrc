@@ -4,6 +4,8 @@
 "                             &                             "
 "                    general configuration                  "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" set the color encoding for vim
+set term=screen-256color
 
 filetype on
 filetype plugin on
@@ -81,6 +83,7 @@ inoremap #    #x<C-h>
 
 let g:nerdtree_tabs_open_on_console_startup = 1
 let NERDTreeIgnore = ['\.pyc$']
+let g:NERDTreeDirArrows = 0 "remove arrows 
 
 map \t :NERDTreeTabsToggle<CR>
 map \w :BookmarkToRoot web<CR>
