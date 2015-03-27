@@ -7,7 +7,7 @@ highlight Normal guibg=black
 set background=dark
 
 "make window like terminal window
-set transparency=15
+set transparency=10
 
 "hide the top menu bar
 autocmd FileType python set colorcolumn=81

@@ -5,7 +5,7 @@
 "                    general configuration                  "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " set the color encoding for vim
-set term=screen-256color
+set term=xterm-256color
 
 filetype on
 filetype plugin on
@@ -13,14 +13,20 @@ filetype plugin indent on
 
 syntax on
 colorscheme koehler
-au BufNewFile,BufRead *.html set filetype=htmldjango
 
 " set the backup director for swap files directory
 set backupdir=~/.vim_tmp
 set swapfile
 set directory=~/.vim_tmp
 
+"Spell Check
 set spell
+hi clear SpellBad
+hi SpellBad cterm=underline ctermfg=red
+
+"copy and paste - use system clipboard
+set clipboard=unnamed
+
 set nowrap
 set sidescroll=5
 
@@ -56,6 +62,13 @@ hi TabLineFill  guifg=#999 guibg=#222 gui=none ctermfg=254 ctermbg=238 cterm=non
 hi StatusLine      guifg=#666 guibg=#222 gui=none ctermfg=254 ctermbg=238 cterm=bold
 hi StatusLineNC    guifg=#333 guibg=#222 gui=bold ctermfg=231 ctermbg=235 cterm=none
 
+"Turn on modeline for recognizing hydra files
+set modeline 
+set modelines=3
+
+au BufNewFile,BufRead *.html set filetype=htmldjango
+
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""    
 "                      code completion                      "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -68,6 +81,7 @@ autocmd FileType python set omnifunc=pythoncomplete#Complete
 autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
 autocmd FileType css set omnifunc=csscomplete#CompleteCSS
 autocmd Filetype gitcommit setlocal spell textwidth=72
+autocmd Filetype tex 
 autocmd Filetype '' setlocal nospell
 
 inoremap <C-space> <C-x><C-o>
