@@ -2,3 +2,5 @@
 *.swo
 *.swn
 _readme.md
+vim_tmp
+tmux.history
