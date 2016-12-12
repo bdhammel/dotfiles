@@ -55,12 +55,12 @@ set backspace=2
 "Draw a red boarder at the limit of 80 characters if using python 
 autocmd FileType python set colorcolumn=81
 
-hi TabLine      guifg=#333 guibg=#222 gui=none ctermfg=254 ctermbg=238 cterm=none
-hi TabLineSel   guifg=#666 guibg=#222 gui=bold ctermfg=231 ctermbg=235 cterm=bold
-hi TabLineFill  guifg=#999 guibg=#222 gui=none ctermfg=254 ctermbg=238 cterm=none
+hi TabLine      gui=none ctermfg=254 ctermbg=238 cterm=none
+hi TabLineSel   gui=bold ctermfg=231 ctermbg=235 cterm=bold
+hi TabLineFill  gui=none ctermfg=254 ctermbg=238 cterm=none
 
-hi StatusLine      guifg=#666 guibg=#222 gui=none ctermfg=254 ctermbg=238 cterm=bold
-hi StatusLineNC    guifg=#333 guibg=#222 gui=bold ctermfg=231 ctermbg=235 cterm=none
+hi StatusLine      gui=none ctermfg=254 ctermbg=238 cterm=bold
+hi StatusLineNC    gui=bold ctermfg=231 ctermbg=235 cterm=none
 
 "Turn on modeline for recognizing hydra files
 set modeline 
