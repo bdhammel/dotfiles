@@ -68,7 +68,6 @@ set modelines=3
 
 au BufNewFile,BufRead *.html set filetype=htmldjango
 
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""    
 "                      code completion                      "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
