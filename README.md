@@ -1,8 +1,14 @@
-# Vim configuration files
+# Dotfiles set up
 
-Move `vim` `vimrc` and `gvimrc` files to home directory
+## Set up at new location
 
+**import individual file**
 ~~~bash
 $ cd ~
 $ ln -s dotfiles/vim .vim
+~~~
+
+**one-line command**
+~~~bash
+cd ~ && dotfiles/.makesymlinks.sh
 ~~~

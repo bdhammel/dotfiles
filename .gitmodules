@@ -16,3 +16,6 @@
 [submodule "/Users/bdhammel/dotfiles/vim/bundle/syntastic"]
 	path = /Users/bdhammel/dotfiles/vim/bundle/syntastic
 	url = https://github.com/vim-syntastic/syntastic.git
+[submodule "/Users/bdhammel/dotfiles/vim/bundle/vim-markdown"]
+	path = /Users/bdhammel/dotfiles/vim/bundle/vim-markdown
+	url = https://github.com/plasticboy/vim-markdown.git
