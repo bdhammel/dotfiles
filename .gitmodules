@@ -1,21 +1,21 @@
-[submodule "/Users/bdhammel/dotfiles/vim/bundle/nerdtree"]
-	path = /Users/bdhammel/dotfiles/vim/bundle/nerdtree
+[submodule "~/dotfiles/vim/bundle/nerdtree"]
+	path = ~/dotfiles/vim/bundle/nerdtree
 	url = https://github.com/scrooloose/nerdtree.git
-[submodule "/Users/bdhammel/dotfiles/vim/bundle/vim-colors-solarized"]
-	path = /Users/bdhammel/dotfiles/vim/bundle/vim-colors-solarized
+[submodule "~/dotfiles/vim/bundle/vim-colors-solarized"]
+	path = ~/dotfiles/vim/bundle/vim-colors-solarized
 	url = git://github.com/altercation/vim-colors-solarized.git
-[submodule "/Users/bdhammel/dotfiles/vim/bundle/vim-nerdtree-tabs"]
-	path = /Users/bdhammel/dotfiles/vim/bundle/vim-nerdtree-tabs
+[submodule "~/dotfiles/vim/bundle/vim-nerdtree-tabs"]
+	path = ~/dotfiles/vim/bundle/vim-nerdtree-tabs
 	url = https://github.com/jistr/vim-nerdtree-tabs.git
-[submodule "/Users/bdhammel/dotfiles/vim/bundle/vim-sensible"]
-	path = /Users/bdhammel/dotfiles/vim/bundle/vim-sensible
+[submodule "~/dotfiles/vim/bundle/vim-sensible"]
+	path = ~/dotfiles/vim/bundle/vim-sensible
 	url = git://github.com/tpope/vim-sensible.git
-[submodule "/Users/bdhammel/dotfiles/vim/bundle/vim-surround"]
-	path = /Users/bdhammel/dotfiles/vim/bundle/vim-surround
+[submodule "~/dotfiles/vim/bundle/vim-surround"]
+	path = ~/dotfiles/vim/bundle/vim-surround
 	url = git://github.com/tpope/vim-surround.git
-[submodule "/Users/bdhammel/dotfiles/vim/bundle/syntastic"]
-	path = /Users/bdhammel/dotfiles/vim/bundle/syntastic
+[submodule "~/dotfiles/vim/bundle/syntastic"]
+	path = ~/dotfiles/vim/bundle/syntastic
 	url = https://github.com/vim-syntastic/syntastic.git
-[submodule "/Users/bdhammel/dotfiles/vim/bundle/vim-markdown"]
-	path = /Users/bdhammel/dotfiles/vim/bundle/vim-markdown
+[submodule "~/dotfiles/vim/bundle/vim-markdown"]
+	path = ~/dotfiles/vim/bundle/vim-markdown
 	url = https://github.com/plasticboy/vim-markdown.git
