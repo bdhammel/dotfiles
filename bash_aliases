@@ -1,4 +1,10 @@
-alias ls="ls"
+
+if [[ $OSTYPE == linux* ]]; then
+    alias ls="ls --color"
+else
+    alias ls="ls"
+fi
+
 alias ll="ls -l"
 alias la="ls -lah"
 
