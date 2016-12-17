@@ -1,8 +1,11 @@
 
 if [[ $OSTYPE == linux* ]]; then
     alias ls="ls --color"
+    alias grep="grep --color=always"
 else
     alias ls="ls"
+    export GREP_OPTIONS='--color=auto' GREP_COLOR='1;32'
+    export CLICOLOR=1
 fi
 
 alias ll="ls -l"
@@ -12,6 +15,4 @@ alias rm="rm -i"
 
 alias c='clear'
 
-export GREP_OPTIONS='--color=auto' GREP_COLOR='1;32'
-export CLICOLOR=1
 export LSCOLORS=exfxdxDxcxhxhxhxhxExEx
