@@ -7,12 +7,18 @@
 " set the color encoding for vim
 set term=xterm-256color
 
+" load pathogen
+execute pathogen#infect()
+
 filetype on
 filetype plugin on
 filetype plugin indent on
 
-syntax on
-colorscheme koehler
+syntax enable
+let g:solarized_termcolors=256
+let g:solarized_termtrans=1
+colorscheme solarized
+
 
 " set the backup director for swap files directory
 set backupdir=~/.vim_tmp
@@ -31,7 +37,6 @@ set nowrap
 set sidescroll=5
 
 "Enables line numbering
-"to turn of line numbering type :set nonumber
 set number
 
 "Don't use vi compatibility
@@ -55,12 +60,13 @@ set backspace=2
 "Draw a red boarder at the limit of 80 characters if using python 
 autocmd FileType python set colorcolumn=81
 
-hi TabLine      gui=none ctermfg=254 ctermbg=238 cterm=none
-hi TabLineSel   gui=bold ctermfg=231 ctermbg=235 cterm=bold
-hi TabLineFill  gui=none ctermfg=254 ctermbg=238 cterm=none
+" vim colors
+hi TabLine      gui=bold ctermfg=231 ctermbg=234 cterm=bold
+hi TabLineSel   gui=none ctermfg=254 ctermbg=238 cterm=none
+hi TabLineFill  gui=bold ctermfg=231 ctermbg=234 cterm=bold
 
-hi StatusLine      gui=none ctermfg=254 ctermbg=238 cterm=bold
-hi StatusLineNC    gui=bold ctermfg=231 ctermbg=235 cterm=none
+hi StatusLine      gui=none ctermfg=231 ctermbg=234 cterm=bold
+hi StatusLineNC    gui=bold ctermfg=231 ctermbg=234 cterm=none
 
 "Turn on modeline for recognizing hydra files
 set modeline 
@@ -75,10 +81,6 @@ au BufNewFile,BufRead *.html set filetype=htmldjango
 "Highlights matching brackets in programming languages
 set showmatch
 
-autocmd FileType python set omnifunc=pythoncomplete#Complete
-"autocmd FileType python set omnifunc=pysmell#Complete
-autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
-autocmd FileType css set omnifunc=csscomplete#CompleteCSS
 autocmd Filetype gitcommit setlocal spell textwidth=72
 autocmd Filetype tex 
 autocmd Filetype '' setlocal nospell
@@ -94,18 +96,14 @@ inoremap #    #x<C-h>
 "                      NERD Tree                            "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+autocmd vimenter * NERDTree
+autocmd VimEnter * wincmd p
 let g:nerdtree_tabs_open_on_console_startup = 1
 let NERDTreeIgnore = ['\.pyc$']
-let g:NERDTreeDirArrows = 0 "remove arrows 
+let g:NERDTreeDirArrowExpandable="+"
+let g:NERDTreeDirArrowCollapsible="~"
 
 map \t :NERDTreeTabsToggle<CR>
-map \w :BookmarkToRoot web<CR>
-map \r :BookmarkToRoot research<CR>
-map \b :BookmarkToRoot blog<CR>
-map \d :BookmarkToRoot docs<CR>
-map \R :BookmarkToRoot root<CR>
-map \n :BookmarkToRoot nerd<CR>
-map \c :BookmarkToRoot class<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                       indenting                          "
@@ -113,9 +111,6 @@ map \c :BookmarkToRoot class<CR>
 
 "If you're indented, new lines will also be indented
 set autoindent
-
-"Automatically indents lines after opening a bracket in programming languages
-"set smartindent
 
 "How much space Vim gives to a tab
 set tabstop=4
@@ -126,9 +121,6 @@ set expandtab
 
 "Improves tabbing
 set smarttab
-
-"keeps hash tags at current position
-"autocmd BufRead *.py inoremap #X<c-h>
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
