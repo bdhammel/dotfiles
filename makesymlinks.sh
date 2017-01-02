@@ -47,3 +47,5 @@ fi
 
 echo -n "Setting global gitignore"
 git config --global core.excludesfile ~/.gitignore_global
+
+source .bashrc
