@@ -17,3 +17,6 @@ alias c='clear'
 
 export LSCOLORS=exfxdxDxcxhxhxhxhxExEx
 export GREP_COLOR='1;32'
+
+
+

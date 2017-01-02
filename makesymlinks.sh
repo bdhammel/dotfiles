@@ -24,16 +24,20 @@ echo "done"
 
 # move any existing dotfiles in homedir to dotfiles_old directory, then create symlinks from the homedir to any files in the ~/dotfiles directory specified in $files
 for file in $files; do
-    echo "Moving any existing dotfiles from ~ to $olddir"
-    mv ~/.$file ~/dotfiles_old/
+    if [ -f ~/.$file ]; then
+        echo "Moving any existing dotfile, $filex from ~ to $olddir"
+        mv ~/.$file ~/$olddir
+    fi
     echo "Creating symlink to $file in home directory."
     ln -s $dir/$file ~/.$file
 done
 
 echo -n "Installing vim bundle submodules"
+cd ~/.vim
 git submodule init
 git submodule update
 
+cd ~
 echo -n "Adding bash_aliases to .bashrc"
 echo "
 if [ -f ~/.bash_aliases ]; then
