@@ -1,4 +1,4 @@
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                    syntax highlighting,                   "
 "                     window preferences,                   "
 "                             &                             "
@@ -83,7 +83,6 @@ au BufNewFile,BufRead *.html set filetype=htmldjango
 set showmatch
 
 autocmd Filetype gitcommit setlocal spell textwidth=72
-autocmd Filetype tex 
 autocmd Filetype '' setlocal nospell
 
 inoremap <C-space> <C-x><C-o>
@@ -98,7 +97,7 @@ inoremap #    #x<C-h>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 autocmd vimenter * NERDTree
-autocmd VimEnter * wincmd p
+autocmd Vimenter * wincmd p
 let g:nerdtree_tabs_open_on_console_startup = 1
 let NERDTreeIgnore = ['\.pyc$']
 let g:NERDTreeDirArrowExpandable="+"
