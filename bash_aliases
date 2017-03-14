@@ -15,6 +15,10 @@ alias rm="rm -i"
 
 alias c='clear'
 
+alias pip="pip3"
+alias ipython="ipython3"
+alias python="python3"
+
 export LSCOLORS=exfxdxDxcxhxhxhxhxExEx
 export GREP_COLOR='1;32'
 

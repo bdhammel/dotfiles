@@ -61,6 +61,19 @@ set backspace=2
 "Draw a red boarder at the limit of 80 characters if using python 
 autocmd FileType python set colorcolumn=81
 
+set statusline+=%F\  
+"set statusline+=[%{strlen(&fenc)?&fenc:'none'}, "file encoding
+"set statusline+=%{&ff}] "file format
+set statusline+=%h      "help file flag
+set statusline+=%m      "modified flag
+set statusline+=%r      "read only flag
+set statusline+=%y\     "filetype
+set statusline+=%{v:register} " active register
+set statusline+=%=      "left/right separator
+set statusline+=%c,     "cursor column
+set statusline+=%l/%L   "cursor line/total lines
+set statusline+=\ %P    "percent through file
+
 " vim colors
 hi TabLine      gui=bold ctermfg=231 ctermbg=234 cterm=bold
 hi TabLineSel   gui=none ctermfg=254 ctermbg=238 cterm=none
@@ -135,4 +148,3 @@ set smartcase
 
 "search results are highlighted 
 set hlsearch
-
