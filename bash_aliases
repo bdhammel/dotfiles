@@ -8,8 +8,8 @@ else
     export CLICOLOR=1
 fi
 
-alias ll="ls -l"
-alias la="ls -lah"
+alias ll="ls -lh"
+alias la="ll -a"
 
 alias rm="rm -i"
 
