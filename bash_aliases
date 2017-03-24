@@ -1,7 +1,7 @@
 
 if [[ $OSTYPE == linux* ]]; then
     alias ls="ls --color"
-    alias grep="grep --color=always"
+    alias grep="grep --color=auto"
 else
     alias ls="ls"
     export GREP_OPTIONS='--color=auto'
