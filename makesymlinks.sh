@@ -25,18 +25,20 @@ echo "done"
 # move any existing dotfiles in homedir to dotfiles_old directory, then create symlinks from the homedir to any files in the ~/dotfiles directory specified in $files
 for file in $files; do
     if [ -f ~/.$file ]; then
-        echo "Moving any existing dotfile, $file from ~ to $olddir"
+        echo "Moving existing dotfile, $file from ~ to $olddir"
         mv ~/.$file $olddir
     fi
     echo "Creating symlink to $file in home directory."
     ln -s $dir/$file ~/.$file
 done
 
+# Install pathogen submodules for vim 
 echo -n "Installing vim bundle submodules"
 cd ~/.vim
 git submodule init
 git submodule update
 
+# Creat a directory for vim temporary files 
 cd ~
 echo -n "making vim_tmp dir"
 mkdir -p ~/.vim_mp
@@ -48,6 +50,7 @@ mkdir -p ~/.vim_mp
 # fi
 # " >> ~/.bashrc
 
+# Set the global .gitignore script
 echo -n "Setting global gitignore"
 git config --global core.excludesfile ~/.gitignore_global
 
