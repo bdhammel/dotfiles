@@ -19,5 +19,6 @@ alias h='history'
 export LSCOLORS=exfxdxDxcxhxhxhxhxExEx
 export GREP_COLOR='1;32'
 
-
+alias python=python3
+alias pip=pip3
 
