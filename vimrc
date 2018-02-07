@@ -30,6 +30,9 @@ set backupdir=~/.vim_tmp
 set swapfile
 set directory=~/.vim_tmp
 
+autocmd filetype crontab setlocal nobackup nowritebackup
+
+
 "Spell Check
 set spell
 hi clear SpellBad
