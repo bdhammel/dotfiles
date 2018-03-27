@@ -41,7 +41,7 @@ git submodule update
 # Creat a directory for vim temporary files 
 cd ~
 echo -n "making vim_tmp dir"
-mkdir -p ~/.vim_mp
+mkdir -p ~/.vim_tmp
 
 # echo -n "Adding bash_aliases to .bashrc"
 # echo "

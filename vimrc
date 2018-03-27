@@ -142,6 +142,9 @@ set expandtab
 "Improves tabbing
 set smarttab
 
+"Set python indentation to google style 
+au Filetype python setl et ts=2 sw=2
+
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                       searching                          "
