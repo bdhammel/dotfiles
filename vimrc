@@ -135,8 +135,8 @@ map \t :NERDTreeTabsToggle<CR>
 set autoindent
 
 "How much space Vim gives to a tab
-set tabstop=4
-set shiftwidth=4
+set tabstop=2
+set shiftwidth=2
 
 "expand tab into spaces
 set expandtab

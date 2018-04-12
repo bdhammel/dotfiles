@@ -10,6 +10,7 @@ __pycache__/
 .Python
 env/
 venv/
+*_venv/
 build/
 develop-eggs/
 dist/
@@ -51,3 +52,7 @@ docs/_build/
 
 # databases
 *.pickle
+
+# tensorflow stuff
+logs/
+.logs/
