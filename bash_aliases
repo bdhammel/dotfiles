@@ -18,9 +18,3 @@ alias h='history'
 
 export LSCOLORS=exfxdxDxcxhxhxhxhxExEx
 export GREP_COLOR='1;32'
-
-# this creates issues when working in a virtual env
-#alias python=python3
-#alias ipython=ipython3
-#alias pip=pip3
-

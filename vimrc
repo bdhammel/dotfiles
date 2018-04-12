@@ -17,6 +17,12 @@ filetype plugin indent on
 syntax enable
 let g:syntastic_python_python_exec = 'python3'
 let g:syntastic_python_checkers=['flake8']
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+let g:syntastic_python_flake8_args='--ignore=E501'
 " let g:syntastic_python_flake8_args='--ignore=E501,E225'
 
 set background=dark
@@ -24,14 +30,12 @@ let g:solarized_termcolors=256
 let g:solarized_termtrans=1
 colorscheme solarized
 
-
 " set the backup director for swap files directory
 set backupdir=~/.vim_tmp
 set swapfile
 set directory=~/.vim_tmp
 
 autocmd filetype crontab setlocal nobackup nowritebackup
-
 
 "Spell Check
 set spell
@@ -65,12 +69,15 @@ set mouse=a
 "This makes the backspace key function like it does in other programs.
 set backspace=2
 
-"Draw a red boarder at the limit of 80 characters if using python 
-autocmd FileType python set colorcolumn=81
+"Draw a boarder at the limit of 80 characters if using python 
+autocmd FileType python let &colorcolumn="80,".join(range(120,999),",")
 
 set statusline+=%F\  
-"set statusline+=[%{strlen(&fenc)?&fenc:'none'}, "file encoding
-"set statusline+=%{&ff}] "file format
+set statusline+=[%{strlen(&fenc)?&fenc:'none'}, "file encoding
+set statusline+=%{&ff}] "file format
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
 set statusline+=%h      "help file flag
 set statusline+=%m      "modified flag
 set statusline+=%r      "read only flag
@@ -107,11 +114,6 @@ autocmd Filetype '' setlocal nospell
 
 inoremap <C-space> <C-x><C-o>
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                      bracket completion                    "
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-inoremap #    #x<C-h>
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                      NERD Tree                            "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -141,10 +143,6 @@ set expandtab
 
 "Improves tabbing
 set smarttab
-
-"Set python indentation to google style 
-au Filetype python setl et ts=2 sw=2
-
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                       searching                          "
