@@ -11,3 +11,7 @@ args
 kwargs
 bool
 config
+configs
+num
+json
+numpy
