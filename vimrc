@@ -24,6 +24,7 @@ let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 let g:syntastic_python_flake8_args='--ignore=E501'
 " let g:syntastic_python_flake8_args='--ignore=E501,E225'
+"
 
 set background=dark
 let g:solarized_termcolors=256
