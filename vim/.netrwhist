@@ -1,8 +1,0 @@
-let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =6
-let g:netrw_dirhist_1='/usr/local/apache2/htdocs'
-let g:netrw_dirhist_2='/Users/bdhammel/Downloads/djangotest'
-let g:netrw_dirhist_3='/Users/bdhammel/Downloads'
-let g:netrw_dirhist_4='/Users/bdhammel/.vim'
-let g:netrw_dirhist_5='/Users/bdhammel'
-let g:netrw_dirhist_6='/usr/local/etc/nginx'
