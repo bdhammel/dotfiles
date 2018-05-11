@@ -144,7 +144,7 @@ let g:syntastic_python_flake8_args='--ignore=E501'
 " Full stack
 " =============================================================================== "
 
-au BufNewFile,BufRead *.js, *.html, *.css
+au BufNewFile,BufRead *.js, *.html, *.css, *.json, *.yaml;
     \ set tabstop=2 |
     \ set softtabstop=2 |
     \ set shiftwidth=2
