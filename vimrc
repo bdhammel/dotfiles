@@ -43,8 +43,14 @@ set spell
 hi clear SpellBad
 hi SpellBad cterm=underline ctermfg=red
 
-"copy and paste - use system clipboard
-set clipboard=unnamed
+"copy and paste
+"see :help 'clipboard'
+if has('unnamedplus')
+  "set clipboard=unnamedplus
+  set clipboard=unnamed
+else
+  set clipboard=unnamed
+endif
 
 set nowrap
 set sidescroll=5
