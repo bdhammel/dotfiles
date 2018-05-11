@@ -28,12 +28,17 @@ filetype plugin indent on    " required
 
 Plugin 'vim-scripts/indentpython.vim'
 Plugin 'vim-syntastic/syntastic'
+Plugin 'gabrielelana/vim-markdown'
 Plugin 'nvie/vim-flake8'
-Plugin 'altercation/vim-colors-solarized'
+
 Plugin 'scrooloose/nerdtree'
 Plugin 'jistr/vim-nerdtree-tabs'
 Plugin 'kien/ctrlp.vim'
 Plugin 'tpope/vim-fugitive'
+
+Plugin 'altercation/vim-colors-solarized'
+Plugin 'jnurmine/Zenburn'
+Plugin 'christoomey/vim-tmux-navigator'
 
 
 set encoding=utf-8
@@ -46,12 +51,11 @@ syntax on
 
 set clipboard=unnamed
 
-
 "Allows you to click around the text editor with your mouse to move the cursor
 set mouse=a
 
-"This makes the backspace key function like it does in other programs.
-set backspace=2
+" make backspaces more powerfull
+set backspace=indent,eol,start
 
 " set the backup director for swap files directory
 set backupdir=~/.vim_tmp
@@ -156,8 +160,6 @@ au BufNewFile,BufRead *.js, *.html, *.css
 
 highlight BadWhitespace ctermbg=red guibg=darkred
 au BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
-
-
 
 " =============================================================================== "
 " Searching

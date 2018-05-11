@@ -38,10 +38,12 @@ echo -n "making vim_tmp dir"
 mkdir -p ~/.vim_tmp
 
 # Set the global .gitignore script
-echo -n "Setting global gitignore"
+echo -n "Setting git settings"
 git config --global core.excludesfile ~/.gitignore_global
+git config --global diff.tool vimdiff
+git config --global merge.tool vimdiff
 
 source .bashrc
 source .inputrc
 
-echo "Remember to install vim packages"
+echo "Remember to install vim packages :PluginInstall"
