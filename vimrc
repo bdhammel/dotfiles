@@ -149,9 +149,6 @@ au BufNewFile,BufRead *.js, *.html, *.css, *.json, *.yaml;
     \ set softtabstop=2 |
     \ set shiftwidth=2
 
-highlight BadWhitespace ctermbg=red guibg=darkred
-au BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
-
 " =============================================================================== "
 " Searching
 " =============================================================================== "
