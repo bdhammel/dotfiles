@@ -33,12 +33,14 @@ Plugin 'nvie/vim-flake8'
 
 Plugin 'scrooloose/nerdtree'
 Plugin 'jistr/vim-nerdtree-tabs'
-Plugin 'kien/ctrlp.vim'
 Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-sensible'
+Plugin 'tpope/vim-surround'
 
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'jnurmine/Zenburn'
 Plugin 'christoomey/vim-tmux-navigator'
+Plugin 'itchyny/lightline.vim'
 
 
 set encoding=utf-8
@@ -54,38 +56,27 @@ set clipboard=unnamed
 "Allows you to click around the text editor with your mouse to move the cursor
 set mouse=a
 
-" make backspaces more powerfull
+" Make backspaces more powerfull
 set backspace=indent,eol,start
 
-" set the backup director for swap files directory
+" Set the backup director for swap files directory
 set backupdir=~/.vim_tmp
 set swapfile
 set directory=~/.vim_tmp
 
+" Set line numbers
 set nu
 
-"set the commend height
+" Set the commend height
 set cmdheight=2
 
-"show current vim mode
+" Show current vim mode
 set showmode
 
-"Show current command
-set showcmd
-set statusline+=%F\
-set statusline+=[%{strlen(&fenc)?&fenc:'none'}, "file encoding
-set statusline+=%{&ff}] "file format
-set statusline+=%h      "help file flag
-set statusline+=%m      "modified flag
-set statusline+=%r      "read only flag
-set statusline+=%y\     "filetype
-set statusline+=%{v:register} " active register
-set statusline+=%=      "left/right separator
-set statusline+=%c,     "cursor column
-set statusline+=%l/%L   "cursor line/total lines
-set statusline+=\ %P    "percent through file
+" Show current command
+let g:lightline = {'colorscheme': 'solarized'}
 
-" vim colors
+" VIM colors
 hi TabLine      gui=bold ctermfg=231 ctermbg=234 cterm=bold
 hi TabLineSel   gui=none ctermfg=254 ctermbg=238 cterm=none
 hi TabLineFill  gui=bold ctermfg=231 ctermbg=234 cterm=bold
@@ -94,7 +85,7 @@ hi StatusLine      gui=none ctermfg=231 ctermbg=234 cterm=bold
 hi StatusLineNC    gui=bold ctermfg=231 ctermbg=234 cterm=none
 
 
-"Spell Check
+" Spell Check
 set spell
 hi clear SpellBad
 hi SpellBad cterm=underline ctermfg=red
