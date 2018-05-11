@@ -8,7 +8,7 @@
 
 dir=~/dotfiles                    # dotfiles directory
 olddir=~/dotfiles_old             # old dotfiles backup directory
-files="bash_aliases vimrc vim gvimrc tmux.conf gitignore_global"    # list of files/folders to symlink in homedir
+files="bash_aliases vimrc vim gvimrc tmux.conf gitignore_global inputrc"    # list of files/folders to symlink in homedir
 
 ##########
 
@@ -32,26 +32,16 @@ for file in $files; do
     ln -s $dir/$file ~/.$file
 done
 
-# Install pathogen submodules for vim 
-echo -n "Installing vim bundle submodules"
-cd ~/.vim
-git submodule init
-git submodule update
-
 # Creat a directory for vim temporary files 
 cd ~
 echo -n "making vim_tmp dir"
 mkdir -p ~/.vim_tmp
-
-# echo -n "Adding bash_aliases to .bashrc"
-# echo "
-# if [ -f ~/.bash_aliases ]; then
-#     . ~/.bash_aliases
-# fi
-# " >> ~/.bashrc
 
 # Set the global .gitignore script
 echo -n "Setting global gitignore"
 git config --global core.excludesfile ~/.gitignore_global
 
 source .bashrc
+source .inputrc
+
+echo "Remember to install vim packages"
