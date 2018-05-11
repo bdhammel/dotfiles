@@ -1,65 +1,68 @@
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                    syntax highlighting,                   "
-"                     window preferences,                   "
-"                             &                             "
-"                    general configuration                  "
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" set the color encoding for vim
-set term=xterm-256color
+" =============================================================================== "
+" VIM
+" =============================================================================== "
 
-" load pathogen
-execute pathogen#infect()
+set nocompatible              " required
+filetype off                  " required
 
-filetype on
-filetype plugin on
-filetype plugin indent on
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
 
-syntax enable
-let g:syntastic_python_python_exec = 'python3'
-let g:syntastic_python_checkers=['flake8']
+" alternatively, pass a path where Vundle should install plugins
+"call vundle#begin('~/some/path/here')
 
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-let g:syntastic_python_flake8_args='--ignore=E501'
-" let g:syntastic_python_flake8_args='--ignore=E501,E225'
-"
+" let Vundle manage Vundle, required
+Plugin 'gmarik/Vundle.vim'
 
+" add all your plugins here (note older versions of Vundle
+" used Bundle instead of Plugin)
+
+" ...
+
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
+
+" ------------------------------------------------------------------------ "
+
+Plugin 'vim-scripts/indentpython.vim'
+Plugin 'vim-syntastic/syntastic'
+Plugin 'gabrielelana/vim-markdown'
+Plugin 'nvie/vim-flake8'
+
+Plugin 'scrooloose/nerdtree'
+Plugin 'jistr/vim-nerdtree-tabs'
+Plugin 'kien/ctrlp.vim'
+Plugin 'tpope/vim-fugitive'
+
+Plugin 'altercation/vim-colors-solarized'
+Plugin 'jnurmine/Zenburn'
+Plugin 'christoomey/vim-tmux-navigator'
+
+
+set encoding=utf-8
 set background=dark
 let g:solarized_termcolors=256
 let g:solarized_termtrans=1
 colorscheme solarized
+
+syntax on
+
+set clipboard=unnamed
+
+"Allows you to click around the text editor with your mouse to move the cursor
+set mouse=a
+
+" make backspaces more powerfull
+set backspace=indent,eol,start
 
 " set the backup director for swap files directory
 set backupdir=~/.vim_tmp
 set swapfile
 set directory=~/.vim_tmp
 
-autocmd filetype crontab setlocal nobackup nowritebackup
-
-"Spell Check
-set spell
-hi clear SpellBad
-hi SpellBad cterm=underline ctermfg=red
-
-"copy and paste
-"see :help 'clipboard'
-if has('unnamedplus')
-  "set clipboard=unnamedplus
-  set clipboard=unnamed
-else
-  set clipboard=unnamed
-endif
-
-set nowrap
-set sidescroll=5
-
-"Enables line numbering
-set number
-
-"Don't use vi compatibility
-set nocompatible
+set nu
 
 "set the commend height
 set cmdheight=2
@@ -69,22 +72,9 @@ set showmode
 
 "Show current command
 set showcmd
-
-"Allows you to click around the text editor with your mouse to move the cursor
-set mouse=a
-
-"This makes the backspace key function like it does in other programs.
-set backspace=2
-
-"Draw a boarder at the limit of 80 characters if using python 
-autocmd FileType python let &colorcolumn="80,".join(range(120,999),",")
-
-set statusline+=%F\  
+set statusline+=%F\
 set statusline+=[%{strlen(&fenc)?&fenc:'none'}, "file encoding
 set statusline+=%{&ff}] "file format
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
 set statusline+=%h      "help file flag
 set statusline+=%m      "modified flag
 set statusline+=%r      "read only flag
@@ -103,27 +93,17 @@ hi TabLineFill  gui=bold ctermfg=231 ctermbg=234 cterm=bold
 hi StatusLine      gui=none ctermfg=231 ctermbg=234 cterm=bold
 hi StatusLineNC    gui=bold ctermfg=231 ctermbg=234 cterm=none
 
-"Turn on modeline for recognizing hydra files
-set modeline 
-set modelines=3
 
-au BufNewFile,BufRead *.html set filetype=htmldjango
+"Spell Check
+set spell
+hi clear SpellBad
+hi SpellBad cterm=underline ctermfg=red
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""    
-"                      code completion                      "
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-"Highlights matching brackets in programming languages
-set showmatch
-
-autocmd Filetype gitcommit setlocal spell textwidth=72
-autocmd Filetype '' setlocal nospell
-
-inoremap <C-space> <C-x><C-o>
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                      NERD Tree                            "
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" =============================================================================== "
+" NERD Tree
+" =============================================================================== "
+let NERDTreeIgnore=['\.pyc$', '\~$'] "ignore files in NERDTree
 
 autocmd vimenter * NERDTree
 autocmd Vimenter * wincmd p
@@ -132,28 +112,58 @@ let NERDTreeIgnore = ['\.pyc$']
 let g:NERDTreeDirArrowExpandable="+"
 let g:NERDTreeDirArrowCollapsible="~"
 
-map \t :NERDTreeTabsToggle<CR>
+map \t :NERDTreeTabsToggle<CR>"
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                       indenting                          "
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" =============================================================================== "
+" Python
+" =============================================================================== "
 
-"If you're indented, new lines will also be indented
-set autoindent
+au BufNewFile,BufRead *.py;
+    \ set tabstop=4
+    \ set softtabstop=4
+    \ set shiftwidth=4
+    \ set textwidth=79
+    \ set expandtab
+    \ set autoindent
+    \ set fileformat=unix
 
-"How much space Vim gives to a tab
-set tabstop=2
-set shiftwidth=2
+"Draw a boarder at the limit of 80 characters if using python 
+autocmd FileType python let &colorcolumn="80,".join(range(120,999),",")
 
-"expand tab into spaces
-set expandtab
+let python_highlight_all=1
 
-"Improves tabbing
-set smarttab
+let g:syntastic_python_python_exec = 'python3'
+let g:syntastic_python_checkers=['flake8']
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                       searching                          "
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+
+let g:syntastic_python_flake8_args='--ignore=E501'
+" let g:syntastic_python_flake8_args='--ignore=E501,E225'
+
+
+
+" =============================================================================== "
+" Full stack
+" =============================================================================== "
+
+au BufNewFile,BufRead *.js, *.html, *.css
+    \ set tabstop=2 |
+    \ set softtabstop=2 |
+    \ set shiftwidth=2
+
+highlight BadWhitespace ctermbg=red guibg=darkred
+au BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
+
+" =============================================================================== "
+" Searching
+" =============================================================================== "
 
 "Ignore case
 set ignorecase
@@ -163,3 +173,4 @@ set smartcase
 
 "search results are highlighted 
 set hlsearch
+
