@@ -48,6 +48,7 @@ let g:solarized_termcolors=256
 let g:solarized_termtrans=1
 colorscheme solarized
 
+filetype plugin on
 syntax on
 
 set clipboard=unnamed
@@ -144,6 +145,16 @@ let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
 let g:syntastic_python_flake8_args='--ignore=E501'
+
+
+" =============================================================================== "
+" Full stack
+" =============================================================================== "
+
+au BufNewFile,BufRead *.js, *.html, *.css, *.json, *.yaml;
+    \ set tabstop=2 |
+    \ set softtabstop=2 |
+    \ set shiftwidth=2
 
 
 " =============================================================================== "
