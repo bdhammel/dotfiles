@@ -26,15 +26,15 @@ filetype plugin indent on    " required
 
 " ------------------------------------------------------------------------ "
 
+Plugin 'tpope/vim-sensible'
+
 Plugin 'vim-scripts/indentpython.vim'
 Plugin 'vim-syntastic/syntastic'
 Plugin 'gabrielelana/vim-markdown'
-Plugin 'nvie/vim-flake8'
 
 Plugin 'scrooloose/nerdtree'
 Plugin 'jistr/vim-nerdtree-tabs'
 Plugin 'tpope/vim-fugitive'
-Plugin 'tpope/vim-sensible'
 Plugin 'tpope/vim-surround'
 
 Plugin 'altercation/vim-colors-solarized'
@@ -49,6 +49,7 @@ let g:solarized_termcolors=256
 let g:solarized_termtrans=1
 colorscheme solarized
 
+filetype plugin on
 syntax on
 
 set clipboard=unnamed
@@ -136,8 +137,6 @@ let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
 let g:syntastic_python_flake8_args='--ignore=E501'
-" let g:syntastic_python_flake8_args='--ignore=E501,E225'
-
 
 
 " =============================================================================== "
@@ -148,6 +147,7 @@ au BufNewFile,BufRead *.js, *.html, *.css, *.json, *.yaml;
     \ set tabstop=2 |
     \ set softtabstop=2 |
     \ set shiftwidth=2
+
 
 " =============================================================================== "
 " Searching
