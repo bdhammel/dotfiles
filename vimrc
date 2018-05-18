@@ -169,7 +169,3 @@ set smartcase
 
 "search results are highlighted 
 set hlsearch
-
-se nowrap
-
-
