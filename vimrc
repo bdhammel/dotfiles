@@ -24,7 +24,6 @@ call vundle#end()            " required
 filetype plugin indent on    " required
 
 " ------------------------------------------------------------------------ "
-
 Plugin 'tpope/vim-sensible'
 
 Plugin 'vim-scripts/indentpython.vim'
@@ -37,13 +36,15 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-surround'
 
 Plugin 'altercation/vim-colors-solarized'
-Plugin 'jnurmine/Zenburn'
 Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'itchyny/lightline.vim'
 
+" Experimental 
+inoremap ;; <esc>
 
 set encoding=utf-8
 set background=dark
+
 let g:solarized_termcolors=256
 let g:solarized_termtrans=1
 colorscheme solarized
