@@ -1,3 +1,9 @@
 relu
 softmax
 crossentropy
+config
+TensorBoard
+hyperparameters
+hyperparameter
+configs
+json
