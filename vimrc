@@ -1,5 +1,6 @@
 " =============================================================================== "
-" VIM =============================================================================== "
+" VIM 
+" =============================================================================== "
 
 set nocompatible              " required
 filetype off                  " required
@@ -24,6 +25,7 @@ call vundle#end()            " required
 filetype plugin indent on    " required
 
 " ------------------------------------------------------------------------ "
+
 Plugin 'tpope/vim-sensible'
 
 Plugin 'vim-scripts/indentpython.vim'
@@ -40,7 +42,7 @@ Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'itchyny/lightline.vim'
 
 " Experimental 
-inoremap ;; <esc>
+imap ;; <esc>
 
 set encoding=utf-8
 set background=dark
@@ -49,7 +51,6 @@ let g:solarized_termcolors=256
 let g:solarized_termtrans=1
 colorscheme solarized
 
-filetype plugin on
 syntax on
 
 " Copy / Paste
@@ -86,16 +87,18 @@ hi TabLineFill  gui=bold ctermfg=231 ctermbg=234 cterm=bold
 hi StatusLine      gui=none ctermfg=231 ctermbg=234 cterm=bold
 hi StatusLineNC    gui=bold ctermfg=231 ctermbg=234 cterm=none
 
-
+" =============================================================================== "
 " Spell Check
+" =============================================================================== "
+
 set spell
 hi clear SpellBad
 hi SpellBad cterm=underline ctermfg=red
 
-
 " =============================================================================== "
 " NERD Tree
 " =============================================================================== "
+
 let NERDTreeIgnore=['\.pyc$', '\~$'] "ignore files in NERDTree
 
 autocmd vimenter * NERDTree
@@ -114,7 +117,6 @@ map \t :NERDTreeTabsToggle<CR>"
 set tabstop=2 |
 set softtabstop=2 |
 set shiftwidth=2
-
 
 " =============================================================================== "
 " Python
@@ -148,7 +150,6 @@ let g:syntastic_check_on_wq = 0
 
 let g:syntastic_python_flake8_args='--ignore=E501'
 
-
 " =============================================================================== "
 " Full stack
 " =============================================================================== "
@@ -157,7 +158,6 @@ au BufNewFile,BufRead *.js, *.html, *.css, *.json, *.yaml;
     \ set tabstop=2 |
     \ set softtabstop=2 |
     \ set shiftwidth=2
-
 
 " =============================================================================== "
 " Searching
