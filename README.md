@@ -13,8 +13,14 @@ $ ln -s dotfiles/vim .vim
 cd ~ && ./dotfiles/makesymlinks.sh
 ~~~
 
-For High Sierra (might not be needed):
+## Misc info
 
-~~~
-brew install reattach-to-user-namespace
-~~~
+Setting up SSH and git: https://stackoverflow.com/questions/7773181/git-keeps-prompting-me-for-password?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
+
+Mapping caps -> <kb>esc</kb>
+
+```
+   system preferences > keyboard > keyboard > modifier keys
+```
+
+
