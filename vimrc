@@ -54,8 +54,6 @@ syntax on
 
 " Copy / Paste
 set clipboard^=unnamed,unnamedplus
-set paste
-set go+=a
 
 "Allows you to click around the text editor with your mouse to move the cursor
 set mouse=a
