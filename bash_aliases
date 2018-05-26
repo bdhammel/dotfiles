@@ -1,3 +1,6 @@
+# Colorizing and setting aliases
+# http://bitmote.com/index.php?post/2012/11/19/Using-ANSI-Color-Codes-to-Colorize-Your-Bash-Prompt-on-Linux
+# To use 256 colors, prefix with \e[38;5;#m  (for bg \e[48;5;#m)
 
 if [[ $OSTYPE == linux* ]]; then
     alias ls="ls --color"
@@ -17,7 +20,7 @@ alias c='clear'
 alias h='history'
 
 export LSCOLORS=exfxdxDxcxhxhxhxhxExEx
-export GREP_COLOR='1;32'
+export GREP_COLOR='1;38;5;136'
 
 export EDITOR=vim
 export VISUAL=vim
@@ -25,4 +28,4 @@ export VISUAL=vim
 parse_git_branch() {
      git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
 }
-export PS1="\[\033[32m\]\h \[\033[34m\]\w\[\033[33m\]\$(parse_git_branch)\[\033[00m\] $ "
+export PS1="\[\e[38;5;33m\]\h \[\e[38;5;64m\]\w\[\e[38;5;136m\]\$(parse_git_branch)\[\e[00m\] $ "

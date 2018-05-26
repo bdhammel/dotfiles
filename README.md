@@ -2,25 +2,35 @@
 
 ## Set up at new location
 
+**one-line command**
+~~~bash
+cd ~ && ./dotfiles/makesymlinks.sh
+~~~
+
 **import individual file**
 ~~~bash
 $ cd ~
 $ ln -s dotfiles/vim .vim
 ~~~
 
-**one-line command**
-~~~bash
-cd ~ && ./dotfiles/makesymlinks.sh
-~~~
+## Setting up Git
+
+https://help.github.com/articles/checking-for-existing-ssh-keys/
+
+See http://stackoverflow.com/questions/7773181/git-keeps-prompting-me-for-password
+
+> Make sure you are cloning your repos using ssh:
+> 
+> ssh://git@github.com/username/repo.git
+> If you use https or git, you will always be asked for username/password:
+> 
+> https://github.com/username/repo.git
+> git://github.com/username/repo.git
 
 ## Misc info
-
-Setting up SSH and git: https://stackoverflow.com/questions/7773181/git-keeps-prompting-me-for-password?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
 
 Mapping caps -> <kb>esc</kb>
 
 ```
    system preferences > keyboard > keyboard > modifier keys
 ```
-
-
