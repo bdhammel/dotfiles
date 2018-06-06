@@ -7,3 +7,6 @@ hyperparameters
 hyperparameter
 configs
 json
+str
+num
+numpy
