@@ -11,7 +11,7 @@ else
     export CLICOLOR=1
 fi
 
-alias ll="ls -lh"
+alias ll="ls -lh  --time-style long-iso"
 alias la="ll -a"
 
 alias rm="rm -i"
