@@ -198,3 +198,19 @@ function! InsertTabWrapper()
 endfunction
 
 inoremap <tab> <c-r>=InsertTabWrapper()<cr>
+
+
+" =============================================================================== "
+" set Vim Diff 
+" =============================================================================== "
+if &diff
+	" colorscheme some_other_scheme
+	se cc=
+	highlight DiffAdd    cterm=bold ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=Red
+	highlight DiffDelete cterm=bold ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=Red
+	highlight DiffChange cterm=bold ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=Red
+	highlight DiffText   cterm=bold ctermfg=10 ctermbg=88 gui=none guifg=bg guibg=Red
+	set foldlevelstart=20
+	autocmd Syntax c,cpp,vim,xml,html,xhtml,python setlocal foldmethod=syntax
+	autocmd Syntax c,cpp,vim,xml,html,xhtml,perl,python normal zR
+endif

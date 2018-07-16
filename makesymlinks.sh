@@ -47,6 +47,11 @@ git config --global core.excludesfile ~/.gitignore_global
 git config --global diff.tool vimdiff
 git config --global merge.tool vimdiff
 
+# Set the global .gitignore script
+echo -n "Setting up ipython evn" 
+
+
+
 source .bashrc
 source .inputrc
 
