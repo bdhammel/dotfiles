@@ -35,7 +35,7 @@ export PS1="\[\e[38;5;33m\]\h \[\e[38;5;64m\]\w\[\e[38;5;136m\]\$(parse_git_bran
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
 HISTCONTROL=ignoreboth
-export HISTIGNORE="ls:ps:h:rm*:ll:la"
+export HISTIGNORE="ls:ps:h:rm*:ll:la:c:exit"
 
 # append to the history file, don't overwrite it
 shopt -s histappend
