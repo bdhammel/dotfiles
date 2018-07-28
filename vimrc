@@ -132,7 +132,7 @@ au BufNewFile,BufRead *.py;
     \ set fileformat=unix
 
 "Draw a boarder at the limit of 80 characters if using python 
-autocmd FileType python let &colorcolumn="80,".join(range(120,999),",")
+autocmd FileType python let &colorcolumn="85,".join(range(120,999),",")
 
 let python_highlight_all=1
 
@@ -148,7 +148,9 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
-let g:syntastic_python_flake8_args='--ignore=E501,W503'
+let g:syntastic_python_flake8_args='--ignore=E501,W503,E226,E231'
+
+autocmd FileType python se nowrap
 
 " =============================================================================== "
 " Full stack
@@ -204,13 +206,11 @@ inoremap <tab> <c-r>=InsertTabWrapper()<cr>
 " set Vim Diff 
 " =============================================================================== "
 if &diff
-	" colorscheme some_other_scheme
-	se cc=
+	autocmd FileType python let &colorcolumn=""
 	highlight DiffAdd    cterm=bold ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=Red
 	highlight DiffDelete cterm=bold ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=Red
 	highlight DiffChange cterm=bold ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=Red
 	highlight DiffText   cterm=bold ctermfg=10 ctermbg=88 gui=none guifg=bg guibg=Red
-	set foldlevelstart=20
 	autocmd Syntax c,cpp,vim,xml,html,xhtml,python setlocal foldmethod=syntax
 	autocmd Syntax c,cpp,vim,xml,html,xhtml,perl,python normal zR
 endif

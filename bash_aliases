@@ -24,8 +24,22 @@ export GREP_COLOR='1;38;5;136'
 
 export EDITOR=vim
 export VISUAL=vim
+export GIT_EDITOR=vim
 
 parse_git_branch() {
      git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
 }
 export PS1="\[\e[38;5;33m\]\h \[\e[38;5;64m\]\w\[\e[38;5;136m\]\$(parse_git_branch)\[\e[00m\] $ "
+
+
+# don't put duplicate lines or lines starting with space in the history.
+# See bash(1) for more options
+HISTCONTROL=ignoreboth
+export HISTIGNORE="ls:ps:h:rm*:ll:la"
+
+# append to the history file, don't overwrite it
+shopt -s histappend
+
+# for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
+HISTSIZE=1000
+HISTFILESIZE=2000
