@@ -31,6 +31,12 @@ See http://stackoverflow.com/questions/7773181/git-keeps-prompting-me-for-passwo
 
 Mapping caps -> <kb>esc</kb>
 
+Mac OSX
 ```
-   system preferences > keyboard > keyboard > modifier keys
+system preferences > keyboard > keyboard > modifier keys
+```
+
+Ubuntu
+```
+dconf write /org/gnome/desktop/input-sources/xkb-options "['caps:escape']"
 ```

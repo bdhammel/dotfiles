@@ -5,13 +5,14 @@
 if [[ $OSTYPE == linux* ]]; then
     alias ls="ls --color"
     alias grep="grep --color=auto"
+	  alias ll="ls -lh  --time-style long-iso"
 else
     alias ls="ls"
     export GREP_OPTIONS='--color=auto'
     export CLICOLOR=1
+	  alias ll="ls -lht"
 fi
 
-alias ll="ls -lh  --time-style long-iso"
 alias la="ll -a"
 
 alias rm="rm -i"
