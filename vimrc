@@ -41,17 +41,14 @@ Plugin 'altercation/vim-colors-solarized'
 Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'itchyny/lightline.vim'
 
-" Experimental 
-imap ;; <esc>
+" =============================================================================== "
+" VIM config
+" =============================================================================== "
+
+" use shortcut for esc if caps lock remap isn't available 
+imap jj <esc>
 
 set encoding=utf-8
-set background=dark
-
-let g:solarized_termcolors=256
-let g:solarized_termtrans=1
-colorscheme solarized
-
-syntax on
 
 " Copy / Paste
 set clipboard^=unnamed,unnamedplus
@@ -59,13 +56,25 @@ set clipboard^=unnamed,unnamedplus
 "Allows you to click around the text editor with your mouse to move the cursor
 set mouse=a
 
-" Make backspaces more powerfull
+" Make backspace behave more consistently across systems / ssh
 set backspace=indent,eol,start
 
 " Set the backup director for swap files directory
 set backupdir=~/.vim_tmp
 set swapfile
 set directory=~/.vim_tmp
+
+" =============================================================================== "
+" VIM appearance 
+" =============================================================================== "
+
+set background=dark
+
+let g:solarized_termcolors=256
+let g:solarized_termtrans=1
+colorscheme solarized
+
+syntax on
 
 " Set line numbers
 set nu
@@ -79,7 +88,18 @@ set showmode
 " Show current command
 let g:lightline = {'colorscheme': 'solarized'}
 
-" VIM colors
+let g:lightline = {
+      \ 'colorscheme': 'solarized',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'gitbranch', 'readonly', 'absolutepath', 'modified' ] ]
+      \ },
+      \ 'component_function': {
+      \   'gitbranch': 'fugitive#head'
+      \ },
+      \ }
+
+" VIM colors, make vim match tmux status bar
 hi TabLine      gui=bold ctermfg=231 ctermbg=234 cterm=bold
 hi TabLineSel   gui=none ctermfg=254 ctermbg=238 cterm=none
 hi TabLineFill  gui=bold ctermfg=231 ctermbg=234 cterm=bold
@@ -104,7 +124,6 @@ let NERDTreeIgnore=['\.pyc$', '\~$'] "ignore files in NERDTree
 autocmd vimenter * NERDTree
 autocmd Vimenter * wincmd p
 let g:nerdtree_tabs_open_on_console_startup = 1
-let NERDTreeIgnore = ['\.pyc$']
 let g:NERDTreeDirArrowExpandable="+"
 let g:NERDTreeDirArrowCollapsible="~"
 
@@ -114,9 +133,10 @@ map \t :NERDTreeTabsToggle<CR>"
 " Full stack
 " =============================================================================== "
 
-set tabstop=2 |
-set softtabstop=2 |
-set shiftwidth=2
+au BufNewFile,BufRead *.js, *.html, *.css, *.json, *.yaml;
+    \ set tabstop=2 |
+    \ set softtabstop=2 |
+    \ set shiftwidth=2
 
 " =============================================================================== "
 " Python
@@ -131,11 +151,14 @@ au BufNewFile,BufRead *.py;
     \ set autoindent
     \ set fileformat=unix
 
-"Draw a boarder at the limit of 80 characters if using python 
-autocmd FileType python let &colorcolumn="85,".join(range(120,999),",")
+autocmd FileType python se nowrap
+
+"Draw a boarder at the limit of 79 characters if using python 
+autocmd FileType python let &colorcolumn="80,".join(range(120,999),",")
 
 let python_highlight_all=1
 
+" Set python linting
 let g:syntastic_python_python_exec = 'python3'
 let g:syntastic_python_checkers=['flake8']
 
@@ -148,18 +171,7 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
-let g:syntastic_python_flake8_args='--ignore=E501,W503,E226,E231'
-
-autocmd FileType python se nowrap
-
-" =============================================================================== "
-" Full stack
-" =============================================================================== "
-
-au BufNewFile,BufRead *.js, *.html, *.css, *.json, *.yaml;
-    \ set tabstop=2 |
-    \ set softtabstop=2 |
-    \ set shiftwidth=2
+let g:syntastic_python_flake8_args='--ignore=E501'
 
 " =============================================================================== "
 " Searching
@@ -173,17 +185,6 @@ set smartcase
 
 "search results are highlighted 
 set hlsearch
-
-let g:lightline = {
-      \ 'colorscheme': 'solarized',
-      \ 'active': {
-      \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'gitbranch', 'readonly', 'absolutepath', 'modified' ] ]
-      \ },
-      \ 'component_function': {
-      \   'gitbranch': 'fugitive#head'
-      \ },
-      \ }
 
 " =============================================================================== "
 " Tab complete
@@ -200,7 +201,6 @@ function! InsertTabWrapper()
 endfunction
 
 inoremap <tab> <c-r>=InsertTabWrapper()<cr>
-
 
 " =============================================================================== "
 " set Vim Diff 
