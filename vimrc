@@ -214,3 +214,11 @@ if &diff
 	autocmd Syntax c,cpp,vim,xml,html,xhtml,python setlocal foldmethod=syntax
 	autocmd Syntax c,cpp,vim,xml,html,xhtml,perl,python normal zR
 endif
+
+
+" =============================================================================== "
+" Macros
+" =============================================================================== "
+
+let @i = 'iimport IPython; IPython.embed()jjV='
+let @d = 'iimport pudb; pudb.set_trace()jjV='
