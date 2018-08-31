@@ -35,7 +35,8 @@ export PS1="\[\e[38;5;33m\]\h \[\e[38;5;64m\]\w\[\e[38;5;136m\]\$(parse_git_bran
 pyclean () {
     find . -type f -name "*.py[co]" -delete
     find . -type d -name "__pycache__" -delete
-}
+    find . -type d -name ".pytest_cache" -delete
+} 2>/dev/null
 
 
 # don't put duplicate lines or lines starting with space in the history.
