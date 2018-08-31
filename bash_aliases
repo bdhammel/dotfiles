@@ -32,6 +32,11 @@ parse_git_branch() {
 }
 export PS1="\[\e[38;5;33m\]\h \[\e[38;5;64m\]\w\[\e[38;5;136m\]\$(parse_git_branch)\[\e[00m\] $ "
 
+pyclean () {
+    find . -type f -name "*.py[co]" -delete
+    find . -type d -name "__pycache__" -delete
+}
+
 
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
