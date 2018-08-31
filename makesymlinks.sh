@@ -54,8 +54,8 @@ if [ ! -d ~/.ipython/profile_default/ ]; then
     echo -n "making .ipython dir"
     mkdir -p ~/.ipython/profile_default/startup/
 fi
-ln -s ~/$dir/ipython/profile_default/ipython_config.py ~/.ipython/profile_default/ipython_config.py
-ln -s ~/$dir/ipython/profile_default/startup/ipython_startup.py ~/.ipython/profile_default/startup/ipython_startup.py
+ln -s $dir/ipython/profile_default/ipython_config.py ~/.ipython/profile_default/ipython_config.py
+ln -s $dir/ipython/profile_default/startup/ipython_startup.py ~/.ipython/profile_default/startup/ipython_startup.py
 
 source .bashrc
 source .inputrc
