@@ -4,7 +4,6 @@
 
 set nocompatible              " required
 filetype off                  " required
-
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
@@ -45,9 +44,6 @@ Plugin 'itchyny/lightline.vim'
 " VIM config
 " =============================================================================== "
 
-" use shortcut for esc if caps lock remap isn't available 
-imap jj <esc>
-
 set encoding=utf-8
 
 " Copy / Paste
@@ -63,6 +59,9 @@ set backspace=indent,eol,start
 set backupdir=~/.vim_tmp
 set swapfile
 set directory=~/.vim_tmp
+
+" Reload files changed outside vim
+set autoread
 
 " =============================================================================== "
 " VIM appearance 
@@ -222,3 +221,4 @@ endif
 
 let @i = 'iimport IPython; IPython.embed()jjV='
 let @d = 'iimport pudb; pudb.set_trace()jjV='
+imap jj <esc>

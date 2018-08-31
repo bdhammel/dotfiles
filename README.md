@@ -40,3 +40,13 @@ Ubuntu
 ```
 dconf write /org/gnome/desktop/input-sources/xkb-options "['caps:escape']"
 ```
+
+## VIM buffer reference
+
+Switch between buffers `:bn` and `:bp` 	
+
+list buffers `:ls`
+
+open new file in buffer `:e <filename>`
+
+delete buffer `:db`

@@ -1,0 +1,48 @@
+" Basic VIM config
+set nocompatible
+set encoding=utf-8
+
+set noswapfile
+set nobackup
+set nowb
+set clipboard^=unnamed,unnamedplus
+set backspace=indent,eol,start
+set autoread
+set hidden
+
+" layout and style
+set visualbell
+set background=dark
+set nu
+set cmdheight=2
+set showmode
+colorscheme desert
+
+" formatting
+filetype on
+filetype plugin indent on
+syntax on
+
+au BufNewFile,BufRead *.js, *.html, *.css, *.json, *.yaml;
+    \ set tabstop=2
+    \ set softtabstop=2
+    \ set shiftwidth=2
+
+au BufNewFile,BufRead *.py;
+    \ set tabstop=4
+    \ set softtabstop=4
+    \ set shiftwidth=4
+    \ set textwidth=79
+    \ set expandtab
+    \ set autoindent
+    \ set fileformat=unix
+
+" searching and spelling
+set ignorecase
+set smartcase
+set hlsearch
+set spell
+hi clear SpellBad
+hi SpellBad cterm=underline ctermfg=red
+
+imap jj <esc>

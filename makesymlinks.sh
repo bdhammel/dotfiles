@@ -46,6 +46,7 @@ echo -n "Setting git settings"
 git config --global core.excludesfile ~/.gitignore_global
 git config --global diff.tool vimdiff
 git config --global merge.tool vimdiff
+git config --global mergetool.keepBackup false
 
 # Set the global .gitignore script
 echo -n "Setting up ipython evn" 
