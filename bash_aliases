@@ -33,9 +33,13 @@ parse_git_branch() {
 export PS1="\[\e[38;5;33m\]\h \[\e[38;5;64m\]\w\[\e[38;5;136m\]\$(parse_git_branch)\[\e[00m\] $ "
 
 pyclean () {
+    echo "Cleaning:"
+    find . -type f -name "*.py[co]"
+    find . -type d -name "__pycache__"
     find . -type f -name "*.py[co]" -delete
     find . -type d -name "__pycache__" -delete
-    find . -type d -name ".pytest_cache" -delete
+    echo "Need to Clean:"
+    find . -type d -name ".pytest_cache"
 } 2>/dev/null
 
 
