@@ -1,7 +1,7 @@
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
-.ipynb_checkpoints
+.pytest_cache/
 
 # C extensions
 *.so
@@ -41,8 +41,13 @@ coverage.xml
 *.mo
 *.pot
 
-# Django stuff:
+# Log files
 *.log
+logs/
+.logs/
+
+# ipython checkpoints
+.ipynb_checkpoints
 
 # Sphinx documentation
 docs/_build/
@@ -53,6 +58,5 @@ docs/_build/
 # databases
 *.pickle
 
-# tensorflow stuff
-logs/
-.logs/
+# github
+*.orig
