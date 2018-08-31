@@ -41,6 +41,15 @@ Ubuntu
 dconf write /org/gnome/desktop/input-sources/xkb-options "['caps:escape']"
 ```
 
+## Very basic VIM
+
+Download the very basic vimrc for using on other peoples computer
+
+```
+wget https://raw.githubusercontent.com/bdhammel/dotfiles/master/basic_vimrc -O ~/.vimrc
+```
+
+
 ## VIM buffer reference
 
 Switch between buffers `:bn` and `:bp` 	
