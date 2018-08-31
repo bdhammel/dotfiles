@@ -132,6 +132,8 @@ map \t :NERDTreeTabsToggle<CR>"
 " Full stack
 " =============================================================================== "
 
+set softtabstop=4 shiftwidth=4 expandtab 
+
 au BufNewFile,BufRead *.js, *.html, *.css, *.json, *.yaml;
     \ set tabstop=2 |
     \ set softtabstop=2 |
