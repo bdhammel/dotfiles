@@ -50,7 +50,7 @@ git config --global mergetool.keepBackup false
 
 # Set the global .gitignore script
 echo -n "Setting up ipython evn" 
-if [ ! -f ~/.ipython/profile_default/ ]; then
+if [ ! -d ~/.ipython/profile_default/ ]; then
     echo -n "making .ipython dir"
     mkdir -p ~/.ipython/profile_default/startup/
 fi
