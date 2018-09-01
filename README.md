@@ -59,3 +59,9 @@ list buffers `:ls`
 open new file in buffer `:e <filename>`
 
 delete buffer `:db`
+
+### Splits
+
+horizontal split `:sp <filename>`
+
+vertical split `:vs <filename>`
