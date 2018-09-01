@@ -1,29 +1,16 @@
 " =============================================================================== "
-" VIM 
+" VIM Plugins
 " =============================================================================== "
 
 set nocompatible              " required
 filetype off                  " required
+
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
-" alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
-
-" let Vundle manage Vundle, required
+" let Vundle manage Vundle
 Plugin 'gmarik/Vundle.vim'
-
-" add all your plugins here (note older versions of Vundle
-" used Bundle instead of Plugin)
-
-" ...
-
-" All of your Plugins must be added before the following line
-call vundle#end()            " required
-filetype plugin indent on    " required
-
-" ------------------------------------------------------------------------ "
 
 Plugin 'tpope/vim-sensible'
 
@@ -31,14 +18,19 @@ Plugin 'vim-scripts/indentpython.vim'
 Plugin 'vim-syntastic/syntastic'
 Plugin 'gabrielelana/vim-markdown'
 
+Plugin 'davidhalter/jedi-vim'
+
 Plugin 'scrooloose/nerdtree'
 Plugin 'jistr/vim-nerdtree-tabs'
-Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-surround'
 
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'itchyny/lightline.vim'
+
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
 
 " =============================================================================== "
 " VIM config
@@ -56,8 +48,8 @@ set mouse=a
 set backspace=indent,eol,start
 
 " Set the backup director for swap files directory
-set backupdir=~/.vim_tmp
 set swapfile
+set backupdir=~/.vim_tmp
 set directory=~/.vim_tmp
 
 " Reload files changed outside vim
@@ -125,8 +117,6 @@ autocmd Vimenter * wincmd p
 let g:nerdtree_tabs_open_on_console_startup = 1
 let g:NERDTreeDirArrowExpandable="+"
 let g:NERDTreeDirArrowCollapsible="~"
-
-map \t :NERDTreeTabsToggle<CR>"
 
 " =============================================================================== "
 " Full stack
@@ -207,20 +197,19 @@ inoremap <tab> <c-r>=InsertTabWrapper()<cr>
 " set Vim Diff 
 " =============================================================================== "
 if &diff
-	autocmd FileType python let &colorcolumn=""
-	highlight DiffAdd    cterm=bold ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=Red
-	highlight DiffDelete cterm=bold ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=Red
-	highlight DiffChange cterm=bold ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=Red
-	highlight DiffText   cterm=bold ctermfg=10 ctermbg=88 gui=none guifg=bg guibg=Red
-	autocmd Syntax c,cpp,vim,xml,html,xhtml,python setlocal foldmethod=syntax
-	autocmd Syntax c,cpp,vim,xml,html,xhtml,perl,python normal zR
+    autocmd FileType python let &colorcolumn=""
+    highlight DiffAdd    cterm=bold ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=Red
+    highlight DiffDelete cterm=bold ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=Red
+    highlight DiffChange cterm=bold ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=Red
+    highlight DiffText   cterm=bold ctermfg=10 ctermbg=88 gui=none guifg=bg guibg=Red
+    autocmd Syntax c,cpp,vim,xml,html,xhtml,python setlocal foldmethod=syntax
+    autocmd Syntax c,cpp,vim,xml,html,xhtml,perl,python normal zR
 endif
-
 
 " =============================================================================== "
 " Macros
 " =============================================================================== "
 
-let @i = 'iimport IPython; IPython.embed()jjV='
-let @d = 'iimport pudb; pudb.set_trace()jjV='
+let @i = 'oimport IPython; IPython.embed()jjV='
+let @d = 'oimport pudb; pudb.set_trace()jjV='
 imap jj <esc>
