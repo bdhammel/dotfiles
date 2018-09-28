@@ -230,7 +230,8 @@ endif
 " =============================================================================== "
 " Macros
 " =============================================================================== "
-
-let @i = 'oimport IPython; IPython.embed()jjV='
-let @d = 'oimport pudb; pudb.set_trace()jjV='
+noremap \i = oimport IPython; IPython.embed()jjV=
+noremap \d = oimport pudb; pudb.set_trace()jjV=
+noremap \s = :%s/\s\+$//e
+noremap \t :NERDTreeTabsToggle<CR> :se nonumber<CR>
 imap jj <esc>
