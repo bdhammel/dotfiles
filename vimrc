@@ -230,8 +230,9 @@ endif
 " =============================================================================== "
 " Macros
 " =============================================================================== "
-noremap \i = oimport IPython; IPython.embed()jjV=
-noremap \d = oimport pudb; pudb.set_trace()jjV=
-noremap \s = :%s/\s\+$//e
-noremap \t :NERDTreeTabsToggle<CR> :se nonumber<CR>
+noremap \i = oimport IPython; IPython.embed()
+noremap \d = oimport pudb; pudb.set_trace()
+noremap \c = :%s/\s\+$//e
+noremap \s = :SyntasticToggleMode<CR>
+noremap \t  :se invnumber<CR> :NERDTreeTabsToggle<CR>
 imap jj <esc>
