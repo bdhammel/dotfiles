@@ -45,6 +45,7 @@ coverage.xml
 *.log
 logs/
 .logs/
+.nfs*
 
 # ipython checkpoints
 .ipynb_checkpoints
