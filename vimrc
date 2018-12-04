@@ -43,7 +43,7 @@ set encoding=utf-8
 set clipboard^=unnamed,unnamedplus
 
 "Allows you to click around the text editor with your mouse to move the cursor
-set mouse=a
+set mouse=r
 
 " Make backspace behave more consistently across systems / ssh
 set backspace=indent,eol,start

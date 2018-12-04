@@ -13,3 +13,5 @@ numpy
 keras
 VGG16
 yaml
+overfitting
+pretrained
