@@ -1,5 +1,5 @@
 set editing-mode vi
 set show-all-if-ambiguous on
 set show-mode-in-prompt on
-set vi-cmd-mode-string ":"
-set vi-ins-mode-string "+"
+set vi-cmd-mode-string "\1\e[30;48;5;124m\2[cmd]\1\e[00m\2 "
+set vi-ins-mode-string "\1\e[30;38;5;245m\2[ins]\1\e[00m\2 "
