@@ -30,7 +30,7 @@ export GIT_EDITOR=vim
 parse_git_branch() {
      git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
 }
-export PS1="\[\e[38;5;33m\]\h \[\e[38;5;64m\]\w\[\e[38;5;136m\]\$(parse_git_branch)\[\e[00m\] $ "
+export PS1="\[\e[38;5;33m\]\h \[\e[38;5;64m\]\W\[\e[38;5;136m\]\$(parse_git_branch)\[\e[00m\] $ "
 
 pyclean () {
     echo "Cleaning:"
