@@ -231,7 +231,7 @@ endif
 " Macros
 " =============================================================================== "
 noremap \i = oimport IPython; IPython.embed()
-noremap \d = oimport pudb; pudb.set_trace()
+noremap \p = oimport pudb; pudb.set_trace()
 noremap \c = :%s/\s\+$//e
 noremap \s = :SyntasticToggleMode<CR>
 noremap \t  :se invnumber<CR> :NERDTreeTabsToggle<CR>
