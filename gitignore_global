@@ -58,6 +58,9 @@ docs/_build/
 
 # databases
 *.pickle
+*.pkl
+*.h5py
+*.h5
 
 # github
 *.orig

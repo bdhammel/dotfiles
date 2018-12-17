@@ -15,3 +15,7 @@ VGG16
 yaml
 overfitting
 pretrained
+ValueError
+bdhammel
+len
+ints
