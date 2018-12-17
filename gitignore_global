@@ -64,3 +64,7 @@ docs/_build/
 
 # github
 *.orig
+
+# misc
+tags
+.nfs*
