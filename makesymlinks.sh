@@ -58,7 +58,7 @@ ln -s $dir/ipython/profile_default/ipython_config.py ~/.ipython/profile_default/
 ln -s $dir/ipython/profile_default/startup/ipython_startup.py ~/.ipython/profile_default/startup/ipython_startup.py
 
 if [ ! -d ~/.config/htop/ ]; then
-    echo -n "making .htoprc
+    echo -n "making .htoprc"
     mkdir -p ~/.config/htop
 fi
 
