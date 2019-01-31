@@ -17,7 +17,7 @@ echo -n "Creating $olddir for backup of any existing dotfiles in ~ ..."
 mkdir -p $olddir
 echo "done"
 
-cd dotfiles
+cd $dir
 echo -n "Installing Vundle ..."
 git clone https://github.com/VundleVim/Vundle.vim.git ~/dotfiles/vim/bundle/Vundle.vim
 
