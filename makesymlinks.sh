@@ -20,6 +20,7 @@ echo "done"
 cd $dir
 echo -n "Installing Vundle ..."
 git clone https://github.com/VundleVim/Vundle.vim.git ~/dotfiles/vim/bundle/Vundle.vim
+echo "done"
 
 # Change to the home directory
 echo -n "Changing to home directory ..."
@@ -38,27 +39,27 @@ done
 
 # Create a directory for vim temporary files 
 cd ~
-echo -n "making vim_tmp dir"
+echo "making vim_tmp dir"
 mkdir -p ~/.vim_tmp
 
 # Set the global .gitignore script
-echo -n "Setting git settings"
+echo "Setting git settings"
 git config --global core.excludesfile ~/.gitignore_global
 git config --global diff.tool vimdiff
 git config --global merge.tool vimdiff
 git config --global mergetool.keepBackup false
 
 # Set the global .gitignore script
-echo -n "Setting up ipython evn" 
+echo "Setting up ipython evn" 
 if [ ! -d ~/.ipython/profile_default/ ]; then
-    echo -n "making .ipython dir"
+    echo "making .ipython dir"
     mkdir -p ~/.ipython/profile_default/startup/
 fi
 ln -s $dir/ipython/profile_default/ipython_config.py ~/.ipython/profile_default/ipython_config.py
 ln -s $dir/ipython/profile_default/startup/ipython_startup.py ~/.ipython/profile_default/startup/ipython_startup.py
 
 if [ ! -d ~/.config/htop/ ]; then
-    echo -n "making .htoprc"
+    echo "making .htoprc"
     mkdir -p ~/.config/htop
 fi
 
