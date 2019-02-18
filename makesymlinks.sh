@@ -9,11 +9,6 @@ dir=~/dotfiles                    # dotfiles directory
 olddir=~/dotfiles_old             # old dotfiles backup directory
 files="bash_aliases vimrc vim tmux.conf gitignore_global inputrc"    # list of files/folders to symlink in homedir
 
-set -o errexit
-set -o pipefail
-set -o nounset
-set -o xtrace
-
 ##########
 
 # Create dotfiles_old in homedir
