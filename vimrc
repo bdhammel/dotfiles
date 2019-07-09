@@ -146,7 +146,8 @@ au BufNewFile,BufRead *.py;
 autocmd FileType python se nowrap
 
 "Draw a boarder at the limit of 79 characters if using python 
-autocmd FileType python let &colorcolumn="80,".join(range(120,999),",")
+" autocmd FileType python let &colorcolumn="80,".join(range(120,999),",")
+autocmd FileType python let &colorcolumn=join(range(120,999),",")
 
 let python_highlight_all=1
 
