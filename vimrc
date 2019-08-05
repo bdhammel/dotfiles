@@ -28,6 +28,7 @@ Plugin 'tpope/vim-surround'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'itchyny/lightline.vim'
+Plugin 'nvie/vim-flake8'
 
 Plugin 'rust-lang/rust.vim'
 
