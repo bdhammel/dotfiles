@@ -43,7 +43,7 @@ filetype plugin indent on    " required
 set encoding=utf-8
 
 " Copy / Paste
-set clipboard^=unnamed,unnamedplus
+" set clipboard^=unnamed,unnamedplus
 
 "Allows you to click around the text editor with your mouse to move the cursor
 set mouse=r
@@ -167,7 +167,7 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
-let g:syntastic_python_flake8_args='--ignore=E501'
+let g:syntastic_python_flake8_args='--ignore=E501,W503,E226'
 
 " =============================================================================== "
 " Searching
