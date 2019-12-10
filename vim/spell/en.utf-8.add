@@ -21,3 +21,9 @@ len
 ints
 If/!
 params
+noqa
+E402
+cpu
+cuda
+ben
+cifar
