@@ -14,11 +14,12 @@ else
 fi
 
 alias la="ll -a"
-
 alias rm="rm -i"
-
 alias c='clear'
 alias h='history'
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
 
 export LSCOLORS=exfxdxDxcxhxhxhxhxExEx
 export GREP_COLOR='1;38;5;136'

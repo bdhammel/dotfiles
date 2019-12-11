@@ -14,6 +14,8 @@ Plugin 'gmarik/Vundle.vim'
 
 Plugin 'tpope/vim-sensible'
 
+Plugin 'fcpg/vim-osc52'
+
 Plugin 'vim-scripts/indentpython.vim'
 Plugin 'vim-syntastic/syntastic'
 Plugin 'gabrielelana/vim-markdown'
@@ -44,6 +46,9 @@ set encoding=utf-8
 
 " Copy / Paste
 " set clipboard^=unnamed,unnamedplus
+" set clipboard=exclude:.*
+xmap <F7> y:call SendViaOSC52(getreg('"'))<cr>
+
 
 "Allows you to click around the text editor with your mouse to move the cursor
 set mouse=r
@@ -167,7 +172,7 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
-let g:syntastic_python_flake8_args='--ignore=E501,W503,E226'
+let g:syntastic_python_flake8_args='--ignore=E501,W503,E226,E402'
 
 " =============================================================================== "
 " Searching
