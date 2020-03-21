@@ -32,6 +32,7 @@ Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'itchyny/lightline.vim'
 Plugin 'nvie/vim-flake8'
 
+Plugin 'stephpy/vim-yaml'
 Plugin 'rust-lang/rust.vim'
 
 " All of your Plugins must be added before the following line
@@ -45,9 +46,9 @@ filetype plugin indent on    " required
 set encoding=utf-8
 
 " Copy / Paste
-" set clipboard^=unnamed,unnamedplus
+set clipboard^=unnamed,unnamedplus
 " set clipboard=exclude:.*
-xmap <F7> y:call SendViaOSC52(getreg('"'))<cr>
+xmap <F9> y:call SendViaOSC52(getreg('"'))<cr>
 
 
 "Allows you to click around the text editor with your mouse to move the cursor
