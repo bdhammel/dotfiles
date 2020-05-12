@@ -47,9 +47,7 @@ set encoding=utf-8
 
 " Copy / Paste
 set clipboard^=unnamed,unnamedplus
-" set clipboard=exclude:.*
 xmap <F9> y:call SendViaOSC52(getreg('"'))<cr>
-
 
 "Allows you to click around the text editor with your mouse to move the cursor
 set mouse=r
@@ -134,9 +132,12 @@ let g:NERDTreeDirArrowCollapsible="~"
 
 set softtabstop=4 shiftwidth=4 expandtab 
 
-au BufNewFile,BufRead *.js, *.html, *.css, *.json, *.yaml;
-    \ set tabstop=2 |
-    \ set softtabstop=2 |
+au! BufNewFile,BufReadPost *.{yaml,yml} set filetype=yaml
+autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
+
+au BufNewFile,BufRead *.{js,html,css,json};
+    \ set tabstop=2
+    \ set softtabstop=2
     \ set shiftwidth=2
 
 " =============================================================================== "
@@ -195,35 +196,6 @@ set hlsearch
 let g:jedi#popup_on_dot = 0
 let g:jedi#force_py_version=3
 
-" set omnifunc=syntaxcomplete#Complete
-" let g:jedi#completions_enabled = 0
-" 
-" function! Smart_TabComplete()
-"   let line = getline('.')                         " current line
-" 
-"   let substr = strpart(line, -1, col('.')+1)      " from the start of the current
-"                                                   " line to one character right
-"                                                   " of the cursor
-"   let substr = matchstr(substr, "[^ \t]*$")       " word till cursor
-"   if (strlen(substr)==0)                          " nothing to match on empty string
-"     return "\<tab>"
-"   endif
-" 
-"   let has_period = match(substr, '\.') != -1      " position of period, if any
-"   let has_slash = match(substr, '\/') != -1       " position of slash, if any
-" 
-"   if (!has_period && !has_slash)
-"     return "\<C-X>\<C-P>"                         " existing text matching
-"   elseif ( has_slash )
-"     return "\<C-X>\<C-F>"                         " file matching
-"   else
-"     return "\<C-X>\<C-O>"                         " plugin matching
-"   endif
-" 
-" endfunction
-" 
-" inoremap <tab> <c-r>=Smart_TabComplete()<cr>
-
 " =============================================================================== "
 " set Vim Diff 
 " =============================================================================== "
@@ -240,8 +212,6 @@ endif
 " =============================================================================== "
 " Macros
 " =============================================================================== "
-noremap \i = oimport IPython; IPython.embed()
-noremap \p = oimport pudb; pudb.set_trace()
 noremap \c = :%s/\s\+$//e
 noremap \s = :SyntasticToggleMode<CR>
 noremap \t  :se invnumber<CR> :NERDTreeTabsToggle<CR>
