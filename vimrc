@@ -47,7 +47,6 @@ set encoding=utf-8
 
 " Copy / Paste
 set clipboard^=unnamed,unnamedplus
-" set clipboard=exclude:.*
 xmap <F9> y:call SendViaOSC52(getreg('"'))<cr>
 
 
