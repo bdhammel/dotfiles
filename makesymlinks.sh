@@ -7,7 +7,7 @@
 
 dir=~/dotfiles                    # dotfiles directory
 olddir=~/dotfiles_old             # old dotfiles backup directory
-files="bash_aliases vimrc vim tmux.conf gitignore_global inputrc"    # list of files/folders to symlink in homedir
+files="bash_aliases vimrc vim tmux.conf gitignore_global inputrc zsh_aliases"    # list of files/folders to symlink in homedir
 
 ##########
 
@@ -63,8 +63,5 @@ if [ ! -d ~/.config/htop/ ]; then
 fi
 
 ln -s $dir/htoprc ~/.config/htop/htoprc
-
-source .bashrc
-source .inputrc
 
 echo "Remember to install vim packages with :PluginInstall"

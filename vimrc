@@ -16,21 +16,22 @@ Plugin 'tpope/vim-sensible'
 
 Plugin 'fcpg/vim-osc52'
 
+Plugin 'nvie/vim-flake8'
 Plugin 'vim-scripts/indentpython.vim'
 Plugin 'vim-syntastic/syntastic'
-Plugin 'gabrielelana/vim-markdown'
 
-Plugin 'davidhalter/jedi-vim'
 Plugin 'ervandew/supertab'
+
+Plugin 'gabrielelana/vim-markdown'
 
 Plugin 'scrooloose/nerdtree'
 Plugin 'jistr/vim-nerdtree-tabs'
+
 Plugin 'tpope/vim-surround'
 
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'itchyny/lightline.vim'
-Plugin 'nvie/vim-flake8'
 
 Plugin 'stephpy/vim-yaml'
 Plugin 'rust-lang/rust.vim'
@@ -49,16 +50,11 @@ set encoding=utf-8
 set clipboard^=unnamed,unnamedplus
 xmap <F9> y:call SendViaOSC52(getreg('"'))<cr>
 
-"Allows you to click around the text editor with your mouse to move the cursor
-set mouse=r
-
 " Make backspace behave more consistently across systems / ssh
 set backspace=indent,eol,start
 
 " Set the backup director for swap files directory
-set swapfile
-set backupdir=~/.vim_tmp
-set directory=~/.vim_tmp
+set noswapfile
 
 " Reload files changed outside vim
 set autoread
@@ -188,26 +184,6 @@ set smartcase
 
 "search results are highlighted 
 set hlsearch
-
-" =============================================================================== "
-" Tab complete
-" =============================================================================== "
-
-let g:jedi#popup_on_dot = 0
-let g:jedi#force_py_version=3
-
-" =============================================================================== "
-" set Vim Diff 
-" =============================================================================== "
-if &diff
-    autocmd FileType python let &colorcolumn=""
-    highlight DiffAdd    cterm=bold ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=Red
-    highlight DiffDelete cterm=bold ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=Red
-    highlight DiffChange cterm=bold ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=Red
-    highlight DiffText   cterm=bold ctermfg=10 ctermbg=88 gui=none guifg=bg guibg=Red
-    autocmd Syntax c,cpp,vim,xml,html,xhtml,python setlocal foldmethod=syntax
-    autocmd Syntax c,cpp,vim,xml,html,xhtml,perl,python normal zR
-endif
 
 " =============================================================================== "
 " Macros
