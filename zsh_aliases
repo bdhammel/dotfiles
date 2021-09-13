@@ -76,5 +76,10 @@ alias h='history'
 # pip
 export PIP_REQUIRE_VIRTUALENV=true
 
+# Auto completion
+# http://lethalman.blogspot.com/2009/10/speeding-up-zsh-completion.html
+zstyle ':completion:*' accept-exact '*(N)'
+zstyle ':completion:*' use-cache on
+zstyle ':completion:*' cache-path ~/.zsh/cache
 autoload -Uz compinit && compinit
 
