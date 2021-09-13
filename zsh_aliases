@@ -1,7 +1,18 @@
+# COLORS
+solarized_base0="244"
+solarized_yellow="136"
+solarized_orange="166"
+solarized_red="160"
+solarized_magenta="125"
+solarized_violet="61"
+solarized_blue="33"
+solarized_cyan="37"
+solarized_green="64"
+
 # Add vim info to prompt
 # # http://pawelgoscicki.com/archives/2012/09/vi-mode-indicator-in-zsh-prompt/
-vim_ins_mode="%F{cyan}[INS]%f"
-vim_cmd_mode="%F{green}[CMD]%f"
+vim_ins_mode="%F{$solarized_base0}[INS]%f"
+vim_cmd_mode="%F{$solarized_magenta}[CMD]%f"
 vim_mode=$vim_ins_mode
 
 function zle-keymap-select {
@@ -25,29 +36,27 @@ autoload -Uz vcs_info
 precmd() { vcs_info }
 
 # Format the vcs_info_msg_0_ variable
-zstyle ':vcs_info:git:*' formats '%F{magenta}(%b)%f'
+zstyle ':vcs_info:git:*' formats '%F{$solarized_yellow}(%b)%f'
 
 # Set up the prompt (with git branch name)
 setopt PROMPT_SUBST
 
-PROMPT='${vim_mode} %F{blue}%~%f ${vcs_info_msg_0_} : '
-
-# COLORS
+PROMPT='${vim_mode} %F{$solarized_blue}%~%f ${vcs_info_msg_0_} : '
 
 # colors
 autoload -U colors
 colors
 
-# colored ls (one version for GNU, other for Mac OS X)
-if whence dircolors > /dev/null; then
-  eval "`dircolors -b`"
-  alias ls='ls --color=auto'
+if [[ $OSTYPE == linux* ]]; then
+    alias grep="grep --color=auto"
+    alias ls="ls --color"
+    alias ll="ls -lh  --time-style long-iso"
 else
-  export CLICOLOR=1
+    export GREP_OPTIONS='--color=auto'
+    export CLICOLOR=1
+    alias ls="ls"
+    alias ll="ls -lht"
 fi
-
-# grep
-alias grep='grep --color=auto'
 
 export LSCOLORS=exfxdxDxcxhxhxhxhxExEx
 export GREP_COLOR='1;38;5;136'
@@ -59,7 +68,6 @@ alias less='less -R'
 alias watch='watch --color'
 
 
-alias ll="ls -l"
 alias la="ll -a"
 alias rm="rm -i"
 alias c='clear'
@@ -69,3 +77,4 @@ alias h='history'
 export PIP_REQUIRE_VIRTUALENV=true
 
 autoload -Uz compinit && compinit
+
