@@ -17,6 +17,7 @@ Plugin 'tpope/vim-sensible'
 Plugin 'fcpg/vim-osc52'
 
 Plugin 'nvie/vim-flake8'
+Plugin 'integralist/vim-mypy'
 Plugin 'vim-scripts/indentpython.vim'
 Plugin 'vim-syntastic/syntastic'
 
