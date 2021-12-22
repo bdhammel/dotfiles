@@ -12,6 +12,8 @@ __pycache__/
 env/
 venv/
 *_venv/
+*.env/
+*.env
 build/
 develop-eggs/
 dist/
@@ -59,6 +61,8 @@ docs/_build/
 
 # databases
 *.pickle
+*.npy
+*.npz
 *.pkl
 *.h5py
 *.h5
@@ -69,3 +73,10 @@ docs/_build/
 # misc
 tags
 .nfs*
+
+# dl
+*.pth
+wandb/
+*.onnx
+*.pt
+
