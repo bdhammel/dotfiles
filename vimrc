@@ -14,12 +14,13 @@ Plugin 'gmarik/Vundle.vim'
 
 Plugin 'tpope/vim-sensible'
 
-Plugin 'fcpg/vim-osc52'
+Plugin 'ojroques/vim-oscyank'
 
 Plugin 'nvie/vim-flake8'
 Plugin 'integralist/vim-mypy'
 Plugin 'vim-scripts/indentpython.vim'
 Plugin 'vim-syntastic/syntastic'
+Plugin 'chrisbra/vim-diff-enhanced'
 
 Plugin 'ervandew/supertab'
 
@@ -49,7 +50,11 @@ set encoding=utf-8
 
 " Copy / Paste
 set clipboard^=unnamed,unnamedplus
-xmap <F9> y:call SendViaOSC52(getreg('"'))<cr>
+vmap <C-c> y:OSCYank<cr>
+xmap <F7> y:OSCYank<cr>
+
+let g:oscyank_max_length = 1000000
+let g:oscyank_term = 'tmux'
 
 " Make backspace behave more consistently across systems / ssh
 set backspace=indent,eol,start
@@ -73,7 +78,7 @@ colorscheme solarized
 syntax on
 
 " Set line numbers
-set nu
+set nu rnu
 
 " Set the commend height
 set cmdheight=2
@@ -99,6 +104,8 @@ let g:lightline = {
 hi TabLine      gui=bold ctermfg=231 ctermbg=234 cterm=bold
 hi TabLineSel   gui=none ctermfg=254 ctermbg=238 cterm=none
 hi TabLineFill  gui=bold ctermfg=231 ctermbg=234 cterm=bold
+
+hi CursorLineNR   gui=none ctermfg=238 ctermbg=232 cterm=none
 
 hi StatusLine      gui=none ctermfg=231 ctermbg=234 cterm=bold
 hi StatusLineNC    gui=bold ctermfg=231 ctermbg=234 cterm=none
@@ -129,10 +136,7 @@ let g:NERDTreeDirArrowCollapsible="~"
 
 set softtabstop=4 shiftwidth=4 expandtab 
 
-au! BufNewFile,BufReadPost *.{yaml,yml} set filetype=yaml
-autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
-
-au BufNewFile,BufRead *.{js,html,css,json};
+au BufNewFile,BufRead *.{js,html,css,json,yaml,yml};
     \ set tabstop=2
     \ set softtabstop=2
     \ set shiftwidth=2
@@ -153,7 +157,6 @@ au BufNewFile,BufRead *.py;
 autocmd FileType python se nowrap
 
 "Draw a boarder at the limit of 79 characters if using python 
-" autocmd FileType python let &colorcolumn="80,".join(range(120,999),",")
 autocmd FileType python let &colorcolumn=join(range(120,999),",")
 
 let python_highlight_all=1
