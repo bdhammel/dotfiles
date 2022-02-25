@@ -13,30 +13,29 @@ call vundle#begin()
 Plugin 'gmarik/Vundle.vim'
 
 Plugin 'tpope/vim-sensible'
-
-Plugin 'ojroques/vim-oscyank'
-
-Plugin 'nvie/vim-flake8'
-Plugin 'integralist/vim-mypy'
-Plugin 'vim-scripts/indentpython.vim'
 Plugin 'vim-syntastic/syntastic'
 Plugin 'chrisbra/vim-diff-enhanced'
 
-Plugin 'ervandew/supertab'
+Plugin 'ojroques/vim-oscyank'
+Plugin 'altercation/vim-colors-solarized'
+Plugin 'christoomey/vim-tmux-navigator'
+Plugin 'itchyny/lightline.vim'
+Bundle 'bogado/file-line'
 
-Plugin 'gabrielelana/vim-markdown'
+Plugin 'tpope/vim-surround'
+Plugin 'ervandew/supertab'
 
 Plugin 'scrooloose/nerdtree'
 Plugin 'jistr/vim-nerdtree-tabs'
 
-Plugin 'tpope/vim-surround'
-
-Plugin 'altercation/vim-colors-solarized'
-Plugin 'christoomey/vim-tmux-navigator'
-Plugin 'itchyny/lightline.vim'
-
 Plugin 'stephpy/vim-yaml'
 Plugin 'rust-lang/rust.vim'
+Plugin 'gabrielelana/vim-markdown'
+
+" Python
+Plugin 'nvie/vim-flake8'
+Plugin 'integralist/vim-mypy'
+Plugin 'vim-scripts/indentpython.vim'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -65,6 +64,9 @@ set noswapfile
 " Reload files changed outside vim
 set autoread
 
+" do not start in folded mode
+au BufRead * normal zR
+
 " =============================================================================== "
 " VIM appearance 
 " =============================================================================== "
@@ -78,7 +80,7 @@ colorscheme solarized
 syntax on
 
 " Set line numbers
-set nu rnu
+set nu
 
 " Set the commend height
 set cmdheight=2
@@ -136,22 +138,23 @@ let g:NERDTreeDirArrowCollapsible="~"
 
 set softtabstop=4 shiftwidth=4 expandtab 
 
-au BufNewFile,BufRead *.{js,html,css,json,yaml,yml};
-    \ set tabstop=2
-    \ set softtabstop=2
+au BufNewFile,BufRead *.{js,html,css,json,yaml,yml}
+    \ set tabstop=2 |
+    \ set softtabstop=2 |
     \ set shiftwidth=2
 
 " =============================================================================== "
 " Python
 " =============================================================================== "
 
-au BufNewFile,BufRead *.py;
-    \ set tabstop=4
-    \ set softtabstop=4
-    \ set shiftwidth=4
-    \ set textwidth=79
-    \ set expandtab
-    \ set autoindent
+au BufNewFile,BufRead *.py
+    \ set tabstop=4 |
+    \ set softtabstop=4 |
+    \ set shiftwidth=4 |
+    \ set textwidth=120 |
+    \ set expandtab |
+    \ set autoindent |
+    \ set foldmethod=manual |
     \ set fileformat=unix
 
 autocmd FileType python se nowrap
