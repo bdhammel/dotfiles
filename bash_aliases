@@ -58,3 +58,6 @@ HISTFILESIZE=2000
 
 # pip
 # export PIP_REQUIRE_VIRTUALENV=true
+
+alias web_finder="python3 -m http.server --bind $HOSTNAME"
+
