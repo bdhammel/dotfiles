@@ -48,6 +48,7 @@ git config --global diff.tool vimdiff
 git config --global difftool.prompt false
 git config --global merge.tool vimdiff
 git config --global mergetool.keepBackup false
+git config --global init.defaultBranch main
 
 # Set the global .gitignore script
 echo "Setting up ipython evn" 
