@@ -20,7 +20,6 @@ Plugin 'ojroques/vim-oscyank'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'itchyny/lightline.vim'
-Bundle 'bogado/file-line'
 
 Plugin 'tpope/vim-surround'
 Plugin 'ervandew/supertab'
@@ -34,7 +33,7 @@ Plugin 'gabrielelana/vim-markdown'
 
 " Python
 Plugin 'nvie/vim-flake8'
-Plugin 'integralist/vim-mypy'
+" Plugin 'integralist/vim-mypy'
 Plugin 'vim-scripts/indentpython.vim'
 
 " All of your Plugins must be added before the following line
