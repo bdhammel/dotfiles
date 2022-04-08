@@ -65,6 +65,7 @@ bind-key [ copy-mode
 bind-key ] paste-buffer
 
 # Setup 'v' to begin selection as in Vim
+set -g set-clipboard on
 unbind-key -T copy-mode-vi Space     ;   bind-key -T copy-mode-vi v send-keys -X begin-selection
 unbind-key -T copy-mode-vi Enter     ;   bind-key -T copy-mode-vi y send-keys -X copy-selection-and-cancel
 unbind-key -T copy-mode-vi C-v       ;   bind-key -T copy-mode-vi C-v send-keys -X rectangle-toggle
