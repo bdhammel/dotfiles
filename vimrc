@@ -16,7 +16,7 @@ Plugin 'tpope/vim-sensible'
 Plugin 'vim-syntastic/syntastic'
 Plugin 'chrisbra/vim-diff-enhanced'
 
-Plugin 'ojroques/vim-oscyank'
+Plugin 'ojroques/vim-oscyank', {'branch': 'main'}
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'itchyny/lightline.vim'
@@ -48,8 +48,7 @@ set encoding=utf-8
 
 " Copy / Paste
 set clipboard^=unnamed,unnamedplus
-vmap <C-c> y:OSCYank<cr>
-xmap <F7> y:OSCYank<cr>
+
 
 let g:oscyank_max_length = 1000000
 let g:oscyank_term = 'tmux'
@@ -123,13 +122,19 @@ hi SpellBad cterm=underline ctermfg=red
 " NERD Tree
 " =============================================================================== "
 
-let NERDTreeIgnore=['\.pyc$', '\~$'] "ignore files in NERDTree
+" let NERDTreeIgnore=['\.pyc$', '\~$'] "ignore files in NERDTree
+" 
+" autocmd vimenter * NERDTree
+" autocmd Vimenter * wincmd p
+" let g:nerdtree_tabs_open_on_console_startup = 1
+" let g:NERDTreeDirArrowExpandable="+"
+" let g:NERDTreeDirArrowCollapsible="~"
+" 
+" if &diff
+"     autocmd vimenter * NERDTreeClose
+" endif
 
-autocmd vimenter * NERDTree
-autocmd Vimenter * wincmd p
-let g:nerdtree_tabs_open_on_console_startup = 1
-let g:NERDTreeDirArrowExpandable="+"
-let g:NERDTreeDirArrowCollapsible="~"
+let g:netrw_banner=0
 
 " =============================================================================== "
 " Full stack
