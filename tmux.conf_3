@@ -4,7 +4,7 @@ unbind-key C-a
 bind-key C-a send-prefix
 set -g base-index 1
 
-set-option -g default-terminal screen-256color
+set-option -g default-terminal xterm-256color
 set-option -g history-limit 5000
 
 # Easy config reload
@@ -12,9 +12,6 @@ bind-key R source-file ~/.tmux.conf \; display-message "tmux.conf reloaded."
 
 # vi is good
 setw -g mode-keys vi
-
-# mouse behavior
-set-option -g mouse on
 
 bind-key : command-prompt
 bind-key r refresh-client
