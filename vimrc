@@ -33,7 +33,6 @@ Plugin 'gabrielelana/vim-markdown'
 
 " Python
 Plugin 'nvie/vim-flake8'
-" Plugin 'integralist/vim-mypy'
 Plugin 'vim-scripts/indentpython.vim'
 
 " All of your Plugins must be added before the following line
@@ -45,10 +44,16 @@ filetype plugin indent on    " required
 " =============================================================================== "
 
 set encoding=utf-8
+let mapleader = ","
 
 " Copy / Paste
 set clipboard^=unnamed,unnamedplus
 
+vnoremap <leader>y :OSCYank<CR>
+
+if exists("TextYankPost")
+    autocmd TextYankPost * if v:event.operator is 'y' && v:event.regname is '' | execute 'OSCYankReg "' | endif
+endif
 
 let g:oscyank_max_length = 1000000
 let g:oscyank_term = 'tmux'
@@ -66,7 +71,7 @@ set autoread
 au BufRead * normal zR
 
 " =============================================================================== "
-" VIM appearance 
+" VIM appearance
 " =============================================================================== "
 
 set background=dark
@@ -123,13 +128,13 @@ hi SpellBad cterm=underline ctermfg=red
 " =============================================================================== "
 
 " let NERDTreeIgnore=['\.pyc$', '\~$'] "ignore files in NERDTree
-" 
+"
 " autocmd vimenter * NERDTree
 " autocmd Vimenter * wincmd p
 " let g:nerdtree_tabs_open_on_console_startup = 1
 " let g:NERDTreeDirArrowExpandable="+"
 " let g:NERDTreeDirArrowCollapsible="~"
-" 
+"
 " if &diff
 "     autocmd vimenter * NERDTreeClose
 " endif
@@ -140,7 +145,7 @@ let g:netrw_banner=0
 " Full stack
 " =============================================================================== "
 
-set softtabstop=4 shiftwidth=4 expandtab 
+set softtabstop=4 shiftwidth=4 expandtab
 
 au BufNewFile,BufRead *.{js,html,css,json,yaml,yml}
     \ set tabstop=2 |
@@ -163,7 +168,7 @@ au BufNewFile,BufRead *.py
 
 autocmd FileType python se nowrap
 
-"Draw a boarder at the limit of 79 characters if using python 
+"Draw a boarder at the limit of 79 characters if using python
 autocmd FileType python let &colorcolumn=join(range(120,999),",")
 
 let python_highlight_all=1
@@ -193,13 +198,11 @@ set ignorecase
 "Try to be smart about case when searching
 set smartcase
 
-"search results are highlighted 
+"search results are highlighted
 set hlsearch
 
 " =============================================================================== "
 " Macros
 " =============================================================================== "
-noremap \c = :%s/\s\+$//e
-noremap \s = :SyntasticToggleMode<CR>
-noremap \t  :se invnumber<CR> :NERDTreeTabsToggle<CR>
+noremap <leader>s = :SyntasticToggleMode<CR>
 imap jj <esc>
