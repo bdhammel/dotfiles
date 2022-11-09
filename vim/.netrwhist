@@ -1,11 +1,3 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =9
-let g:netrw_dirhist_1='/scratch/benh/software1/sambaflow/samba_tools/tests/logging'
-let g:netrw_dirhist_2='/scratch/benh/software1/sambaflow/samba_tools/tests'
-let g:netrw_dirhist_3='/scratch/benh/software1/sambaflow/samba_tools/tests/logging'
-let g:netrw_dirhist_4='/scratch/benh/software1/sambaflow/samba_tools/tests'
-let g:netrw_dirhist_5='/scratch/benh/software1/sambaflow/samba_tools'
-let g:netrw_dirhist_6='/scratch/benh/software1/sambaflow/samba_tools/samba_tools'
-let g:netrw_dirhist_7='/scratch/benh/software1/sambaflow/samba_tools/samba_tools/logging'
-let g:netrw_dirhist_8='/scratch/benh/software1/sambaflow/samba_tools/samba_tools'
-let g:netrw_dirhist_9='/scratch/benh/software1/sambaflow/samba_tools/samba_tools/testing'
+let g:netrw_dirhistcnt =1
+let g:netrw_dirhist_1='/scratch/benh/benh_experimental/tests'
