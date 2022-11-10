@@ -60,4 +60,4 @@ HISTFILESIZE=2000
 # export PIP_REQUIRE_VIRTUALENV=true
 
 alias web_finder="python3 -m http.server --bind $HOSTNAME"
-
+alias yank="yank-cli ~/dotfiles/osc52.sh"
