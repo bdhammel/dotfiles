@@ -60,4 +60,4 @@ HISTFILESIZE=2000
 # export PIP_REQUIRE_VIRTUALENV=true
 
 alias web_finder="python3 -m http.server --bind $HOSTNAME"
-alias yank="yank-cli ~/dotfiles/osc52.sh"
+alias yank='yank-cli | sed -r "s/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[mGK]//g" | sed "s/\x0f//g" | ~/dotfiles/osc52.sh'
