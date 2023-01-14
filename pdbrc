@@ -3,6 +3,6 @@ with Path("~/.pdbrc.py").expanduser().open() as _f: _f = _f.read()
 exec(_f)
 del _f
 
-alias ipshell from IPython import embed; embed(user_ns=locals(), colors="neutral")
+alias repl from IPython import embed; embed(user_ns=locals(), colors="neutral")
 
 alias hist from pprint import pprint; import readline; pprint([readline.get_history_item(x) for x in range(readline.get_current_history_length() + 2)])

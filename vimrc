@@ -24,9 +24,6 @@ Plugin 'itchyny/lightline.vim'
 Plugin 'tpope/vim-surround'
 Plugin 'ervandew/supertab'
 
-Plugin 'scrooloose/nerdtree'
-Plugin 'jistr/vim-nerdtree-tabs'
-
 Plugin 'stephpy/vim-yaml'
 Plugin 'rust-lang/rust.vim'
 Plugin 'gabrielelana/vim-markdown'

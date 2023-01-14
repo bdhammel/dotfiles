@@ -45,6 +45,7 @@ mkdir -p ~/.vim_tmp
 echo "Setting git settings"
 git config --global core.excludesfile ~/.gitignore_global
 git config --global diff.tool vimdiff
+git config --global difftool.prompt false
 git config --global merge.tool vimdiff
 git config --global mergetool.keepBackup false
 
