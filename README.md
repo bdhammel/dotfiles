@@ -65,3 +65,19 @@ delete buffer `:db`
 horizontal split `:sp <filename>`
 
 vertical split `:vs <filename>`
+
+Use Neovim as a git difftool
+Just paste this into your ~/.gitconfig
+
+```
+[difftool]
+    prompt = true
+[diff]
+    tool = nvimdiff
+[difftool "nvimdiff"]
+    cmd = "nvim -d \"$LOCAL\" \"$REMOTE\""
+```
+
+### Copy Pase
+
+https://github.com/tmux/tmux/wiki/Clipboard#quick-summary

@@ -6,9 +6,11 @@ export LANG=en_US.UTF-8
 setopt PROMPT_SUBST
 
 # editor/visual
-export EDITOR=vim
-export VISUAL=vim
-export GIT_EDITOR=vim
+alias vimdiff='nvim -d'
+alias vim='nvim'
+export EDITOR=nvim
+export VISUAL=nvim
+export GIT_EDITOR=nvim
 export PAGER=less
 
 # zsh will not beep
@@ -34,6 +36,7 @@ export CPPFLAGS="-I$(brew --prefix xz)/include $CPPFLAGS"
 export PKG_CONFIG_PATH="$(brew --prefix xz)/lib/pkgconfig:$PKG_CONFIG_PATH"
 
 bindkey -v
+bindkey "^R" history-incremental-search-backward
 
 # Yank to the system clipboard
 # function vi-yank-xclip {
@@ -43,3 +46,5 @@ bindkey -v
 # 
 # zle -N vi-yank-xclip
 # bindkey -M vicmd 'y' vi-yank-xclip
+
+source ~/default/bin/activate
