@@ -24,13 +24,24 @@ Plugin 'itchyny/lightline.vim'
 Plugin 'tpope/vim-surround'
 Plugin 'ervandew/supertab'
 
+" Plugin 'scrooloose/nerdtree'
+" Plugin 'jistr/vim-nerdtree-tabs'
+
 Plugin 'stephpy/vim-yaml'
 Plugin 'rust-lang/rust.vim'
 Plugin 'gabrielelana/vim-markdown'
 
 " Python
 Plugin 'nvie/vim-flake8'
+
+" Plugin 'integralist/vim-mypy'
 Plugin 'vim-scripts/indentpython.vim'
+
+if has('nvim')
+    Plugin 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+    Plugin 'dense-analysis/ale'
+    Plugin 'github/copilot.vim'
+endif
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -41,24 +52,11 @@ filetype plugin indent on    " required
 " =============================================================================== "
 
 set encoding=utf-8
-let mapleader = ","
-
-" Copy / Paste
-set clipboard^=unnamed,unnamedplus
-
-vnoremap <leader>y :OSCYank<CR>
-
-if exists("TextYankPost")
-    autocmd TextYankPost * if v:event.operator is 'y' && v:event.regname is '' | execute 'OSCYankReg "' | endif
-endif
-
-let g:oscyank_max_length = 1000000
-let g:oscyank_term = 'tmux'
 
 " Make backspace behave more consistently across systems / ssh
 set backspace=indent,eol,start
 
-" Set the backup director for swap files directory
+" Set the backup director for swap files director
 set noswapfile
 
 " Reload files changed outside vim
@@ -66,6 +64,16 @@ set autoread
 
 " do not start in folded mode
 au BufRead * normal zR
+
+" Copy / Paste
+set clipboard^=unnamed,unnamedplus
+
+let g:oscyank_max_length = 1000000
+let g:oscyank_term = 'tmux'
+
+" Move by screen lines
+nnoremap j gj
+nnoremap k gk
 
 " =============================================================================== "
 " VIM appearance
@@ -125,7 +133,6 @@ hi SpellBad cterm=underline ctermfg=red
 " =============================================================================== "
 
 " let NERDTreeIgnore=['\.pyc$', '\~$'] "ignore files in NERDTree
-"
 " autocmd vimenter * NERDTree
 " autocmd Vimenter * wincmd p
 " let g:nerdtree_tabs_open_on_console_startup = 1
@@ -198,8 +205,55 @@ set smartcase
 "search results are highlighted
 set hlsearch
 
+" Help opens help in a vertical split
+autocmd FileType help wincmd L
+
+
+"=============================================================================
+" Diff
+"=============================================================================
+
+" Use Patience Diff if we don't have xdiff built in
+if !has("patch-8.1.0360")
+    if &diff
+        let &diffexpr='EnhancedDiff#Diff("git diff", "--diff-algorithm=patience")'
+    endif
+endif
+
+" Fixes E474 on Catalina+ MacOS, where Apple removed xdiff
+if has('mac') && $VIM == '/usr/share/vim'
+    set diffopt-=internal
+elseif has('patch-8.1.0360') || has('nvim-0.3.2')
+    " vim: https://github.com/vim/vim/commit/e828b7621cf9065a3582be0c4dd1e0e846e335bf
+    " nvim: https://github.com/neovim/neovim/commit/20620bae76deddd892df2d33f9e745efd5d8598b
+    set diffopt+=algorithm:patience
+endif
+
+" Better diff line matching
+if has('nvim-0.9.0')
+    " nvim: https://github.com/neovim/neovim/commit/04fbb1de4488852c3ba332898b17180500f8984e
+    set diffopt+=linematch:60
+endif
+
 " =============================================================================== "
 " Macros
 " =============================================================================== "
 noremap <leader>s = :SyntasticToggleMode<CR>
 imap jj <esc>
+" Toggle paste
+nnoremap <Leader>p :set invpaste paste?<CR>
+" Find merge conflict markers
+nnoremap <Leader>mc /\v^[<\|=>]{7}( .*\|$)<CR>
+
+" In normal mode, <leader>c is an operator that will copy the given text to the clipboard.
+nmap <leader>c <Plug>OSCYankOperator
+" In normal mode, <leader>cc will copy the current line.
+nmap <leader>cc <leader>c_
+" In visual mode, <leader>c will copy the current selection.
+vmap <leader>c <Plug>OSCYankVisual
+
+autocmd TextYankPost *
+    \ if v:event.operator is 'y' && v:event.regname is '+' |
+    \ execute 'OSCYankRegister +' |
+    \ endif
+
