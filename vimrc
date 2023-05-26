@@ -31,6 +31,8 @@ Plugin 'stephpy/vim-yaml'
 Plugin 'rust-lang/rust.vim'
 Plugin 'gabrielelana/vim-markdown'
 
+Plugin 'ctrlpvim/ctrlp.vim'
+
 " Python
 Plugin 'nvie/vim-flake8'
 
@@ -124,12 +126,15 @@ hi StatusLineNC    gui=bold ctermfg=231 ctermbg=234 cterm=none
 " Spell Check
 " =============================================================================== "
 
-set spell
-hi clear SpellBad
-hi SpellBad cterm=underline ctermfg=red
+" set spell
+" hi clear SpellBad
+" hi SpellBad cterm=underline ctermfg=red
+
+set nospell
+
 
 " =============================================================================== "
-" NERD Tree
+" Finder
 " =============================================================================== "
 
 " let NERDTreeIgnore=['\.pyc$', '\~$'] "ignore files in NERDTree
@@ -144,6 +149,18 @@ hi SpellBad cterm=underline ctermfg=red
 " endif
 
 let g:netrw_banner=0
+
+let g:ctrlp_map = '<c-p>'
+let g:ctrlp_cmd = 'CtrlP'
+
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*/venv/*
+
+let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
+let g:ctrlp_custom_ignore = {
+\ 'dir':  '\v[\/]\.(git|hg|svn)$',
+\ 'file': '\v\.(exe|so|dll)$',
+\ 'link': 'some_bad_symbolic_links',
+\ }
 
 " =============================================================================== "
 " Full stack

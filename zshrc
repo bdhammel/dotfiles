@@ -28,6 +28,7 @@ eval "$(pyenv virtualenv-init -)"
 if [ -f ~/.zsh_aliases ]; then
     source ~/.zsh_aliases
 fi
+
 # export PATH="/usr/local/opt/ruby/bin:/usr/local/lib/ruby/gems/3.1.0/bin:$PATH"
 export PATH="/opt/homebrew/lib/ruby/gems/3.1.0/gems/:$PATH"
 export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
@@ -37,14 +38,3 @@ export PKG_CONFIG_PATH="$(brew --prefix xz)/lib/pkgconfig:$PKG_CONFIG_PATH"
 
 bindkey -v
 bindkey "^R" history-incremental-search-backward
-
-# Yank to the system clipboard
-# function vi-yank-xclip {
-#     zle vi-yank
-#    echo "$CUTBUFFER" | pbcopy -i
-# }
-# 
-# zle -N vi-yank-xclip
-# bindkey -M vicmd 'y' vi-yank-xclip
-
-source ~/default/bin/activate
