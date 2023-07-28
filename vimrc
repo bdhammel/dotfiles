@@ -42,7 +42,7 @@ Plugin 'vim-scripts/indentpython.vim'
 if has('nvim')
     Plugin 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
     Plugin 'dense-analysis/ale'
-    Plugin 'github/copilot.vim'
+    " Plugin 'github/copilot.vim'
 endif
 
 " All of your Plugins must be added before the following line
