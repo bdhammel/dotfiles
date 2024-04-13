@@ -4,54 +4,51 @@
 
 set nocompatible              " required
 filetype off                  " required
+let using_neovim = has('nvim')
+let using_vim = !using_neovim
 
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
 
-" let Vundle manage Vundle
-Plugin 'gmarik/Vundle.vim'
+call plug#begin()
 
-Plugin 'tpope/vim-sensible'
-Plugin 'vim-syntastic/syntastic'
-Plugin 'chrisbra/vim-diff-enhanced'
+Plug 'tpope/vim-sensible'
+Plug 'chrisbra/vim-diff-enhanced'
 
-Plugin 'ojroques/vim-oscyank', {'branch': 'main'}
-Plugin 'altercation/vim-colors-solarized'
-Plugin 'christoomey/vim-tmux-navigator'
-Plugin 'itchyny/lightline.vim'
+Plug 'ojroques/vim-oscyank', {'branch': 'main'}
+Plug 'altercation/vim-colors-solarized'
+Plug 'christoomey/vim-tmux-navigator'
+Plug 'itchyny/lightline.vim'
 
-Plugin 'tpope/vim-surround'
-Plugin 'ervandew/supertab'
+Plug 'tpope/vim-surround'
+" Plug 'ervandew/supertab'
 
-" Plugin 'scrooloose/nerdtree'
-" Plugin 'jistr/vim-nerdtree-tabs'
+Plug 'stephpy/vim-yaml'
+Plug 'rust-lang/rust.vim'
+Plug 'gabrielelana/vim-markdown'
 
-Plugin 'stephpy/vim-yaml'
-Plugin 'rust-lang/rust.vim'
-Plugin 'gabrielelana/vim-markdown'
-
-Plugin 'ctrlpvim/ctrlp.vim'
+Plug 'ctrlpvim/ctrlp.vim'
 
 " Python
-Plugin 'nvie/vim-flake8'
+Plug 'nvie/vim-flake8'
 
-" Plugin 'integralist/vim-mypy'
-Plugin 'vim-scripts/indentpython.vim'
+" Plug 'integralist/vim-mypy'
+Plug 'vim-scripts/indentpython.vim'
 
-if has('nvim')
-    Plugin 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-    Plugin 'dense-analysis/ale'
-    " Plugin 'github/copilot.vim'
+if using_neovim
+    Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+    Plug 'dense-analysis/ale'
+    " Plug 'github/copilot.vim'
+else
+    Plug 'vim-syntastic/syntastic'
 endif
 
 " All of your Plugins must be added before the following line
-call vundle#end()            " required
-filetype plugin indent on    " required
+call plug#end()
 
 " =============================================================================== "
 " VIM config
 " =============================================================================== "
+
+filetype plugin indent on    " required
 
 set encoding=utf-8
 
@@ -132,21 +129,9 @@ hi StatusLineNC    gui=bold ctermfg=231 ctermbg=234 cterm=none
 
 set nospell
 
-
 " =============================================================================== "
 " Finder
 " =============================================================================== "
-
-" let NERDTreeIgnore=['\.pyc$', '\~$'] "ignore files in NERDTree
-" autocmd vimenter * NERDTree
-" autocmd Vimenter * wincmd p
-" let g:nerdtree_tabs_open_on_console_startup = 1
-" let g:NERDTreeDirArrowExpandable="+"
-" let g:NERDTreeDirArrowCollapsible="~"
-"
-" if &diff
-"     autocmd vimenter * NERDTreeClose
-" endif
 
 let g:netrw_banner=0
 
@@ -155,7 +140,6 @@ let g:ctrlp_cmd = 'CtrlP'
 
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*/venv/*
 
-let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
 let g:ctrlp_custom_ignore = {
 \ 'dir':  '\v[\/]\.(git|hg|svn)$',
 \ 'file': '\v\.(exe|so|dll)$',
@@ -194,20 +178,29 @@ autocmd FileType python let &colorcolumn=join(range(120,999),",")
 
 let python_highlight_all=1
 
-" Set python linting
-let g:syntastic_python_python_exec = 'python3'
-let g:syntastic_python_checkers=['flake8']
+if using_vim
+    " Set python linting
+    let g:syntastic_python_python_exec = 'python3'
+    let g:syntastic_python_checkers=['flake8']
 
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
+    set statusline+=%#warningmsg#
+    set statusline+=%{SyntasticStatuslineFlag()}
+    set statusline+=%*
 
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
+    let g:syntastic_always_populate_loc_list = 1
+    let g:syntastic_auto_loc_list = 1
+    let g:syntastic_check_on_open = 1
+    let g:syntastic_check_on_wq = 0
 
-let g:syntastic_python_flake8_args='--ignore=E501,W503,E226,E402'
+    let g:syntastic_python_flake8_args='--ignore=E501,W503,E226,E402'
+else
+    let g:ale_lint_on_text_changed = 'never'
+    let g:ale_python_flake8_options = '--ignore=E501' 
+    " let g:ale_lint_on_insert_leave = 0
+    " let g:ale_lint_on_enter = 0
+    let g:ale_completion_enabled = 1
+    " set omnifunc=ale#completion#OmniFunc
+endif
 
 " =============================================================================== "
 " Searching
