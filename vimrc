@@ -27,9 +27,6 @@ Plug 'gabrielelana/vim-markdown'
 
 Plug 'ctrlpvim/ctrlp.vim'
 
-" Python
-Plug 'nvie/vim-flake8'
-
 " Plug 'integralist/vim-mypy'
 Plug 'vim-scripts/indentpython.vim'
 
@@ -39,6 +36,7 @@ if using_neovim
     " Plug 'github/copilot.vim'
 else
     Plug 'vim-syntastic/syntastic'
+    Plug 'nvie/vim-flake8'
 endif
 
 " All of your Plugins must be added before the following line
@@ -194,6 +192,8 @@ if using_vim
 
     let g:syntastic_python_flake8_args='--ignore=E501,W503,E226,E402'
 else
+    let g:ale_linters_explicit = 1
+    let b:ale_linters = {'python': ['flake8']}
     let g:ale_lint_on_text_changed = 'never'
     let g:ale_python_flake8_options = '--ignore=E501' 
     " let g:ale_lint_on_insert_leave = 0
