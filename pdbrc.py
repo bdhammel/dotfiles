@@ -2,9 +2,9 @@ import pdb
 import readline
 from pathlib import Path
 
-IRRELEVANT_HISTORY = [
+IRRELEVANT_HISTORY = set([ 
     'n', 'l', 'll', 'l.', 's', 'r', 'c', None
-]
+])
 
 class Config(pdb.DefaultConfig):
 
@@ -35,6 +35,5 @@ class Config(pdb.DefaultConfig):
 
 
 def hist():
-    from pprint import pprint
     y = range(readline.get_current_history_length() + 2)
-    pprint([readline.get_history_item(x) for x in y])
+    print(*[readline.get_history_item(x) for x in y], sep='\n')
