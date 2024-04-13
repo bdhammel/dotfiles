@@ -1,69 +1,85 @@
 #!/usr/bin/env bash
+
 ############################
 # .make.sh
-# This script creates symlinks from the home directory to any desired dotfiles in ~/dotfiles ############################
-
-########## Variables
+# This script creates symlinks from the home directory to any desired dotfiles in ~/dotfiles
 
 dir=~/dotfiles                    # dotfiles directory
 olddir=~/dotfiles_old             # old dotfiles backup directory
 files="bash_aliases vimrc vim tmux.conf gitignore_global inputrc zsh_aliases"    # list of files/folders to symlink in homedir
 
-##########
+create_backup() {
+    # Create dotfiles_old in homedir
+    echo -n "Creating $olddir for backup of any existing dotfiles in ~ ..."
+    mkdir -p "$olddir" && echo "done" || echo "failed"
+}
 
-# Create dotfiles_old in homedir
-echo -n "Creating $olddir for backup of any existing dotfiles in ~ ..."
-mkdir -p $olddir
-echo "done"
+install_vim_plug() {
+    echo -n "Installing Plug ..."
+    curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}/nvim/site/autoload/plug.vim" --create-dirs \
+        "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim" && echo "done" || echo "failed"
+}
 
-cd $dir
-echo -n "Installing Vundle ..."
-git clone https://github.com/VundleVim/Vundle.vim.git ~/dotfiles/vim/bundle/Vundle.vim
-echo "done"
+move_and_link_files() {
+    for file in $files; do
+        local src="${HOME}/.${file}"
+        local dest="$dir/$file"
+        if [ -e "$src" ]; then
+            echo "Moving existing dotfile $file from ~ to $olddir"
+            mv "$src" "$olddir"
+        fi
+        echo "Creating symlink to $file in home directory."
+        ln -s "$dest" "$src"
+    done
 
-# Change to the home directory
-echo -n "Changing to home directory ..."
-cd ~
-echo "done"
-
-# Move any existing dotfiles in homedir to dotfiles_old directory, then create symlinks from the homedir to any files in the ~/dotfiles directory specified in $files
-for file in $files; do
-    if [ -f ~/.$file ]; then
-        echo "Moving existing dotfile, $file from ~ to $olddir"
-        mv ~/.$file $olddir
+    if [ ! -d ~/.config/htop/ ]; then
+        echo "making .htoprc"
+        mkdir -p ~/.config/htop
     fi
-    echo "Creating symlink to $file in home directory."
-    ln -s $dir/$file ~/.$file
-done
 
-# Create a directory for vim temporary files 
-cd ~
-echo "making vim_tmp dir"
-mkdir -p ~/.vim_tmp
+}
 
-# Set the global .gitignore script
-echo "Setting git settings"
-git config --global core.excludesfile ~/.gitignore_global
-git config --global diff.tool vimdiff
-git config --global difftool.prompt false
-git config --global merge.tool vimdiff
-git config --global mergetool.keepBackup false
-git config --global init.defaultBranch main
+setup_git() {
+    # Set the global .gitignore script
+    echo "Setting git settings"
+    git config --global core.excludesfile ~/.gitignore_global
+    git config --global diff.tool vimdiff
+    git config --global difftool.prompt false
+    git config --global merge.tool vimdiff
+    git config --global mergetool.keepBackup false
+    git config --global init.defaultBranch main
+}
 
-# Set the global .gitignore script
-echo "Setting up ipython evn" 
-if [ ! -d ~/.ipython/profile_default/ ]; then
-    echo "making .ipython dir"
-    mkdir -p ~/.ipython/profile_default/startup/
-fi
-ln -s $dir/ipython/profile_default/ipython_config.py ~/.ipython/profile_default/ipython_config.py
-ln -s $dir/ipython/profile_default/startup/ipython_startup.py ~/.ipython/profile_default/startup/ipython_startup.py
 
-if [ ! -d ~/.config/htop/ ]; then
-    echo "making .htoprc"
-    mkdir -p ~/.config/htop
-fi
+setup_new_files() {
+    ln -s $dir/htoprc ~/.config/htop/htoprc
 
-ln -s $dir/htoprc ~/.config/htop/htoprc
+    # Create a directory for vim temporary files 
+    echo "making vim_tmp dir"
+    mkdir -p ~/.vim_tmp
 
-echo "Remember to install vim packages with :PluginInstall"
+    # Set the global .gitignore script
+    echo "Setting up ipython evn" 
+    if [ ! -d ~/.ipython/profile_default/ ]; then
+        echo "making .ipython dir"
+        mkdir -p ~/.ipython/profile_default/startup/
+    fi
+    ln -s $dir/ipython/profile_default/ipython_config.py ~/.ipython/profile_default/ipython_config.py
+    ln -s $dir/ipython/profile_default/startup/ipython_startup.py ~/.ipython/profile_default/startup/ipython_startup.py
+}
+
+
+main() {
+    create_backup
+    cd "$dir" || exit
+    install_vim_plug
+    cd ~ || exit
+    move_and_link_files
+    cd ~ || exit
+    setup_new_files
+    setup_git
+    echo "Remember to install vim packages with :PlugInstall"
+}
+
+
+main "$@"
