@@ -50,7 +50,7 @@ colors
 if [[ $OSTYPE == linux* ]]; then
     alias grep="grep --color=auto"
     alias ls="ls --color"
-    alias ll="ls -lh  --time-style long-iso"
+    alias ll="ls -lhtU --time-style long-iso"
 else
     export GREP_OPTIONS='--color=auto'
     export CLICOLOR=1
