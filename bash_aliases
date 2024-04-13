@@ -61,3 +61,33 @@ HISTFILESIZE=2000
 
 alias web_finder="python3 -m http.server --bind $HOSTNAME"
 alias yank='yank-cli | sed -r "s/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[mGK]//g" | sed "s/\x0f//g" | ~/dotfiles/osc52.sh'
+alias nvim='/home/benh/bin/nvim.appimage'
+alias vim='nvim'
+
+pushd()
+{
+  if [ $# -eq 0 ]; then
+    DIR="${HOME}"
+  else
+    DIR="$1"
+  fi
+
+  builtin pushd "${DIR}" > /dev/null
+  echo -n "DIRSTACK: "
+  dirs
+}
+
+pushd_builtin()
+{
+  builtin pushd > /dev/null
+}
+
+popd()
+{
+  builtin popd > /dev/null
+  echo -n "DIRSTACK: "
+  dirs
+}
+
+alias cd='pushd'
+alias flip='pushd_builtin'
