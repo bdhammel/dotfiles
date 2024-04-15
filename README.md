@@ -81,3 +81,24 @@ Just paste this into your ~/.gitconfig
 ### Copy Pase
 
 https://github.com/tmux/tmux/wiki/Clipboard#quick-summary
+
+## Setting up without sudo?
+
+install to location `/home/<user>/bin`
+
+cite: https://medium.com/thelinux/the-correct-way-to-install-the-neovim-42f3076f9b88
+```
+cd /home/$(whoami)/bin
+curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim.appimage
+chmod u+x nvim.appimage
+```
+to get tmux:
+cite: https://github.com/nelsonenzo/tmux-appimage
+```
+curl -s https://api.github.com/repos/nelsonenzo/tmux-appimage/releases/latest \
+| grep "browser_download_url.*appimage" \
+| cut -d : -f 2,3 \
+| tr -d \" \
+| wget -qi - \
+&& chmod +x tmux.appimage
+```

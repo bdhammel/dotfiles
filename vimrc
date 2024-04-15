@@ -4,39 +4,32 @@
 
 set nocompatible              " required
 filetype off                  " required
-let using_neovim = has('nvim')
-let using_vim = !using_neovim
 
+let using_neovim = has('nvim')
 
 call plug#begin()
 
 Plug 'tpope/vim-sensible'
-Plug 'chrisbra/vim-diff-enhanced'
-
-Plug 'ojroques/vim-oscyank', {'branch': 'main'}
 Plug 'altercation/vim-colors-solarized'
-Plug 'christoomey/vim-tmux-navigator'
 Plug 'itchyny/lightline.vim'
-
-Plug 'tpope/vim-surround'
-" Plug 'ervandew/supertab'
-
-Plug 'stephpy/vim-yaml'
-Plug 'rust-lang/rust.vim'
-Plug 'gabrielelana/vim-markdown'
+Plug 'christoomey/vim-tmux-navigator'
 
 Plug 'ctrlpvim/ctrlp.vim'
 
-" Plug 'integralist/vim-mypy'
+Plug 'ojroques/vim-oscyank', {'branch': 'main'}
+Plug 'tpope/vim-surround'
+Plug 'chrisbra/vim-diff-enhanced'
+
+Plug 'somini/pydoc.vim'
+Plug 'stephpy/vim-yaml'
+Plug 'rust-lang/rust.vim'
+Plug 'gabrielelana/vim-markdown'
 Plug 'vim-scripts/indentpython.vim'
+Plug 'dense-analysis/ale'
 
 if using_neovim
     Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-    Plug 'dense-analysis/ale'
     " Plug 'github/copilot.vim'
-else
-    Plug 'vim-syntastic/syntastic'
-    Plug 'nvie/vim-flake8'
 endif
 
 " All of your Plugins must be added before the following line
@@ -62,15 +55,34 @@ set autoread
 " do not start in folded mode
 au BufRead * normal zR
 
+" =============================================================================== "
 " Copy / Paste
+" =============================================================================== "
 set clipboard^=unnamed,unnamedplus
+
+" Toggle paste
+nnoremap <Leader>p :set invpaste paste?<CR>
 
 let g:oscyank_max_length = 1000000
 let g:oscyank_term = 'tmux'
 
-" Move by screen lines
+" In visual mode, <leader>c will copy the current selection.
+vmap <leader>c <Plug>OSCYankVisual
+
+autocmd TextYankPost *
+    \ if v:event.operator is 'y' && v:event.regname is '+' |
+    \ execute 'OSCYankRegister +' |
+    \ endif
+
+
+" =============================================================================== "
+" Moveing
+" =============================================================================== "
 nnoremap j gj
 nnoremap k gk
+imap jj <esc>
+" Find merge conflict markers
+nnoremap <Leader>mc /\v^[<\|=>]{7}( .*\|$)<CR>
 
 " =============================================================================== "
 " VIM appearance
@@ -176,31 +188,15 @@ autocmd FileType python let &colorcolumn=join(range(120,999),",")
 
 let python_highlight_all=1
 
-if using_vim
-    " Set python linting
-    let g:syntastic_python_python_exec = 'python3'
-    let g:syntastic_python_checkers=['flake8']
+let g:ale_linters_explicit = 1
+let b:ale_linters = {'python': ['flake8']}
+let g:ale_lint_on_text_changed = 'never'
+let g:ale_python_flake8_options = '--ignore=E501,W503,E226,E402' 
+" let g:ale_lint_on_insert_leave = 0
+" let g:ale_lint_on_enter = 0
+let g:ale_completion_enabled = 1
 
-    set statusline+=%#warningmsg#
-    set statusline+=%{SyntasticStatuslineFlag()}
-    set statusline+=%*
-
-    let g:syntastic_always_populate_loc_list = 1
-    let g:syntastic_auto_loc_list = 1
-    let g:syntastic_check_on_open = 1
-    let g:syntastic_check_on_wq = 0
-
-    let g:syntastic_python_flake8_args='--ignore=E501,W503,E226,E402'
-else
-    let g:ale_linters_explicit = 1
-    let b:ale_linters = {'python': ['flake8']}
-    let g:ale_lint_on_text_changed = 'never'
-    let g:ale_python_flake8_options = '--ignore=E501' 
-    " let g:ale_lint_on_insert_leave = 0
-    " let g:ale_lint_on_enter = 0
-    let g:ale_completion_enabled = 1
-    " set omnifunc=ale#completion#OmniFunc
-endif
+noremap <leader>s = :ALEToggle<CR>
 
 " =============================================================================== "
 " Searching
@@ -244,26 +240,3 @@ if has('nvim-0.9.0')
     " nvim: https://github.com/neovim/neovim/commit/04fbb1de4488852c3ba332898b17180500f8984e
     set diffopt+=linematch:60
 endif
-
-" =============================================================================== "
-" Macros
-" =============================================================================== "
-noremap <leader>s = :SyntasticToggleMode<CR>
-imap jj <esc>
-" Toggle paste
-nnoremap <Leader>p :set invpaste paste?<CR>
-" Find merge conflict markers
-nnoremap <Leader>mc /\v^[<\|=>]{7}( .*\|$)<CR>
-
-" In normal mode, <leader>c is an operator that will copy the given text to the clipboard.
-nmap <leader>c <Plug>OSCYankOperator
-" In normal mode, <leader>cc will copy the current line.
-nmap <leader>cc <leader>c_
-" In visual mode, <leader>c will copy the current selection.
-vmap <leader>c <Plug>OSCYankVisual
-
-autocmd TextYankPost *
-    \ if v:event.operator is 'y' && v:event.regname is '+' |
-    \ execute 'OSCYankRegister +' |
-    \ endif
-

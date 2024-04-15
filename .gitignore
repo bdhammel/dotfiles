@@ -6,5 +6,6 @@ vim_tmp
 tmux.history
 vim/bundle/
 vim/autoload/
+vim/plugged/
 vim/.netrwhist
 *.spl
