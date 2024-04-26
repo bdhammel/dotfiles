@@ -24,9 +24,9 @@ alias ....='cd ../../..'
 export LSCOLORS=exfxdxDxcxhxhxhxhxExEx
 export GREP_COLOR='1;38;5;136'
 
-export EDITOR=vim
-export VISUAL=vim
-export GIT_EDITOR=vim
+export EDITOR=nvim
+export VISUAL=nvim
+export GIT_EDITOR=nvim
 
 parse_git_branch() {
      git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
@@ -59,11 +59,6 @@ HISTFILESIZE=2000
 # pip
 # export PIP_REQUIRE_VIRTUALENV=true
 
-alias web_finder="python3 -m http.server --bind $HOSTNAME"
-alias yank='yank-cli | sed -r "s/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[mGK]//g" | sed "s/\x0f//g" | ~/dotfiles/osc52.sh'
-alias nvim='/home/benh/bin/nvim.appimage'
-alias vim='nvim'
-
 pushd()
 {
   if [ $# -eq 0 ]; then
@@ -73,8 +68,6 @@ pushd()
   fi
 
   builtin pushd "${DIR}" > /dev/null
-  echo -n "DIRSTACK: "
-  dirs
 }
 
 pushd_builtin()
@@ -85,9 +78,14 @@ pushd_builtin()
 popd()
 {
   builtin popd > /dev/null
-  echo -n "DIRSTACK: "
-  dirs
 }
 
 alias cd='pushd'
+alias up='popd'
 alias flip='pushd_builtin'
+alias web_finder="python3 -m http.server --bind $HOSTNAME"
+alias yank='yank-cli | sed -r "s/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[mGK]//g" | sed "s/\x0f//g" | ~/dotfiles/osc52.sh'
+alias vim='nvim'
+alias ovim='vim $(fzf)'
+alias goto='cd "$(fzf || echo '.')"'
+alias cdh='cd "$(dirs -p | fzf)"'
