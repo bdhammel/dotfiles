@@ -78,6 +78,12 @@ Just paste this into your ~/.gitconfig
     cmd = "nvim -d \"$LOCAL\" \"$REMOTE\""
 ```
 
+```
+git maintenance start
+```
+
+https://blog.gitbutler.com/git-tips-2-new-stuff-in-git/
+
 ### Copy Pase
 
 https://github.com/tmux/tmux/wiki/Clipboard#quick-summary

@@ -1,0 +1,58 @@
+pushd()
+{
+  if [ $# -eq 0 ]; then
+    DIR="${HOME}"
+  else
+    DIR="$1"
+  fi
+
+  builtin pushd "${DIR}" > /dev/null
+}
+
+pushd_builtin()
+{
+  builtin pushd > /dev/null
+}
+
+popd()
+{
+  builtin popd > /dev/null
+}
+
+alias cd='pushd'
+alias up='popd'
+alias flip='pushd_builtin'
+
+alias la="ll -a"
+alias rm="rm -i"
+alias c='clear'
+alias h='history'
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+
+
+
+alias web_finder="python3 -m http.server --bind $HOSTNAME"
+alias yank='yank-cli | sed -r "s/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[mGK]//g" | sed "s/\x0f//g" | ~/dotfiles/osc52.sh'
+alias vim='nvim'
+alias ovim='fzf --print0 | xargs -0 -o vim'
+alias goto='cd "$(fzf || echo '.')"'
+alias cdh='cd "$(dirs -p | fzf)"'
+
+# make less always work with colored input
+alias less='less -R'
+
+# make watch always work with colored input
+alias watch='watch --color'
+
+if [[ $OSTYPE == linux* ]]; then
+    alias grep="grep --color=auto"
+    alias ls="ls --color"
+    alias ll="ls -lhtU --time-style long-iso"
+else
+    export GREP_OPTIONS='--color=auto'
+    export CLICOLOR=1
+    alias ls="ls"
+    alias ll="ls -lht"
+fi

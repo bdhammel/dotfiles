@@ -47,31 +47,8 @@ PROMPT='${vim_mode} %F{$solarized_blue}%~%f %F{$solarized_yellow}${vcs_info_msg_
 autoload -U colors
 colors
 
-if [[ $OSTYPE == linux* ]]; then
-    alias grep="grep --color=auto"
-    alias ls="ls --color"
-    alias ll="ls -lhtU --time-style long-iso"
-else
-    export GREP_OPTIONS='--color=auto'
-    export CLICOLOR=1
-    alias ls="ls"
-    alias ll="ls -lht"
-fi
-
 export LSCOLORS=exfxdxDxcxhxhxhxhxExEx
 export GREP_COLOR='1;38;5;136'
-
-# make less always work with colored input
-alias less='less -R'
-
-# make watch always work with colored input
-alias watch='watch --color'
-
-
-alias la="ll -a"
-alias rm="rm -i"
-alias c='clear'
-alias h='history'
 
 # pip
 export PIP_REQUIRE_VIRTUALENV=true
@@ -82,3 +59,9 @@ zstyle ':completion:*' accept-exact '*(N)'
 zstyle ':completion:*' use-cache on
 zstyle ':completion:*' cache-path ~/.zsh/cache
 autoload -Uz compinit && compinit
+
+eval "$(fzf --zsh)"
+
+if [ -f ~/dotfiles/aliases ]; then
+    source ~/dotfiles/aliases
+fi
