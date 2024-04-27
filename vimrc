@@ -14,7 +14,7 @@ Plug 'altercation/vim-colors-solarized'
 Plug 'itchyny/lightline.vim'
 Plug 'christoomey/vim-tmux-navigator'
 
-Plug 'ctrlpvim/ctrlp.vim'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 
 Plug 'ojroques/vim-oscyank', {'branch': 'main'}
 Plug 'tpope/vim-surround'
