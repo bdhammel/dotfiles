@@ -9,3 +9,4 @@ vim/autoload/
 vim/plugged/
 vim/.netrwhist
 *.spl
+venv.*

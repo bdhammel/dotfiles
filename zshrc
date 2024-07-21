@@ -25,10 +25,6 @@ eval "$(pyenv init --path)"
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
 
-if [ -f ~/.zsh_aliases ]; then
-    source ~/.zsh_aliases
-fi
-
 # export PATH="/usr/local/opt/ruby/bin:/usr/local/lib/ruby/gems/3.1.0/bin:$PATH"
 export PATH="/opt/homebrew/lib/ruby/gems/3.1.0/gems/:$PATH"
 export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
@@ -37,4 +33,9 @@ export CPPFLAGS="-I$(brew --prefix xz)/include $CPPFLAGS"
 export PKG_CONFIG_PATH="$(brew --prefix xz)/lib/pkgconfig:$PKG_CONFIG_PATH"
 
 bindkey -v
-bindkey "^R" history-incremental-search-backward
+# bindkey "^R" history-incremental-search-backward
+#
+if [ -f ~/.zsh_aliases ]; then
+    source ~/.zsh_aliases
+fi
+export PATH="/opt/homebrew/opt/mongodb-community@4.4/bin:$PATH"

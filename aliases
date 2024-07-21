@@ -56,3 +56,5 @@ else
     alias ls="ls"
     alias ll="ls -lht"
 fi
+
+export FZF_DEFAULT_COMMAND="find . -type d \( -name 'venv' -o -name 'venv.*' \) -prune -o -type f -print"
