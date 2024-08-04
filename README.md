@@ -13,6 +13,17 @@ $ cd ~
 $ ln -s dotfiles/vim .vim
 ~~~
 
+## Installing packages w/o sudo
+
+```
+   cd /usr/bin
+   wget <url to binary>
+   tar -zxvf download-pkg
+   mv dowloaded-pkg/app app
+```
+
+ensure `/usr/bin` is exported into `PATH`
+
 ## Setting up Git
 
 https://help.github.com/articles/checking-for-existing-ssh-keys/
