@@ -16,6 +16,7 @@ return {
     local lsp = require('lsp-zero').preset({})
     local mason = require("mason")
     local mason_lspconfig = require("mason-lspconfig")
+    local cmp = require('cmp')
 
     mason.setup()
 
@@ -25,6 +26,26 @@ return {
         "pyright",
         'jsonls',
         'yamlls',
+      },
+    })
+
+    cmp.setup({
+      sources = {
+        {name = 'nvim_lsp'},
+      },
+      snippet = {
+        expand = function(args)
+          vim.snippet.expand(args.body)
+        end,
+      },
+      completion = {
+        autocomplete = false
+      },
+      cmp.mapping.preset.insert({
+        ['<C-Space>'] = cmp.mapping.complete(),
+      }),
+      window = {
+        documentation = cmp.config.window.bordered(),
       },
     })
 

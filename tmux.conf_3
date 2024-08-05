@@ -4,7 +4,7 @@ unbind-key C-a
 bind-key C-a send-prefix
 set -g base-index 1
 
-set-option -g default-terminal xterm-256color
+set-option -g default-terminal tmux-256color
 set-option -g history-limit 5000
 
 # Easy config reload
