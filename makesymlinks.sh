@@ -48,6 +48,12 @@ setup_git() {
     git config --global merge.tool vimdiff
     git config --global mergetool.keepBackup false
     git config --global init.defaultBranch main
+    git config --global rerere.enabled true
+    git config --global rerere.autoUpdate true
+    git config --global branch.sort -committerdate
+    git config --global alias.blame "blame -w -C -C -C"
+    git config --global alias.graph "log --oneline --branches --graph --decorate"
+    git config --global alias.fpush push --force-with-lease
 }
 
 

@@ -14,6 +14,9 @@ Plug 'altercation/vim-colors-solarized'
 Plug 'itchyny/lightline.vim'
 Plug 'christoomey/vim-tmux-navigator'
 
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+
 Plug 'ojroques/vim-oscyank', {'branch': 'main'}
 Plug 'tpope/vim-surround'
 Plug 'chrisbra/vim-diff-enhanced'
@@ -24,9 +27,6 @@ Plug 'rust-lang/rust.vim'
 Plug 'gabrielelana/vim-markdown'
 Plug 'vim-scripts/indentpython.vim'
 Plug 'dense-analysis/ale'
-
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
 
 if using_neovim
     " Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
@@ -41,6 +41,8 @@ call plug#end()
 " =============================================================================== "
 
 filetype plugin indent on    " required
+
+let g:python3_host_prog = '~/dotfiles/venv.nosync/bin/python3'
 
 set encoding=utf-8
 
@@ -134,11 +136,11 @@ hi StatusLineNC    gui=bold ctermfg=231 ctermbg=234 cterm=none
 " Spell Check
 " =============================================================================== "
 
-" set spell
+set spell
 " hi clear SpellBad
 " hi SpellBad cterm=underline ctermfg=red
 
-set nospell
+" set nospell
 
 " =============================================================================== "
 " Finder
@@ -147,6 +149,9 @@ set nospell
 let g:netrw_banner=0
 
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*/venv/*     " MacOSX/Linux
+let g:fzf_vim = {}
+let g:fzf_vim.tags_command = 'ctags -R'
+nmap <C-P> :FZF<CR>
 
 " =============================================================================== "
 " Full stack
