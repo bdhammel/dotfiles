@@ -4,31 +4,6 @@ vim.api.nvim_create_autocmd("BufRead", {
   command = "normal zR",
 })
 
--- TextYankPost for OSCYank
-vim.api.nvim_create_autocmd("TextYankPost", {
-  callback = function()
-    if vim.v.event.operator == 'y' and vim.v.event.regname == '+' then
-      vim.cmd('OSCYankRegister +')
-    end
-  end
-})
-
--- FileType help opens in vertical split
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = 'help',
-  command = 'wincmd L',
-})
-
--- Set tab width for specific file types
-vim.api.nvim_create_autocmd({"BufNewFile", "BufRead"}, {
-  pattern = {'*.js', '*.html', '*.css', '*.json', '*.yaml', '*.yml'},
-  callback = function()
-    vim.opt.tabstop = 2
-    vim.opt.softtabstop = 2
-    vim.opt.shiftwidth = 2
-  end
-})
-
 -- Python specific settings
 vim.api.nvim_create_autocmd({"BufNewFile", "BufRead"}, {
   pattern = '*.py',
