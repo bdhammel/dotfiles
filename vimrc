@@ -14,8 +14,6 @@ Plug 'altercation/vim-colors-solarized'
 Plug 'itchyny/lightline.vim'
 Plug 'christoomey/vim-tmux-navigator'
 
-Plug 'ctrlpvim/ctrlp.vim'
-
 Plug 'ojroques/vim-oscyank', {'branch': 'main'}
 Plug 'tpope/vim-surround'
 Plug 'chrisbra/vim-diff-enhanced'
@@ -27,8 +25,11 @@ Plug 'gabrielelana/vim-markdown'
 Plug 'vim-scripts/indentpython.vim'
 Plug 'dense-analysis/ale'
 
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+
 if using_neovim
-    Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+    " Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
     " Plug 'github/copilot.vim'
 endif
 
@@ -145,17 +146,6 @@ set nospell
 
 let g:netrw_banner=0
 
-let g:ctrlp_map = '<c-p>'
-let g:ctrlp_cmd = 'CtrlP'
-
-
-let g:ctrlp_custom_ignore = {
-\ 'dir':  '\v[\/]\.(git|hg|svn)$',
-\ 'file': '\v\.(exe|so|dll)$',
-\ 'link': 'some_bad_symbolic_links',
-\ }
-let g:ctrlp_working_path_mode = 'ra'
-
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*/venv/*     " MacOSX/Linux
 
 " =============================================================================== "
@@ -242,3 +232,12 @@ if has('nvim-0.9.0')
     " nvim: https://github.com/neovim/neovim/commit/04fbb1de4488852c3ba332898b17180500f8984e
     set diffopt+=linematch:60
 endif
+
+"=============================================================================
+" Aliases
+"=============================================================================
+
+ca tn tabnew
+ca te Texp
+ca e Exp
+ca f Files

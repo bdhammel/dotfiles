@@ -24,9 +24,9 @@ alias ....='cd ../../..'
 export LSCOLORS=exfxdxDxcxhxhxhxhxExEx
 export GREP_COLOR='1;38;5;136'
 
-export EDITOR=nvim
-export VISUAL=nvim
-export GIT_EDITOR=nvim
+export EDITOR=vim
+export VISUAL=vim
+export GIT_EDITOR=vim
 
 parse_git_branch() {
      git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
@@ -85,7 +85,11 @@ alias up='popd'
 alias flip='pushd_builtin'
 alias web_finder="python3 -m http.server --bind $HOSTNAME"
 alias yank='yank-cli | sed -r "s/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[mGK]//g" | sed "s/\x0f//g" | ~/dotfiles/osc52.sh'
-alias vim='nvim'
+# alias vim='nvim'
 alias ovim='vim $(fzf)'
 alias goto='cd "$(fzf || echo '.')"'
 alias cdh='cd "$(dirs -p | fzf)"'
+
+export VIM_PATH=/scratch/benh/squashfs-root/usr/bin
+alias nvim='$VIM_PATH/nvim'
+alias vim='nvim'
