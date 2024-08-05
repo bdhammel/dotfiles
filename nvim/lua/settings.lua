@@ -1,5 +1,8 @@
 -- Neovim settings
 
+-- Turn off mouse support
+vim.opt.mouse = ""
+
 -- Make backspace behave more consistently across systems / ssh
 vim.opt.backspace = {'indent', 'eol', 'start'}
 

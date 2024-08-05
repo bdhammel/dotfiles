@@ -1,5 +1,4 @@
 return {
-    -- Better syntax highlighting
     'nvim-treesitter/nvim-treesitter',
     lazy = false,
     event = {
@@ -13,7 +12,7 @@ return {
     config = function()
         require('nvim-treesitter.configs').setup({
             ensure_installed = {
-                "cpp", "json", "markdown", "yaml", "diff",
+                "cpp", "json", "markdown", "yaml", "diff", "git_rebase",
                 "gitcommit", "bash", "javascript", "python", "lua",
             },
             sync_install = false,

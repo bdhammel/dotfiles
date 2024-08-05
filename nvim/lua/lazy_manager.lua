@@ -15,9 +15,9 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup({
   { import = "plugins" },
   { import = "plugins.colorschemes" },
-  { "junegunn/fzf", build = "./install --bin" },
-  'junegunn/fzf.vim',
-  }, {
+  { import = "plugins.lsp" },
+},
+{
     checker = {
       enabled = true,
       notify = false,
