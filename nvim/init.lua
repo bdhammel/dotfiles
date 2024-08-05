@@ -1,14 +1,14 @@
 -- Load plugins
-require('config.plugins')
+require('lazy_manager')
 
 -- Basic settings
-require('config.settings')
+require('settings')
 
 -- Key mappings
-require('config.keymaps')
+require('keymaps')
 
 -- Autocommands
-require('config.autocmds')
+require('autocmds')
 
 -- Appearance settings
-require('config.appearance')
+require('appearance')
