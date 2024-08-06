@@ -59,38 +59,7 @@ return {
       config = function()
         local lsp_zero = require('lsp-zero')
 
-        -- vim.lsp.handlers["textDocument/hover"] = function(err, result, ctx, config)
-        --   if err or not result or not result.contents then
-        --     print('No hover information available')
-        --     return
-        --   end
-
-        --   -- Open a new split window
-        --   vim.cmd('split')
-        --   local buf = vim.api.nvim_create_buf(false, true)
-
-        --   local format = 'markdown'
-        --   local contents ---@type string[]
-        --   if type(result.contents) == 'table' and result.contents.kind == 'plaintext' then
-        --     format = 'plaintext'
-        --     contents = vim.split(result.contents.value or '', '\n', { trimempty = true })
-        --   else
-        --     contents = vim.lsp.util.convert_input_to_markdown_lines(result.contents)
-        --   end
-        --   if vim.tbl_isempty(contents) then
-        --     if config.silent ~= true then
-        --       vim.notify('No information available')
-        --     end
-        --     return
-        --   end
-
-        --   markdown_lines = vim.lsp.util.stylize_markdown(buf, contents)
-        --   vim.api.nvim_buf_set_lines(buf, 0, -1, false, markdown_lines)
-        --   vim.api.nvim_win_set_buf(0, buf)
-        --   vim.api.nvim_buf_set_option(buf, 'modifiable', false)
-        -- end
         require('handlers.hover').setup()
-
 
         -- lsp_attach is where you enable features that only work
         -- if there is a language server active in the file
@@ -115,15 +84,26 @@ return {
           capabilities = require('cmp_nvim_lsp').default_capabilities()
         })
 
+        require('mason').setup({})
         require('mason-lspconfig').setup({
-          ensure_installed = {},
+          ensure_installed = {'pyright', 'bashls', 'lua_ls'},
           handlers = {
             -- this first function is the "default handler"
             -- it applies to every language server without a "custom handler"
             function(server_name)
               require('lspconfig')[server_name].setup({})
             end,
-          }
+          },
+          -- custom handler for pyright
+          ['pyright'] = function()
+            require('lspconfig').pyright.setup({
+              settings = {
+                python = {
+                  pythonPath = '/opt/sambanova/bin/python'
+                }
+              }
+            })
+          end,
         })
       end
     }

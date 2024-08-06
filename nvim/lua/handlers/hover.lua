@@ -1,5 +1,7 @@
 local M = {}
 
+local vim = vim 
+
 M.setup = function()
   vim.lsp.handlers["textDocument/hover"] = function(err, result, ctx, config)
     config = config or {}  -- Ensure config is not nil
@@ -42,11 +44,11 @@ M.setup = function()
     -- Set up the contents, using treesitter for markdown
     local do_stylize = format == 'markdown' and vim.g.syntax_on ~= nil
     if do_stylize then
-      contents = vim.split(table.concat(contents, '\n'):gsub('\r', ''):gsum('&nbsp;', ' '), '\n', { trimempty = true })
+      contents = vim.split(table.concat(contents, '\n'):gsub('\r', ''), '\n', { trimempty = true })
 
       vim.bo[buf].filetype = 'markdown'
       api.nvim_buf_set_lines(buf, 0, -1, false, contents)
-      vim.treesitter.start(buf)
+      vim.treesitter.start(buf, 'markdown')
     else
       -- Clean up input: trim empty lines
       contents = vim.split(table.concat(contents, '\n'), '\n', { trimempty = true })

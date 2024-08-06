@@ -26,3 +26,8 @@ vim.opt.smartindent = false
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
 vim.opt.hlsearch = true
+
+-- keymaps
+vim.api.nvim_set_keymap('n', 'j', 'gj', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', 'k', 'gk', { noremap = true, silent = true })
+
