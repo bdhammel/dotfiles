@@ -1,12 +1,20 @@
 local M = {}
 
+local function is_blank_line(line)
+  return line:match("^%s*$") ~= nil
+end
+
+local function is_separator_line(line)
+  return line:match("^%-%-%-$") ~= nil
+end
+
 local function collapse_blank_lines(contents)
   local collapsed = {}
   local l = 1
   while l <= #contents do
     local line = contents[l]
     if is_blank_line(line) then
-      while is_blank_line(contents[l + 1]) do
+      while l + 1 <= #contents and is_blank_line(contents[l + 1]) do
         l = l + 1
       end
     end
@@ -26,7 +34,7 @@ local function replace_separators(contents, divider)
         table.remove(trimmed)
       end
       table.insert(trimmed, divider)
-      if is_blank_line(contents[l + 1]) then
+      if l + 1 <= #contents and is_blank_line(contents[l + 1]) then
         l = l + 1
       end
     else
@@ -34,13 +42,12 @@ local function replace_separators(contents, divider)
     end
     l = l + 1
   end
-
   return trimmed
 end
 
-
 M.setup = function()
   vim.lsp.handlers["textDocument/hover"] = function(err, result, ctx, config)
+    config = config or {}  -- Ensure config is not nil
     local api = vim.api
 
     if api.nvim_get_current_buf() ~= ctx.bufnr then
@@ -62,6 +69,7 @@ M.setup = function()
       contents = vim.split(result.contents.value or '', '\n', { trimempty = true })
     else
       contents = vim.lsp.util.convert_input_to_markdown_lines(result.contents)
+      contents = vim.lsp.util.trim_empty_lines(contents)
     end
 
     if vim.tbl_isempty(contents) then
@@ -79,19 +87,18 @@ M.setup = function()
     -- Set up the contents, using treesitter for markdown
     local do_stylize = format == 'markdown' and vim.g.syntax_on ~= nil
     if do_stylize then
-      -- contents = vim.lsp.util.stylize_markdown(contents, { width = 100})
       contents = vim.split(table.concat(contents, '\n'):gsub('\r', ''), '\n', { trimempty = true })
 
       -- 2. Successive empty lines are collapsed into a single empty line
       contents = collapse_blank_lines(contents)
 
       -- 3. Thematic breaks are expanded to the given width
-      local divider = string.rep('─', opts.width or 80)
+      local divider = string.rep('─', config.width or 80)
       contents = replace_separators(contents, divider)
 
       vim.bo[buf].filetype = 'markdown'
-      vim.treesitter.start(buf)
       api.nvim_buf_set_lines(buf, 0, -1, false, contents)
+      vim.treesitter.start(buf)
     else
       -- Clean up input: trim empty lines
       contents = vim.split(table.concat(contents, '\n'), '\n', { trimempty = true })
