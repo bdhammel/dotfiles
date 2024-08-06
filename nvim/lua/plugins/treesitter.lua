@@ -12,14 +12,11 @@ return {
     config = function()
         require('nvim-treesitter.configs').setup({
             ensure_installed = {
-                "cpp", "json", "markdown", "yaml", "diff", "git_rebase",
+                "cpp", "json", "markdown", "markdown_inline", "yaml", "diff", "git_rebase",
                 "gitcommit", "bash", "javascript", "python", "lua",
             },
             sync_install = false,
             auto_install = true,
-            highlight = {
-                enable = true,
-            },
             indent = {
                 enable = true,
             },

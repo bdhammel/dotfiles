@@ -15,6 +15,12 @@ $ ln -s dotfiles/vim .vim
 
 ## Installing packages w/o sudo
 
+You can install into two different user `bin` locations
+ - `/usr/bin`
+ - `~/bin`
+
+ensure `/usr/bin` is exported into `PATH`
+
 ```
    cd /usr/bin
    wget <url to binary>
@@ -22,7 +28,24 @@ $ ln -s dotfiles/vim .vim
    mv dowloaded-pkg/app app
 ```
 
-ensure `/usr/bin` is exported into `PATH`
+Packages to install
+ - [ripgrep](https://github.com/BurntSushi/ripgrep/releases)
+ - [fzf]
+ - [fd-find]
+ - [yank](https://github.com/mptre/yank/releases)
+ - [bat]
+
+### Install NVIM
+
+Get appimage from here: https://github.com/neovim/neovim-releases/releases
+```
+cd /usr/bin
+wget <url to binary>
+Run chmod u+x nvim.appimage
+ln -s nvim.appimage nvim
+```
+
+
 
 ## Setting up Git
 

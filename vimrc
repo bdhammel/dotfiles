@@ -29,7 +29,7 @@ Plug 'vim-scripts/indentpython.vim'
 Plug 'dense-analysis/ale'
 
 if using_neovim
-    Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+    " Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
     " Plug 'github/copilot.vim'
 endif
 
@@ -237,3 +237,12 @@ if has('nvim-0.9.0')
     " nvim: https://github.com/neovim/neovim/commit/04fbb1de4488852c3ba332898b17180500f8984e
     set diffopt+=linematch:60
 endif
+
+"=============================================================================
+" Aliases
+"=============================================================================
+
+ca tn tabnew
+ca te Texp
+ca e Exp
+ca f Files
