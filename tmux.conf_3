@@ -59,7 +59,14 @@ bind-key c new-window
 bind-key t next-window
 bind-key T previous-window
 
+# Ms modifies OSC 52 clipboard handling to work with mosh, see
+# https://gist.github.com/yudai/95b20e3da66df1b066531997f982b57b
+set -ag terminal-overrides "vte*:XT:Ms=\\E]52;c;%p2%s\\7,xterm*:XT:Ms=\\E]52;c;%p2%s\\7"
+
+# enable OSC 52 clipboard
+# https://medium.freecodecamp.org/tmux-in-practice-integration-with-system-clipboard-bcd72c62ff7b
 set -g set-clipboard on
+set-window-option -g allow-passthrough on
 
 bind-key [ copy-mode
 bind-key ] paste-buffer
