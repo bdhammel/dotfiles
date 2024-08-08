@@ -2,6 +2,21 @@ local M = {}
 
 local vim = vim 
 
+local html_entities = {
+    ["&nbsp;"] = " ",
+    ["&lt;"] = "<",
+    ["&gt;"] = ">",
+    ["&amp;"] = "&",
+    ["&quot;"] = "\"",
+    ["&apos;"] = "'",
+}
+
+-- Function to replace HTML entities
+local function replace_html_entities(str)
+    return (str:gsub("(&%w+;)", html_entities))
+end
+
+
 M.setup = function()
   vim.lsp.handlers["textDocument/hover"] = function(err, result, ctx, config)
     config = config or {}  -- Ensure config is not nil
@@ -44,7 +59,8 @@ M.setup = function()
     -- Set up the contents, using treesitter for markdown
     local do_stylize = format == 'markdown' and vim.g.syntax_on ~= nil
     if do_stylize then
-      contents = vim.split(table.concat(contents, '\n'):gsub('\r', ''), '\n', { trimempty = true })
+      -- Original line with added HTML entity substitution
+      contents = vim.split(table.concat(contents, '\n'):gsub('\r', ''):gsub("(&%w+;)", replace_html_entities), '\n', { trimempty = true })
 
       vim.bo[buf].filetype = 'markdown'
       api.nvim_buf_set_lines(buf, 0, -1, false, contents)
