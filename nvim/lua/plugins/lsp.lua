@@ -87,14 +87,24 @@ return {
         require('mason').setup({})
         require('mason-lspconfig').setup({
           ensure_installed = {'pyright', 'bashls', 'lua_ls'},
-          handlers = {
-            -- this first function is the "default handler"
-            -- it applies to every language server without a "custom handler"
-            function(server_name)
-              require('lspconfig')[server_name].setup({})
-            end,
-          },
-          -- custom handler for pyright
+
+          ['bashls'] = function()
+            require('lspconfig').bashls.setup({
+            })
+          end,
+
+          ['lua_ls'] = function()
+            require('lspconfig').lua_ls.setup({
+              settings = {
+                Lua = {
+                  diagnostics = {
+                    globals = { 'vim' }
+                  }
+                }
+              }
+            })
+          end,
+
           ['pyright'] = function()
             require('lspconfig').pyright.setup({
               settings = {
