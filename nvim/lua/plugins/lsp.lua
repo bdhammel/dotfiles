@@ -99,7 +99,20 @@ return {
             require('lspconfig').pyright.setup({
               settings = {
                 python = {
-                  pythonPath = '/opt/sambanova/bin/python'
+                  pythonPath = '/opt/sambanova/bin/python',
+                  analysis = {
+                    autoSearchPaths = true,
+                    typeCheckingMode = "off",
+                    -- diagnosticMode = "workspace",
+                    -- typeCheckingMode = "basic",
+                    -- useLibraryCodeForTypes = true,
+                    diagnosticSeverityOverrides = {
+                        reportUnusedImport = "none",
+                        reportUnusedClass = "none",
+                        reportUnusedFunction = "none",
+                        reportUnusedVariable = "none",
+                    }
+                  },
                 }
               }
             })
