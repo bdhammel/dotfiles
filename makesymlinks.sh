@@ -43,9 +43,10 @@ setup_git() {
     # Set the global .gitignore script
     echo "Setting git settings"
     git config --global core.excludesfile ~/.gitignore_global
-    git config --global diff.tool vimdiff
+    git config --global 'diff.tool=nvimdiff' difftool
     git config --global difftool.prompt false
     git config --global merge.tool vimdiff
+    git config --global 'merge.tool=nvimdiff' difftool
     git config --global mergetool.keepBackup false
     git config --global init.defaultBranch main
     git config --global rerere.enabled true

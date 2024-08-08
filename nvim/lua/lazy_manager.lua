@@ -14,6 +14,7 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
   { import = "plugins" },
+  { 'chrisbra/vim-diff-enhanced' },
 },
 {
     checker = {
