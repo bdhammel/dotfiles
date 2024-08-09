@@ -85,48 +85,48 @@ return {
         })
 
         require('mason').setup({})
+
         require('mason-lspconfig').setup({
-          ensure_installed = {'pyright', 'bashls', 'lua_ls'},
+          ensure_installed = {'pyright', 'bashls', 'lua_ls', 'yamlls', 'jsonls'},
+        })
 
-          ['bashls'] = function()
-            require('lspconfig').bashls.setup({
-            })
-          end,
 
-          ['lua_ls'] = function()
+          require('mason-lspconfig').setup_handlers({
+
+            require('lspconfig').bashls.setup({}),
+            require('lspconfig').yamlls.setup({}),
+            require('lspconfig').ysonls.setup({}),
+
             require('lspconfig').lua_ls.setup({
               settings = {
                 Lua = {
                   diagnostics = {
-                    -- globals = { 'vim' }
+                    globals = { 'vim' }
                   }
                 }
               }
-            })
-          end,
+            }),
 
-          ['pyright'] = function()
             require('lspconfig').pyright.setup({
-              -- settings = {
-              --   python = {
-              --     pythonPath = '/opt/sambanova/bin/python',
-              --     analysis = {
-              --       -- autoSearchPaths = true,
-              --       -- typeCheckingMode = "off",
-              --       -- diagnosticMode = "workspace",
-              --       -- typeCheckingMode = "basic",
-              --       -- useLibraryCodeForTypes = true,
-              --       -- diagnosticSeverityOverrides = {
-              --       --     reportUnusedImport = "none",
-              --       --     reportUnusedClass = "none",
-              --       --     reportUnusedFunction = "none",
-              --       --     reportUnusedVariable = "none",
-              --       -- }
-              --     },
-              --   }
-              -- }
-            })
-          end,
+              settings = {
+                python = {
+                  pythonPath = '/opt/sambanova/bin/python',
+                  analysis = {
+                    autoSearchPaths = true,
+                    typeCheckingMode = "off",
+                    -- diagnosticMode = "workspace",
+                    -- typeCheckingMode = "basic",
+                    -- useLibraryCodeForTypes = true,
+                    diagnosticSeverityOverrides = {
+                        reportUnusedImport = "none",
+                        reportUnusedClass = "none",
+                        reportUnusedFunction = "none",
+                        reportUnusedVariable = "none",
+                    }
+                  },
+                }
+              }
+            }),
         })
       end
     }
