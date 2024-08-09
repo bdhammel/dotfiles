@@ -98,7 +98,7 @@ return {
               settings = {
                 Lua = {
                   diagnostics = {
-                    globals = { 'vim' }
+                    -- globals = { 'vim' }
                   }
                 }
               }
@@ -107,24 +107,24 @@ return {
 
           ['pyright'] = function()
             require('lspconfig').pyright.setup({
-              settings = {
-                python = {
-                  pythonPath = '/opt/sambanova/bin/python',
-                  analysis = {
-                    autoSearchPaths = true,
-                    typeCheckingMode = "off",
-                    -- diagnosticMode = "workspace",
-                    -- typeCheckingMode = "basic",
-                    -- useLibraryCodeForTypes = true,
-                    diagnosticSeverityOverrides = {
-                        reportUnusedImport = "none",
-                        reportUnusedClass = "none",
-                        reportUnusedFunction = "none",
-                        reportUnusedVariable = "none",
-                    }
-                  },
-                }
-              }
+              -- settings = {
+              --   python = {
+              --     pythonPath = '/opt/sambanova/bin/python',
+              --     analysis = {
+              --       -- autoSearchPaths = true,
+              --       -- typeCheckingMode = "off",
+              --       -- diagnosticMode = "workspace",
+              --       -- typeCheckingMode = "basic",
+              --       -- useLibraryCodeForTypes = true,
+              --       -- diagnosticSeverityOverrides = {
+              --       --     reportUnusedImport = "none",
+              --       --     reportUnusedClass = "none",
+              --       --     reportUnusedFunction = "none",
+              --       --     reportUnusedVariable = "none",
+              --       -- }
+              --     },
+              --   }
+              -- }
             })
           end,
         })
