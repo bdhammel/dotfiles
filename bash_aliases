@@ -43,5 +43,3 @@ HISTFILESIZE=2000
 if [ -f ~/dotfiles/aliases ]; then
     source ~/dotfiles/aliases
 fi
-
-eval "$(fzf --bash)"

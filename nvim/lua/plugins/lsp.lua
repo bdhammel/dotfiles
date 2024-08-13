@@ -95,7 +95,7 @@ return {
 
             require('lspconfig').bashls.setup({}),
             require('lspconfig').yamlls.setup({}),
-            require('lspconfig').ysonls.setup({}),
+            require('lspconfig').jsonls.setup({}),
 
             require('lspconfig').lua_ls.setup({
               settings = {
