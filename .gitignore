@@ -9,3 +9,5 @@ vim/autoload/
 vim/plugged/
 vim/.netrwhist
 *.spl
+venv.*
+nvim/lazy-lock.json

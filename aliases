@@ -1,0 +1,86 @@
+pushd()
+{
+  if [ $# -eq 0 ]; then
+    DIR="${HOME}"
+  else
+    DIR="$1"
+  fi
+
+  builtin pushd "${DIR}" > /dev/null
+}
+
+pushd_builtin()
+{
+  builtin pushd > /dev/null
+}
+
+popd()
+{
+  builtin popd > /dev/null
+}
+
+alias cd='pushd'
+alias up='popd'
+alias flip='pushd_builtin'
+
+alias la="ll -a"
+alias rm="rm -i"
+alias c='clear'
+alias h='history'
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+
+
+
+alias web_finder="python3 -m http.server --bind $HOSTNAME"
+alias yank='yank | sed -r "s/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[mGK]//g" | sed "s/\x0f//g" | ~/dotfiles/osc52.sh'
+alias vim='nvim'
+alias vimdiff='nvim -d'
+
+# make less always work with colored input
+alias less='less -R'
+
+# make watch always work with colored input
+alias watch='watch --color'
+
+if [[ $OSTYPE == linux* ]]; then
+    alias grep="grep --color=auto"
+    alias ls="ls --color"
+    alias ll="ls -lhtU --time-style long-iso"
+else
+    export GREP_OPTIONS='--color=auto'
+    export CLICOLOR=1
+    alias ls="ls"
+    alias ll="ls -lht"
+fi
+
+# Options to fzf command
+export FZF_COMPLETION_OPTS='--border --info=inline'
+
+# Use fd (https://github.com/sharkdp/fd) for listing path candidates.
+# - The first argument to the function ($1) is the base path to start traversal
+# - See the source code (completion.{bash,zsh}) for the details.
+_fzf_compgen_path() {
+  fd --follow --exclude ".git" --exclude "venv*" . "$1"
+}
+
+# Use fd to generate the list for directory completion
+_fzf_compgen_dir() {
+  fd --type d --follow --exclude ".git" --exclude "venv*" . "$1"
+}
+
+# Advanced customization of fzf options via _fzf_comprun function
+# - The first argument to the function is the name of the command.
+# - You should make sure to pass the rest of the arguments to fzf.
+_fzf_comprun() {
+  local command=$1
+  shift
+
+  case "$command" in
+    cd)           fzf --preview 'tree -C {} | head -200'   "$@" ;;
+    export|unset) fzf --preview "eval 'echo \$'{}"         "$@" ;;
+    ssh)          fzf --preview 'dig {}'                   "$@" ;;
+    *)            fzf --preview 'bat -n --color=always {}' "$@" ;;
+  esac
+}

@@ -2,25 +2,6 @@
 # http://bitmote.com/index.php?post/2012/11/19/Using-ANSI-Color-Codes-to-Colorize-Your-Bash-Prompt-on-Linux
 # To use 256 colors, prefix with \e[38;5;#m  (for bg \e[48;5;#m)
 
-if [[ $OSTYPE == linux* ]]; then
-    alias ls="ls --color"
-    alias grep="grep --color=auto"
-	  alias ll="ls -lh  --time-style long-iso"
-else
-    alias ls="ls"
-    export GREP_OPTIONS='--color=auto'
-    export CLICOLOR=1
-	  alias ll="ls -lht"
-fi
-
-alias la="ll -a"
-alias rm="rm -i"
-alias c='clear'
-alias h='history'
-alias ..='cd ..'
-alias ...='cd ../..'
-alias ....='cd ../../..'
-
 export LSCOLORS=exfxdxDxcxhxhxhxhxExEx
 export GREP_COLOR='1;38;5;136'
 
@@ -59,34 +40,6 @@ HISTFILESIZE=2000
 # pip
 # export PIP_REQUIRE_VIRTUALENV=true
 
-pushd()
-{
-  if [ $# -eq 0 ]; then
-    DIR="${HOME}"
-  else
-    DIR="$1"
-  fi
-
-  builtin pushd "${DIR}" > /dev/null
-}
-
-pushd_builtin()
-{
-  builtin pushd > /dev/null
-}
-
-popd()
-{
-  builtin popd > /dev/null
-}
-
-alias cd='pushd'
-alias up='popd'
-alias flip='pushd_builtin'
-alias web_finder="python3 -m http.server --bind $HOSTNAME"
-alias yank='yank-cli | sed -r "s/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[mGK]//g" | sed "s/\x0f//g" | ~/dotfiles/osc52.sh'
-alias vim='nvim'
-alias ovim='vim $(fzf)'
-alias goto='cd "$(fzf || echo '.')"'
-alias cdh='cd "$(dirs -p | fzf)"'
-alias f='cd $(fdfind --type d --hidden --exclude .git --exclude node_module --exclude .cache --exclude .npm --exclude .mozilla --exclude .meteor --exclude .nv | fzf)'
+if [ -f ~/dotfiles/aliases ]; then
+    source ~/dotfiles/aliases
+fi

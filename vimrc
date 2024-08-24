@@ -42,6 +42,8 @@ call plug#end()
 
 filetype plugin indent on    " required
 
+let g:python3_host_prog = '~/dotfiles/venv.nosync/bin/python3'
+
 set encoding=utf-8
 
 " Make backspace behave more consistently across systems / ssh
@@ -134,11 +136,11 @@ hi StatusLineNC    gui=bold ctermfg=231 ctermbg=234 cterm=none
 " Spell Check
 " =============================================================================== "
 
-" set spell
+set spell
 " hi clear SpellBad
 " hi SpellBad cterm=underline ctermfg=red
 
-set nospell
+" set nospell
 
 " =============================================================================== "
 " Finder
@@ -146,18 +148,10 @@ set nospell
 
 let g:netrw_banner=0
 
-let g:ctrlp_map = '<c-p>'
-let g:ctrlp_cmd = 'CtrlP'
-
-
-let g:ctrlp_custom_ignore = {
-\ 'dir':  '\v[\/]\.(git|hg|svn)$',
-\ 'file': '\v\.(exe|so|dll)$',
-\ 'link': 'some_bad_symbolic_links',
-\ }
-let g:ctrlp_working_path_mode = 'ra'
-
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*/venv/*     " MacOSX/Linux
+let g:fzf_vim = {}
+let g:fzf_vim.tags_command = 'ctags -R'
+nmap <C-P> :FZF<CR>
 
 " =============================================================================== "
 " Full stack
@@ -243,3 +237,12 @@ if has('nvim-0.9.0')
     " nvim: https://github.com/neovim/neovim/commit/04fbb1de4488852c3ba332898b17180500f8984e
     set diffopt+=linematch:60
 endif
+
+"=============================================================================
+" Aliases
+"=============================================================================
+
+ca tn tabnew
+ca te Texp
+ca e Exp
+ca f Files
