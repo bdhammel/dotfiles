@@ -14,7 +14,8 @@ Plug 'altercation/vim-colors-solarized'
 Plug 'itchyny/lightline.vim'
 Plug 'christoomey/vim-tmux-navigator'
 
-Plug 'ctrlpvim/ctrlp.vim'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
 
 Plug 'ojroques/vim-oscyank', {'branch': 'main'}
 Plug 'tpope/vim-surround'
@@ -28,7 +29,7 @@ Plug 'vim-scripts/indentpython.vim'
 Plug 'dense-analysis/ale'
 
 if using_neovim
-    Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+    " Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
     " Plug 'github/copilot.vim'
 endif
 
