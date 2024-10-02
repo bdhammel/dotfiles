@@ -1,3 +1,4 @@
 return {
-  'tpope/vim-sensible'
+  'tpope/vim-sensible',
+  lazy = false
 }
