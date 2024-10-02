@@ -30,11 +30,12 @@ alias h='history'
 alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
+alias fd='fdfind'
 
 
 
 alias web_finder="python3 -m http.server --bind $HOSTNAME"
-alias yank='yank | sed -r "s/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[mGK]//g" | sed "s/\x0f//g" | ~/dotfiles/osc52.sh'
+alias yank='yank-cli | sed -r "s/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[mGK]//g" | sed "s/\x0f//g" | ~/dotfiles/osc52.sh'
 alias vim='nvim'
 alias vimdiff='nvim -d'
 

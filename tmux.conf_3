@@ -4,7 +4,7 @@ unbind-key C-a
 bind-key C-a send-prefix
 set -g base-index 1
 
-set-option -g default-terminal tmux-256color
+set-option -g default-terminal xterm-256color
 set-option -g history-limit 5000
 
 # Easy config reload
@@ -61,15 +61,16 @@ bind-key T previous-window
 
 # Ms modifies OSC 52 clipboard handling to work with mosh, see
 # https://gist.github.com/yudai/95b20e3da66df1b066531997f982b57b
-set -ag terminal-overrides "vte*:XT:Ms=\\E]52;c;%p2%s\\7,xterm*:XT:Ms=\\E]52;c;%p2%s\\7"
+# set -ag terminal-overrides "vte*:XT:Ms=\\E]52;c;%p2%s\\7,xterm*:XT:Ms=\\E]52;c;%p2%s\\7"
+# set-option -ag terminal-overrides ",tmux-256color:Ms=\\E]52;c%p1%.0s;%p2%s\\7"
+set-option -ag terminal-overrides ",xterm-256color:Ms=\\E]52;c;%p1%s%p2%s\\7"
 
 # enable OSC 52 clipboard
 # https://medium.freecodecamp.org/tmux-in-practice-integration-with-system-clipboard-bcd72c62ff7b
 set -g set-clipboard on
-set-window-option -g allow-passthrough on
 
 bind-key [ copy-mode
-bind-key ] paste-buffer
+bind-key ] paste-buffer -p
 
 # Setup 'v' to begin selection as in Vim
 unbind-key -T copy-mode-vi Space     ;   bind-key -T copy-mode-vi v send-keys -X begin-selection

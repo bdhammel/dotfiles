@@ -110,7 +110,7 @@ return {
             require('lspconfig').pyright.setup({
               settings = {
                 python = {
-                  pythonPath = '/opt/sambanova/bin/python',
+                  -- pythonPath = '/opt/sambanova/bin/python',
                   analysis = {
                     autoSearchPaths = true,
                     typeCheckingMode = "off",

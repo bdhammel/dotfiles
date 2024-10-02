@@ -13,6 +13,18 @@ vim.opt.swapfile = false
 vim.opt.autoread = true
 
 -- Use system clipboard for copy-pasting
+vim.g.clipboard = {
+  name = 'OSC 52',
+  copy = {
+    ['+'] = require('vim.ui.clipboard.osc52').copy('+'),
+    ['*'] = require('vim.ui.clipboard.osc52').copy('*'),
+  },
+  paste = {
+    ['+'] = require('vim.ui.clipboard.osc52').paste('+'),
+    ['*'] = require('vim.ui.clipboard.osc52').paste('*'),
+  },
+}
+
 vim.opt.clipboard:append({'unnamed', 'unnamedplus'})
 
 -- Tab and indentation settings

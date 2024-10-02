@@ -75,7 +75,12 @@ M.setup = function()
       api.nvim_buf_set_lines(buf, 0, -1, true, contents)
     end
     api.nvim_win_set_buf(0, buf)
+
+    -- Set buffer options
+    vim.bo[buf].modifiable = false
+    vim.bo[buf].bufhidden = 'wipe'
   end
+
 end
 
 return M
