@@ -12,6 +12,21 @@ vim.opt.swapfile = false
 -- Reload files changed outside vim
 vim.opt.autoread = true
 
+-- Use OSC52 for clipboard integration
+if vim.loop.os_getenv("SSH_CONNECTION") then
+  vim.g.clipboard = {
+    name = 'OSC 52',
+    copy = {
+      ['+'] = require('vim.ui.clipboard.osc52').copy('+'),
+      ['*'] = require('vim.ui.clipboard.osc52').copy('*'),
+    },
+    paste = {
+      ['+'] = require('vim.ui.clipboard.osc52').paste('+'),
+      ['*'] = require('vim.ui.clipboard.osc52').paste('*'),
+    },
+  }
+end
+
 -- Use system clipboard for copy-pasting
 vim.opt.clipboard:append({'unnamed', 'unnamedplus'})
 
