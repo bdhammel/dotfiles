@@ -13,16 +13,27 @@ vim.opt.swapfile = false
 vim.opt.autoread = true
 
 -- Use OSC52 for clipboard integration
-if vim.loop.os_getenv("SSH_CONNECTION") then
+if vim.loop.os_getenv("SSH_CONNECTION") or vim.loop.os_getenv("SSH_AUTH_SOCK") then
+  local function paste()
+    return {
+      vim.fn.split(vim.fn.getreg(""), "\n"),
+      vim.fn.getregtype(""),
+    }
+  end
+
   vim.g.clipboard = {
     name = 'OSC 52',
     copy = {
       ['+'] = require('vim.ui.clipboard.osc52').copy('+'),
       ['*'] = require('vim.ui.clipboard.osc52').copy('*'),
     },
+    -- paste = {
+    --   ['+'] = require('vim.ui.clipboard.osc52').paste('+'),
+    --   ['*'] = require('vim.ui.clipboard.osc52').paste('*'),
+    -- },
     paste = {
-      ['+'] = require('vim.ui.clipboard.osc52').paste('+'),
-      ['*'] = require('vim.ui.clipboard.osc52').paste('*'),
+      ['+'] = paste,
+      ['*'] = paste,
     },
   }
 end
