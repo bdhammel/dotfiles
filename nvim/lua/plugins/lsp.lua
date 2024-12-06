@@ -107,10 +107,15 @@ return {
               }
             }),
 
+            -- local python_path = '/opt/sambanova/bin/python'
+            -- local handle = io.popen('test -d ' .. python_path .. ' && echo exists')
+            -- local result = handle:read("*a")
+            -- handle:close()
+
             require('lspconfig').pyright.setup({
               settings = {
                 python = {
-                  -- pythonPath = '/opt/sambanova/bin/python',
+                  pythonPath = '/opt/sambanova/bin/python',
                   analysis = {
                     autoSearchPaths = true,
                     typeCheckingMode = "off",
