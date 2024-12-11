@@ -6,7 +6,7 @@
 
 dir=~/dotfiles                    # dotfiles directory
 olddir=~/dotfiles_old             # old dotfiles backup directory
-files="bash_aliases vimrc vim tmux.conf gitignore_global inputrc zsh_aliases"    # list of files/folders to symlink in homedir
+files=("bash_aliases" "vimrc" "vim" "tmux.conf" "gitignore_global" "inputrc" "zsh_aliases") # list of files/folders to symlink in homedir
 
 create_backup() {
     # Create dotfiles_old in homedir
@@ -20,8 +20,9 @@ install_vim_plug() {
         "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim" && echo "done" || echo "failed"
 }
 
+
 move_and_link_files() {
-    for file in $files; do
+    for file in "${files[@]}"; do # Use "${files[@]}" to loop over array items
         local src="${HOME}/.${file}"
         local dest="$dir/$file"
         if [ -e "$src" ]; then
@@ -36,7 +37,6 @@ move_and_link_files() {
         echo "making .htoprc"
         mkdir -p ~/.config/htop
     fi
-
 }
 
 setup_git() {
