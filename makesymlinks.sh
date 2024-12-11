@@ -40,13 +40,12 @@ move_and_link_files() {
 }
 
 setup_git() {
-    # Set the global .gitignore script
     echo "Setting git settings"
     git config --global core.excludesfile ~/.gitignore_global
-    git config --global 'diff.tool=nvimdiff' difftool
+    git config --global diff.tool nvimdiff
     git config --global difftool.prompt false
     git config --global merge.tool vimdiff
-    git config --global 'merge.tool=nvimdiff' difftool
+    git config --global merge.tool nvimdiff
     git config --global mergetool.keepBackup false
     git config --global init.defaultBranch main
     git config --global rerere.enabled true
@@ -54,9 +53,8 @@ setup_git() {
     git config --global branch.sort -committerdate
     git config --global alias.blame "blame -w -C -C -C"
     git config --global alias.graph "log --oneline --branches --graph --decorate"
-    git config --global alias.fpush push --force-with-lease
+    git config --global alias.fpush "push --force-with-lease"
 }
-
 
 setup_new_files() {
     ln -s $dir/htoprc ~/.config/htop/htoprc
