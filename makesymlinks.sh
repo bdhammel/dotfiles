@@ -14,13 +14,6 @@ create_backup() {
     mkdir -p "$olddir" && echo "done" || echo "failed"
 }
 
-install_vim_plug() {
-    echo -n "Installing Plug ..."
-    curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}/nvim/site/autoload/plug.vim" --create-dirs \
-        "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim" && echo "done" || echo "failed"
-}
-
-
 move_and_link_files() {
     for file in "${files[@]}"; do # Use "${files[@]}" to loop over array items
         local src="${HOME}/.${file}"
@@ -76,14 +69,11 @@ setup_new_files() {
 
 main() {
     create_backup
-    cd "$dir" || exit
-    install_vim_plug
     cd ~ || exit
     move_and_link_files
     cd ~ || exit
     setup_new_files
     setup_git
-    echo "Remember to install vim packages with :PlugInstall"
 }
 
 

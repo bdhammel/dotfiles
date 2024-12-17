@@ -60,8 +60,9 @@ zstyle ':completion:*' use-cache on
 zstyle ':completion:*' cache-path ~/.zsh/cache
 autoload -Uz compinit && compinit
 
-eval "$(fzf --zsh)"
-
 if [ -f ~/dotfiles/aliases ]; then
     source ~/dotfiles/aliases
 fi
+
+eval "$(/opt/homebrew/bin/fzf --zsh)"
+

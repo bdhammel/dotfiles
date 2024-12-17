@@ -11,3 +11,8 @@ vim.opt.linebreak = true
 
 vim.opt.spelllang = 'en_us'
 vim.opt.spell = true
+
+vim.cmd.colorscheme 'solarized'
+-- vim.cmd.colorscheme 'github_dark_colorblind'
+-- vim.cmd.colorscheme 'carbonfox'
+
