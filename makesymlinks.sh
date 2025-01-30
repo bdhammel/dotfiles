@@ -1,12 +1,14 @@
 #!/usr/bin/env bash
 
+set -e  # Exit immediately if a command exits with a non-zero status
+
 ############################
 # .make.sh
 # This script creates symlinks from the home directory to any desired dotfiles in ~/dotfiles
 
 dir=~/dotfiles                    # dotfiles directory
 olddir=~/dotfiles_old             # old dotfiles backup directory
-files=("bash_aliases" "vimrc" "vim" "tmux.conf" "gitignore_global" "inputrc" "zsh_aliases") # list of files/folders to symlink in homedir
+files=("bash_aliases" "vimrc" "vim" "tmux.conf" "gitignore_global" "inputrc" "zsh_aliases" "pdbrc" "pdbrc.py") # list of files/folders to symlink in homedir
 
 create_backup() {
     # Create dotfiles_old in homedir
@@ -29,6 +31,11 @@ move_and_link_files() {
     if [ ! -d ~/.config/htop/ ]; then
         echo "making .htoprc"
         mkdir -p ~/.config/htop
+    fi
+
+    if [ ! -d ~/.config/nvim/ ]; then
+        echo "Creating symlink for nvim config"
+        ln -s "$dir/nvim" ~/.config/nvim
     fi
 }
 

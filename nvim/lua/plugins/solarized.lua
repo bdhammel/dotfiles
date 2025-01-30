@@ -15,8 +15,5 @@ return {
         }
       end,
     })
-    vim.g.lightline = {
-      colorscheme = 'selenized_black'
-    }
   end,
 }

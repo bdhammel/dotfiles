@@ -69,6 +69,7 @@ docs/_build/
 
 # github
 *.orig
+worktree
 
 # misc
 tags

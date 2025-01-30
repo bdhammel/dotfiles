@@ -13,6 +13,10 @@ vim.opt.spelllang = 'en_us'
 vim.opt.spell = true
 
 vim.cmd.colorscheme 'solarized'
+vim.g.lightline = {
+  colorscheme = 'selenized_black'
+}
+
 -- vim.cmd.colorscheme 'github_dark_colorblind'
--- vim.cmd.colorscheme 'carbonfox'
+-- vim.cmd.colorscheme 'nightfox'
 

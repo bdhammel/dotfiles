@@ -6,7 +6,8 @@ return {
       -- Everything defined under `all` will be applied to each style.
       all = {
         bg1 = "#000000", -- Black background
-        fg1 = "#c7c7c7", -- Black background
+        -- fg1 = "#000000" -- "#c7c7c7", -- grey
+        white = "#c7c7c7"
       },
       duskfox = {
         -- bg1 = "#000000", -- Black background
@@ -28,6 +29,6 @@ return {
 
     require("nightfox").setup({ palettes = palettes, specs = specs })
 
-    vim.g.lightline = { colorscheme = "carbonfox" } -- Or the name of colorscheme you use
+    vim.g.lightline = { colorscheme = "nightfox" }
   end,
 }
