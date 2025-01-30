@@ -155,4 +155,9 @@ ln -s nvim.appimage nvim
 ```
 
 
+## Quick setup
+
+```
+wget https://raw.githubusercontent.com/bdhammel/dotfiles/master/quick_setup.sh | bash
+```
 
