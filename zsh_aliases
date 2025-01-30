@@ -51,7 +51,7 @@ export LSCOLORS=exfxdxDxcxhxhxhxhxExEx
 export GREP_COLOR='1;38;5;136'
 
 # pip
-export PIP_REQUIRE_VIRTUALENV=true
+# export PIP_REQUIRE_VIRTUALENV=true
 
 # Auto completion
 # http://lethalman.blogspot.com/2009/10/speeding-up-zsh-completion.html
