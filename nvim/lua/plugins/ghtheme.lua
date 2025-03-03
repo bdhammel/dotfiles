@@ -7,10 +7,12 @@ return {
   config = function()
     local palettes = {
       -- Everything defined under `all` will be applied to each style.
-      all = {
+      github_dark_colorblind = {
         bg0 = "#000000", -- Black background
+        bg1 = "#000000", -- Black background
       }
     }
     require("github-theme").setup({ palettes = palettes })
   end,
 }
+

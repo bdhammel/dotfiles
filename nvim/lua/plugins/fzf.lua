@@ -7,13 +7,20 @@ return {
       { "fzf-native" },
       { defaults = { file_icons = false } }
     )
+
+    -- Function to determine the Git root directory
+    local function get_git_root()
+      local handle = io.popen("git rev-parse --show-toplevel 2>/dev/null")
+      local result = handle and handle:read("*a") or ""
+      if handle then handle:close() end
+      result = result:gsub("\n", "") -- Trim newline
+      return result ~= "" and result or "~/dev"
+    end
+
     vim.keymap.set("n", "<c-P>", function()
       vim.cmd('tabnew') -- Open a new tab
-      local software_home = os.getenv("SOFTWARE_HOME")
-      if not software_home or software_home == "" then
-        software_home = "~/Documents" -- default location
-      end
-      require('fzf-lua').files({ cwd=software_home })
+      local software_home = get_git_root() -- Determine software_home dynamically
+      require('fzf-lua').files({ cwd = software_home })
     end, { desc = "Fzf Files" })
   end
 }
