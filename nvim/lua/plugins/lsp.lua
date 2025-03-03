@@ -87,7 +87,9 @@ return {
         require('mason').setup({})
 
         require('mason-lspconfig').setup({
-          ensure_installed = {'pyright', 'bashls', 'lua_ls', 'yamlls', 'jsonls'},
+          ensure_installed = {
+            'pyright', 'bashls', 'lua_ls', 'yamlls', 'jsonls',
+          }
         })
 
 
@@ -113,9 +115,9 @@ return {
                   -- pythonPath = '/opt/sambanova/bin/python',
                   analysis = {
                     autoSearchPaths = true,
-                    typeCheckingMode = "off",
+                    typeCheckingMode = "basic",
+                    -- typeCheckingMode = "off",
                     -- diagnosticMode = "workspace",
-                    -- typeCheckingMode = "basic",
                     -- useLibraryCodeForTypes = true,
                     diagnosticSeverityOverrides = {
                         reportUnusedImport = "none",
