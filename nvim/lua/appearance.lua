@@ -12,7 +12,7 @@ vim.opt.linebreak = true
 vim.opt.spelllang = 'en_us'
 vim.opt.spell = true
 
-vim.cmd.colorscheme 'solarized'
+vim.cmd.colorscheme 'visual_studio_code'
 vim.g.lightline = {
   colorscheme = 'selenized_black'
 }
