@@ -39,6 +39,7 @@ move_and_link_files() {
     fi
 }
 
+
 setup_git() {
     echo "Setting git settings"
     git config --global core.excludesfile ~/.gitignore_global
@@ -54,7 +55,23 @@ setup_git() {
     git config --global alias.blame "blame -w -C -C -C"
     git config --global alias.graph "log --oneline --branches --graph --decorate"
     git config --global alias.fpush "push --force-with-lease"
+    
+    # Additional configurations
+    git config --global color.ui auto
+    git config --global core.editor nvim
+    git config --global pull.rebase false
+    git config --global fetch.prune true
+    git config --global alias.st "status"
+    git config --global alias.co "checkout"
+    git config --global alias.ci "commit"
+    git config --global alias.br "branch"
+    git config --global alias.lg "log --oneline --graph --decorate --all"
+    git config --global alias.unstage "reset HEAD --"
+    git config --global alias.last "log -1 HEAD"
+    git config --global alias.visual "!gitk"
+    git config --global push.default simple
 }
+
 
 setup_new_files() {
     ln -s $dir/htoprc ~/.config/htop/htoprc
