@@ -88,47 +88,85 @@ return {
 
         require('mason-lspconfig').setup({
           ensure_installed = {
-            'pyright', 'bashls', 'lua_ls', 'yamlls', 'jsonls',
+            'basedpyright', 'ruff', 'pyright', 'bashls', 'lua_ls', 'yamlls', 'jsonls', 'rust_analyzer',
           }
         })
 
+        require('mason-lspconfig').setup_handlers({
 
-          require('mason-lspconfig').setup_handlers({
+          require('lspconfig').bashls.setup({}),
+          require('lspconfig').yamlls.setup({}),
+          require('lspconfig').jsonls.setup({}),
 
-            require('lspconfig').bashls.setup({}),
-            require('lspconfig').yamlls.setup({}),
-            require('lspconfig').jsonls.setup({}),
+          require('lspconfig').lua_ls.setup({
+            settings = {
+              Lua = {
+                diagnostics = {
+                  globals = { 'vim' }
+                }
+              }
+            }
+          }),
 
-            require('lspconfig').lua_ls.setup({
-              settings = {
-                Lua = {
-                  diagnostics = {
-                    globals = { 'vim' }
+          vim.api.nvim_create_autocmd("LspAttach", {
+            group = vim.api.nvim_create_augroup('lsp_attach_disable_ruff_hover', { clear = true }),
+            callback = function(args)
+              local client = vim.lsp.get_client_by_id(args.data.client_id)
+              if client == nil then
+                return
+              end
+              if client.name == 'ruff' then
+                -- Disable hover in favor of Pyright
+                client.server_capabilities.hoverProvider = false
+              end
+            end,
+            desc = 'LSP: Disable hover capability from Ruff',
+          }),
+
+          -- require('lspconfig').ruff.setup({
+          --   init_options = {
+          --     settings = {
+          --       args = {},
+          --     }
+          --   }
+          -- }),
+
+          require('lspconfig').pyright.setup({
+            settings = {
+              pright = {
+                disableOrganizeImports = true,
+                disableTaggedHints = true,
+              },
+              python = {
+                -- pythonPath = '/opt/sambanova/bin/python',
+                analysis = {
+                  -- Ignore all files for analysis to exclusively use Ruff for linting
+                  typeCheckingMode = "basic",
+                  diagnosticMode = "workspace",
+                  diagnosticSeverityOverrides = {
+                      reportUnusedImport = "none",
+                      reportUnusedClass = "none",
+                      reportUnusedFunction = "none",
+                      reportUnusedVariable = "none",
                   }
-                }
+                  -- diagnosticSeverityOverrides = {
+                  --   reportUnusedVariable = "none",
+                  -- }
+                  -- ignore = { '*' },
+                  -- autoSearchPaths = true,
+                  -- -- typeCheckingMode = "off",
+                  -- -- diagnosticMode = "workspace",
+                  -- -- useLibraryCodeForTypes = true,
+                  -- diagnosticSeverityOverrides = {
+                  --     reportUnusedImport = "none",
+                  --     reportUnusedClass = "none",
+                  --     reportUnusedFunction = "none",
+                  --     reportUnusedVariable = "none",
+                  -- }
+                },
               }
-            }),
-
-            require('lspconfig').pyright.setup({
-              settings = {
-                python = {
-                  -- pythonPath = '/opt/sambanova/bin/python',
-                  analysis = {
-                    autoSearchPaths = true,
-                    typeCheckingMode = "basic",
-                    -- typeCheckingMode = "off",
-                    -- diagnosticMode = "workspace",
-                    -- useLibraryCodeForTypes = true,
-                    diagnosticSeverityOverrides = {
-                        reportUnusedImport = "none",
-                        reportUnusedClass = "none",
-                        reportUnusedFunction = "none",
-                        reportUnusedVariable = "none",
-                    }
-                  },
-                }
-              }
-            }),
+            }
+          }),
         })
       end
     }
