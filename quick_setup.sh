@@ -31,3 +31,10 @@ if command -v tmux &> /dev/null; then
 else
     echo "tmux is not installed, skipping tmux configuration download."
 fi
+
+# Set up basic aliases
+echo 'alias grep="grep --color=auto"' >> ~/.bashrc
+echo 'alias ls="ls --color"' >> ~/.bashrc
+echo 'alias ll="ls -lhtU --time-style long-iso"' >> ~/.bashrc
+echo 'alias la="ll -a"' >> ~/.bashrc
+echo "Added basic aliases to ~/.bashrc"
