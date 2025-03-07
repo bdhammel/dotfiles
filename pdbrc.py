@@ -8,6 +8,8 @@ IRRELEVANT_HISTORY = set([
 
 class Config(pdb.DefaultConfig):
 
+    sticky_by_default = False
+
     def setup(self, pdb):
         # Save history across sessions
         histfile_path = Path("~/.pdb-pyhist").expanduser()
