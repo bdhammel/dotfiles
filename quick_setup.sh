@@ -8,16 +8,6 @@ else
     echo ".vimrc already exists, skipping download."
 fi
 
-# Set vi key bindings for the current shell session
-set -o vi
-echo "Set vi key bindings."
-
-# Ensure vi mode is set in future shell sessions by adding to ~/.bashrc
-if ! grep -q "set -o vi" ~/.bashrc; then
-    echo "set -o vi" >> ~/.bashrc
-    echo "Added vi key bindings to ~/.bashrc"
-fi
-
 # Check tmux version and download appropriate config
 if command -v tmux &> /dev/null; then
     tmux_version=$(tmux -V | grep -o -E '[0-9]+\.[0-9]+')
@@ -31,6 +21,13 @@ if command -v tmux &> /dev/null; then
 else
     echo "tmux is not installed, skipping tmux configuration download."
 fi
+
+# Set vi key bindings for the current shell session
+set -o vi
+echo "Set vi key bindings."
+
+# Ensure vi mode is set in future shell sessions by adding to ~/.bashrc
+echo "set -o vi" >> ~/.bashrc
 
 # Set up basic aliases
 echo 'alias grep="grep --color=auto"' >> ~/.bashrc

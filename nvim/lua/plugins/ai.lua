@@ -6,13 +6,47 @@ return {
     "nvim-treesitter/nvim-treesitter",
   },
   opts = {
+     adapters = {
+      openai_chat = function()
+        return require("codecompanion.adapters").extend("openai", {
+          schema = {
+            -- model = { default = "o3-mini-2025-01-31" },
+          },
+        })
+      end,
+    },
     strategies = {
-      -- Change the default chat adapter
       chat = {
-        adapter = "copilot",
+        adapter = "openai_chat",
+        tools = {
+          ["code_edit"] = {
+            callback = "users.code_edit",
+            description = "Update a buffer with the LLM's response",
+          },
+        },
+        slash_commands = {
+          ["file"] = {
+            -- Location to the slash command in CodeCompanion
+            callback = "strategies.chat.slash_commands.file",
+            description = "Select a file using fzf",
+            opts = {
+              provider = "fzf_lua",
+              contains_code = true,
+            },
+          },
+          ["buffer"] = {
+            -- Location to the slash command in CodeCompanion
+            callback = "strategies.chat.slash_commands.buffer",
+            description = "Select a buffer using fzf",
+            opts = {
+              provider = "fzf_lua",
+              contains_code = true,
+            },
+          },
+        },
       },
       inline = {
-        adapter = "copilot",
+        adapter = "openai",
       },
     },
   }

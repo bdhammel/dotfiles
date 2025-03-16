@@ -88,15 +88,14 @@ return {
 
         require('mason-lspconfig').setup({
           ensure_installed = {
-            'basedpyright', 'ruff', 'pyright', 'bashls', 'lua_ls', 'yamlls', 'jsonls', 'rust_analyzer',
+            'basedpyright', 'ruff', 'pyright', 'bashls', 'lua_ls', 'spectral', 'rust_analyzer',
           }
         })
 
         require('mason-lspconfig').setup_handlers({
 
           require('lspconfig').bashls.setup({}),
-          require('lspconfig').yamlls.setup({}),
-          require('lspconfig').jsonls.setup({}),
+          require('lspconfig').spectral.setup({}),
 
           require('lspconfig').lua_ls.setup({
             settings = {
@@ -167,6 +166,7 @@ return {
               }
             }
           }),
+        lsp_zero.setup()
         })
       end
     }

@@ -15,6 +15,7 @@ return {
         "cpp", "json", "markdown", "markdown_inline", "yaml", "diff", "git_rebase",
         "gitcommit", "bash", "javascript", "python", "lua", "html", "css",
       },
+
       sync_install = false,
       auto_install = true,
       highlight = {
