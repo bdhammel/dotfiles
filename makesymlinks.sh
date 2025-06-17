@@ -10,6 +10,78 @@ dir=~/dotfiles                    # dotfiles directory
 olddir=~/dotfiles_old             # old dotfiles backup directory
 files=("bash_aliases" "vimrc" "vim" "tmux.conf" "gitignore_global" "inputrc" "zsh_aliases" "pdbrc" "pdbrc.py") # list of files/folders to symlink in homedir
 
+# Add shell specific rc file
+case "$(detect_shell)" in
+    zsh)
+        files+=("zshrc")
+        ;;
+    *)
+        files+=("bashrc")
+        ;;
+esac
+
+detect_shell() {
+    basename "$SHELL"
+}
+
+detect_os() {
+    local os="$(uname)"
+    case "$os" in
+        Darwin)
+            echo "macos"
+            ;;
+        Linux)
+            if [ -f /etc/os-release ]; then
+                . /etc/os-release
+                case "$ID" in
+                    ubuntu)
+                        echo "ubuntu"
+                        ;;
+                    rhel|centos)
+                        echo "redhat"
+                        ;;
+                    *)
+                        echo "linux"
+                        ;;
+                esac
+            else
+                echo "linux"
+            fi
+            ;;
+        *)
+            echo "unknown"
+            ;;
+    esac
+}
+
+os_specific_setup() {
+    local os_name
+    os_name=$(detect_os)
+    case "$os_name" in
+        macos)
+            echo "macOS detected"
+            if command -v brew >/dev/null 2>&1; then
+                xargs brew install < "$dir/brew_requirements.txt"
+            fi
+            ;;
+        ubuntu)
+            echo "Ubuntu detected"
+            if command -v apt-get >/dev/null 2>&1; then
+                sudo apt-get update
+            fi
+            ;;
+        redhat)
+            echo "RedHat detected"
+            if command -v yum >/dev/null 2>&1; then
+                sudo yum update -y
+            fi
+            ;;
+        *)
+            echo "OS $os_name not specifically handled"
+            ;;
+    esac
+}
+
 create_backup() {
     # Create dotfiles_old in homedir
     echo -n "Creating $olddir for backup of any existing dotfiles in ~ ..."
@@ -98,6 +170,7 @@ main() {
     cd ~ || exit
     setup_new_files
     setup_git
+    os_specific_setup
 }
 
 
