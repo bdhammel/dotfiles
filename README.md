@@ -101,27 +101,6 @@ https://blog.gitbutler.com/git-tips-2-new-stuff-in-git/
 
 https://github.com/tmux/tmux/wiki/Clipboard#quick-summary
 
-## Setting up without sudo?
-
-install to location `/home/<user>/bin`
-
-cite: https://medium.com/thelinux/the-correct-way-to-install-the-neovim-42f3076f9b88
-```
-cd /home/$(whoami)/bin
-curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim.appimage
-chmod u+x nvim.appimage
-```
-to get tmux:
-cite: https://github.com/nelsonenzo/tmux-appimage
-```
-curl -s https://api.github.com/repos/nelsonenzo/tmux-appimage/releases/latest \
-| grep "browser_download_url.*appimage" \
-| cut -d : -f 2,3 \
-| tr -d \" \
-| wget -qi - \
-&& chmod +x tmux.appimage
-```
-
 ## Installing packages w/o sudo
 
 You can install into two different user `bin` locations
@@ -135,24 +114,22 @@ ensure `/usr/bin` is exported into `PATH`
    wget <url to binary>
    tar -zxvf download-pkg
    mv dowloaded-pkg/app app
+   # or
+   ln -s nvim.appimage nvim
 ```
 
 Packages to install
  - [ripgrep](https://github.com/BurntSushi/ripgrep/releases)
- - [fzf]
+ - [tmux](https://api.github.com/repos/nelsonenzo/tmux-appimage/releases/latest)
+ - [nvim](https://github.com/neovim/neovim-releases/releases)
+ - [fzf](https://github.com/junegunn/fzf/releases/)
  - [fd-find]
  - [yank](https://github.com/mptre/yank/releases)
  - [bat]
 
-### Install NVIM
-
-Get appimage from here: https://github.com/neovim/neovim-releases/releases
-```
-cd /usr/bin
-wget <url to binary>
-Run chmod u+x nvim.appimage
-ln -s nvim.appimage nvim
-```
+To know which arch to download, run `name -m`
+•	If output is x86_64, linux_amd64 is correct.
+•	If aarch64 or similar, use linux_arm64.
 
 
 ## Quick setup
