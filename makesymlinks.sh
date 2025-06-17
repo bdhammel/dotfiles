@@ -8,7 +8,7 @@ set -e  # Exit immediately if a command exits with a non-zero status
 
 dir=~/dotfiles                    # dotfiles directory
 olddir=~/dotfiles_old             # old dotfiles backup directory
-files=("bash_aliases" "vimrc" "vim" "tmux.conf" "gitignore_global" "inputrc" "zsh_aliases" "pdbrc" "pdbrc.py") # list of files/folders to symlink in homedir
+files=("bash_aliases" "vimrc" "vim" "gitignore_global" "inputrc" "zsh_aliases" "pdbrc" "pdbrc.py") # list of files/folders to symlink in homedir
 
 create_backup() {
     # Create dotfiles_old in homedir
@@ -39,6 +39,39 @@ move_and_link_files() {
     fi
 }
 
+setup_tmux_config() {
+    local src="${HOME}/.tmux.conf"
+    local tmux_conf_file="tmux.conf_2"  # default to version 2 config
+    
+    # Check if tmux is installed
+    if command -v tmux >/dev/null 2>&1; then
+        # Get tmux version and extract major version number
+        local tmux_version_output
+        tmux_version_output=$(tmux -V 2>/dev/null || echo "tmux 2.0")
+        local major_version
+        major_version=$(echo "$tmux_version_output" | sed -n 's/tmux \([0-9]*\).*/\1/p')
+        
+        if [[ "$major_version" =~ ^[0-9]+$ ]] && [ "$major_version" -gt 3 ]; then
+            tmux_conf_file="tmux.conf_3"
+            echo "Detected tmux version $major_version (>3), using tmux.conf_3"
+        else
+            echo "Detected tmux version $major_version (<=3), using tmux.conf_2"
+        fi
+    else
+        echo "tmux not found, defaulting to tmux.conf_2"
+    fi
+    
+    # Handle existing .tmux.conf file
+    if [ -e "$src" ]; then
+        echo "Moving existing .tmux.conf from ~ to $olddir"
+        mv "$src" "$olddir"
+    fi
+    
+    # Create symlink to appropriate tmux config
+    local dest="$dir/$tmux_conf_file"
+    echo "Creating symlink to $tmux_conf_file in home directory."
+    ln -s "$dest" "$src"
+}
 
 setup_git() {
     echo "Setting git settings"
@@ -95,6 +128,7 @@ main() {
     create_backup
     cd ~ || exit
     move_and_link_files
+    setup_tmux_config
     cd ~ || exit
     setup_new_files
     setup_git

@@ -8,7 +8,7 @@ IRRELEVANT_HISTORY = set([
 
 class Config(pdb.DefaultConfig):
 
-    sticky_by_default = False
+    sticky_by_default = True
 
     def setup(self, pdb):
         # Save history across sessions
