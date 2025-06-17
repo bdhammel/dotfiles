@@ -11,6 +11,9 @@ set -g pane-base-index 1
 set-window-option -g pane-base-index 1
 set-option -g renumber-windows on
 
+# Increase history limit for better scrollback
+set -g history-limit 50000
+
 set -g @plugin 'tmux-plugins/tpm'
 set -g @plugin 'tmux-plugins/tmux-sensible'
 set -g @plugin 'christoomey/vim-tmux-navigator'
