@@ -1,4 +1,4 @@
-import pdb
+import pdbp
 import readline
 from pathlib import Path
 
@@ -6,11 +6,11 @@ IRRELEVANT_HISTORY = set([
     'n', 'l', 'll', 'l.', 's', 'r', 'c', None
 ])
 
-class Config(pdb.DefaultConfig):
+class Config(pdbp.DefaultConfig):
 
     sticky_by_default = True
 
-    def setup(self, pdb):
+    def setup(self, pdbp):
         # Save history across sessions
         histfile_path = Path("~/.pdb-pyhist").expanduser()
 

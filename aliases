@@ -34,10 +34,22 @@ alias ....='cd ../../..'
 # Git aliases
 alias gpu='git push -u origin $(git branch --show-current)'
 alias gfp='git fetch --prune'
+alias gfm='git fetch && git merge origin/main'
 alias gclean='git clean -fd'
 alias gundo='git reset --soft HEAD~1'
 alias glgraph='git log --oneline --graph --decorate --all'
 alias groot='cd $(git rev-parse --show-toplevel)'
+
+# Git worktree helpers
+gwt() {
+  git pull && git worktree add -b "benh/$1" "../$1" && tmux new-window -n "$1" -c "../$1"
+}
+
+grmwt() {
+  git worktree list | fzf | awk '{print $1}' | xargs git worktree remove --force
+}
+
+alias grmlck='rm -f "$(git rev-parse --git-path index.lock)"'
 
 alias web_finder="python3 -m http.server --bind $HOSTNAME"
 alias yank='yank | sed -r "s/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[mGK]//g" | sed "s/\x0f//g" | ~/dotfiles/osc52.sh'
@@ -91,3 +103,5 @@ _fzf_comprun() {
     *)            fzf --preview 'bat -n --color=always {}' "$@" ;;
   esac
 }
+
+alias clauded="claude --dangerously-skip-permissions"
