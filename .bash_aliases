@@ -34,6 +34,6 @@ HISTFILESIZE=100000
 # pip
 # export PIP_REQUIRE_VIRTUALENV=true
 
-if [ -f ~/dotfiles/aliases ]; then
-    source ~/dotfiles/aliases
+if [ -f ~/dotfiles/.aliases ]; then
+    source ~/dotfiles/.aliases
 fi
