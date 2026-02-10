@@ -8,7 +8,7 @@ set -e  # Exit immediately if a command exits with a non-zero status
 
 dir=~/dotfiles                    # dotfiles directory
 olddir=~/dotfiles_old             # old dotfiles backup directory
-files=("bash_aliases" "vimrc" "vim" "gitignore_global" "inputrc" "zsh_aliases" "pdbrc" "pdbrc.py") # list of files/folders to symlink in homedir
+files=("bash_aliases" "vimrc" "vim" "gitignore_global" "inputrc" "zsh_aliases" "pdbrc" "pdbrc.py" "aliases") # list of files/folders to symlink in homedir
 
 create_backup() {
     # Create dotfiles_old in homedir
@@ -107,20 +107,26 @@ setup_git() {
 
 
 setup_new_files() {
-    ln -s $dir/htoprc ~/.config/htop/htoprc
+    if [ ! -L ~/.config/htop/htoprc ]; then
+        ln -s $dir/htoprc ~/.config/htop/htoprc
+    fi
 
-    # Create a directory for vim temporary files 
+    # Create a directory for vim temporary files
     echo "making vim_tmp dir"
     mkdir -p ~/.vim_tmp
 
     # Set the global .gitignore script
-    echo "Setting up ipython evn" 
+    echo "Setting up ipython env"
     if [ ! -d ~/.ipython/profile_default/ ]; then
         echo "making .ipython dir"
         mkdir -p ~/.ipython/profile_default/startup/
     fi
-    ln -s $dir/ipython/profile_default/ipython_config.py ~/.ipython/profile_default/ipython_config.py
-    ln -s $dir/ipython/profile_default/startup/ipython_startup.py ~/.ipython/profile_default/startup/ipython_startup.py
+    if [ ! -L ~/.ipython/profile_default/ipython_config.py ]; then
+        ln -s $dir/ipython/profile_default/ipython_config.py ~/.ipython/profile_default/ipython_config.py
+    fi
+    if [ ! -L ~/.ipython/profile_default/startup/ipython_startup.py ]; then
+        ln -s $dir/ipython/profile_default/startup/ipython_startup.py ~/.ipython/profile_default/startup/ipython_startup.py
+    fi
 }
 
 

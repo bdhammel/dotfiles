@@ -1,3 +1,12 @@
+# Shared exports (used by both bash and zsh)
+export EDITOR='nvim'
+export VISUAL='nvim'
+export GIT_EDITOR='nvim'
+
+# Colors
+export LSCOLORS=exfxdxDxcxhxhxhxhxExEx
+export GREP_COLOR='1;38;5;136'
+
 pushd()
 {
   if [ $# -eq 0 ]; then
@@ -52,7 +61,7 @@ grmwt() {
 alias grmlck='rm -f "$(git rev-parse --git-path index.lock)"'
 
 alias web_finder="python3 -m http.server --bind $HOSTNAME"
-alias yank='yank | sed -r "s/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[mGK]//g" | sed "s/\x0f//g" | ~/dotfiles/osc52.sh'
+alias yank='yank | sed -r "s/\x1B\[([0-9]{1,3}(;[0-9]{1,3})*)?[mGKHf]//g; s/\x0f//g" | ${DOTFILES:-$HOME/dotfiles}/osc52.sh'
 alias vim='nvim'
 alias vo='vim -c "FzfLua files"'
 alias vimdiff='nvim -d'
@@ -68,7 +77,8 @@ if [[ $OSTYPE == linux* ]]; then
     alias ls="ls --color"
     alias ll="ls -lhtU --time-style long-iso"
 else
-    export GREP_OPTIONS='--color=auto'
+    # macOS
+    alias grep="grep --color=auto"
     export CLICOLOR=1
     alias ls="ls"
     alias ll="ls -lht"
@@ -105,3 +115,20 @@ _fzf_comprun() {
 }
 
 alias clauded="claude --dangerously-skip-permissions"
+
+# Pager
+export PAGER=less
+
+# Python
+export PIP_REQUIRE_VIRTUALENV=true
+export PYTHONBREAKPOINT="pdbp.set_trace"
+
+# Utility function to set up a Python virtual environment
+setup_venv() {
+    UV_PYTHON=$(which python) uv venv
+    source .venv/bin/activate
+    python -m ensurepip --upgrade
+    python -m pip install --upgrade pip uv
+    rehash
+    uv pip install ipython pdbp
+}

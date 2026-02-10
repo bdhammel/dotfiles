@@ -1,3 +1,28 @@
+# Locale
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
+
+# Shell behavior
+setopt no_beep
+setopt INC_APPEND_HISTORY
+setopt auto_pushd
+
+# Vi mode
+bindkey -v
+bindkey -r '^L'
+
+# Vi mode yank to system clipboard (cross-platform)
+function vi-yank-xclip {
+    zle vi-yank
+    if command -v pbcopy &>/dev/null; then
+        echo "$CUTBUFFER" | pbcopy
+    elif command -v xclip &>/dev/null; then
+        echo "$CUTBUFFER" | xclip -selection clipboard
+    fi
+}
+zle -N vi-yank-xclip
+bindkey -M vicmd 'y' vi-yank-xclip
+
 # COLORS
 solarized_base0="244"
 solarized_yellow="136"
@@ -47,11 +72,14 @@ PROMPT='${vim_mode} %F{$solarized_blue}%~%f %F{$solarized_yellow}${vcs_info_msg_
 autoload -U colors
 colors
 
-export LSCOLORS=exfxdxDxcxhxhxhxhxExEx
-export GREP_COLOR='1;38;5;136'
-
-# pip
-# export PIP_REQUIRE_VIRTUALENV=true
+# History configuration
+HISTFILE=~/.zsh_history
+HISTSIZE=50000
+SAVEHIST=100000
+setopt HIST_IGNORE_DUPS
+setopt HIST_IGNORE_SPACE
+setopt SHARE_HISTORY
+setopt APPEND_HISTORY
 
 # Auto completion
 # http://lethalman.blogspot.com/2009/10/speeding-up-zsh-completion.html
