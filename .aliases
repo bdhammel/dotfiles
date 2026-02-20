@@ -51,7 +51,9 @@ alias groot='cd $(git rev-parse --show-toplevel)'
 
 # Git worktree helpers
 gwt() {
-  git pull && git worktree add -b "benh/$1" "../$1" && tmux new-window -n "$1" -c "../$1"
+  local git_root=$(git rev-parse --show-toplevel)
+  local wt_path="$(dirname "$git_root")/$1"
+  git pull && git worktree add -b "benh/$1" "$wt_path" && tmux new-window -n "$1" -c "$wt_path"
 }
 
 grmwt() {
