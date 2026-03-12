@@ -10,7 +10,7 @@ return {
     require("nvim-treesitter.install").update({ with_sync = true })()
   end,
   config = function()
-    require('nvim-treesitter.configs').setup({
+    require('nvim-treesitter.config').setup({
       ensure_installed = {
         "cpp", "json", "markdown", "markdown_inline", "yaml", "diff", "git_rebase",
         "gitcommit", "bash", "javascript", "python", "lua", "html", "css",
