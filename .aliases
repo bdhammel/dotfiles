@@ -53,7 +53,9 @@ alias groot='cd $(git rev-parse --show-toplevel)'
 gwt() {
   local git_root=$(git rev-parse --show-toplevel)
   local wt_path="$(dirname "$git_root")/$1"
-  git pull && git worktree add -b "benh/$1" "$wt_path" && tmux new-window -n "$1" -c "$wt_path"
+  git worktree add -b "benh/$1" "$wt_path" && \
+    git -C "$wt_path" submodule update --init && \
+    tmux new-window -n "$1" -c "$wt_path"
 }
 
 grmwt() {
@@ -116,7 +118,8 @@ _fzf_comprun() {
   esac
 }
 
-alias clauded="claude --dangerously-skip-permissions"
+alias clauded="claude --dangerously-skip-permissions --verbose"
+alias tmux-reset='tmux set-window-option -u window-status-style && tmux set-window-option -u window-status-current-style'
 
 # Pager
 export PAGER=less
