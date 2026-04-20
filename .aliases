@@ -55,7 +55,10 @@ gwt() {
   local wt_path="$(dirname "$git_root")/$1"
   git worktree add -b "benh/$1" "$wt_path" && \
     git -C "$wt_path" submodule update --init && \
-    tmux new-window -n "$1" -c "$wt_path"
+    tmux new-window -n "$1" -c "$wt_path" \; \
+      split-window -h -c "$wt_path" \; \
+      split-window -v -c "$wt_path" \; \
+      select-pane -t 1
 }
 
 grmwt() {
@@ -119,6 +122,10 @@ _fzf_comprun() {
 }
 
 alias clauded="claude --dangerously-skip-permissions --verbose"
+
+# Spellcheck - uses LLM for context-aware spelling correction
+# Set SP_MODEL env var to switch providers (e.g. "openai:gpt-4o-mini")
+sp() { uv run ~/dotfiles/spellchecker/sp.py "$@" | yank }
 alias tmux-reset='tmux set-window-option -u window-status-style && tmux set-window-option -u window-status-current-style'
 
 # Pager
