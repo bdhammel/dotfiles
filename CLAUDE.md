@@ -35,6 +35,8 @@ xargs brew install < ~/dotfiles/brew_requirements.txt
 - `.vimrc` - Traditional vim config
 - `nvim/` - Neovim config (lua-based, uses lazy.nvim for plugin management)
 - `.tmux.conf` - tmux configuration
+- `cmux/settings.json` - cmux terminal config (Ctrl+A chord prefix for tmux-style splits/nav; symlinked to `~/.config/cmux/settings.json`)
+- `ghostty/config` - Ghostty terminal config (cmux embeds Ghostty; symlinked to `~/.config/ghostty/config`, which Ghostty reads before its Application Support fallback)
 - `.pdbrc` / `.pdbrc.py` - Python debugger configuration
 
 ### Neovim Structure
