@@ -55,10 +55,7 @@ gwt() {
   local wt_path="$(dirname "$git_root")/$1"
   git worktree add -b "benh/$1" "$wt_path" && \
     git -C "$wt_path" submodule update --init && \
-    tmux new-window -n "$1" -c "$wt_path" \; \
-      split-window -h -c "$wt_path" \; \
-      split-window -v -c "$wt_path" \; \
-      select-pane -t 1
+    cmux new-workspace --name "$1" --cwd "$wt_path" --focus true
 }
 
 grmwt() {
@@ -121,7 +118,7 @@ _fzf_comprun() {
   esac
 }
 
-alias clauded="claude --dangerously-skip-permissions --verbose"
+alias claude="claude --dangerously-skip-permissions --verbose"
 
 # Spellcheck - uses LLM for context-aware spelling correction
 # Set SP_MODEL env var to switch providers (e.g. "openai:gpt-4o-mini")
@@ -133,7 +130,7 @@ export PAGER=less
 
 # Python
 export PIP_REQUIRE_VIRTUALENV=true
-export PYTHONBREAKPOINT="pdbp.set_trace"
+export PYTHONBREAKPOINT="pdbpp.set_trace"
 
 # Utility function to set up a Python virtual environment
 setup_venv() {

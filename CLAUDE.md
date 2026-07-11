@@ -53,4 +53,4 @@ The neovim config at `nvim/` is modular:
 - Default editor is neovim (`vim` is aliased to `nvim`)
 - `cd` is aliased to `pushd` for directory stack navigation; use `up` to pop
 - Python virtualenvs are required (`PIP_REQUIRE_VIRTUALENV=true`)
-- Git worktree helper: `gwt <branch-name>` creates a worktree and opens in new tmux window
+- Git worktree helper: `gwt <branch-name>` creates a worktree and opens in a new cmux workspace
