@@ -55,7 +55,7 @@ gwt() {
   local wt_path="$(dirname "$git_root")/$1"
   git worktree add -b "benh/$1" "$wt_path" && \
     git -C "$wt_path" submodule update --init && \
-    cmux new-workspace --name "$1" --cwd "$wt_path" --focus true
+    { [ -x "$HOME/.local/bin/mux" ] && "$HOME/.local/bin/mux" open-ws "$wt_path" --focus || true; }
 }
 
 grmwt() {

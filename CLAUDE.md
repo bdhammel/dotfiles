@@ -34,8 +34,9 @@ xargs brew install < ~/dotfiles/brew_requirements.txt
 - `.bash_aliases` / `.zsh_aliases` - Shell-specific aliases
 - `.vimrc` - Traditional vim config
 - `nvim/` - Neovim config (lua-based, uses lazy.nvim for plugin management)
-- `.tmux.conf` - tmux configuration
-- `cmux/settings.json` - cmux terminal config (Ctrl+A chord prefix for tmux-style splits/nav; symlinked to `~/.config/cmux/settings.json`)
+- `.tmux.conf` - tmux configuration (the primary multiplexer; also renders the
+  Claude Code progress bar via the `@claude_progress` window option)
+- `cmux/settings.json` - cmux terminal config, legacy (Ctrl+A chord prefix for tmux-style splits/nav; symlinked to `~/.config/cmux/settings.json`). tmux is the daily driver; cmux is kept working but not primary.
 - `ghostty/config` - Ghostty terminal config (cmux embeds Ghostty; symlinked to `~/.config/ghostty/config`, which Ghostty reads before its Application Support fallback)
 - `.pdbrc` / `.pdbrc.py` - Python debugger configuration
 
@@ -53,4 +54,4 @@ The neovim config at `nvim/` is modular:
 - Default editor is neovim (`vim` is aliased to `nvim`)
 - `cd` is aliased to `pushd` for directory stack navigation; use `up` to pop
 - Python virtualenvs are required (`PIP_REQUIRE_VIRTUALENV=true`)
-- Git worktree helper: `gwt <branch-name>` creates a worktree and opens in a new cmux workspace
+- Git worktree helper: `gwt <branch-name>` creates a worktree and opens it as a new tmux session (or cmux workspace under cmux), via the `mux` shim

@@ -61,6 +61,17 @@ for item in "${links[@]}"; do
     echo "Linked: $dest"
 done
 
+# Link the `mux` multiplexer shim (tmux/cmux) from the claude_skills repo.
+# Lives there, not here, so it stays versioned with the skills that call it.
+MUX_SRC="$HOME/dev/primer/benhammel/claude_skills/bin/mux"
+if [[ -e "$MUX_SRC" ]]; then
+    mkdir -p "$HOME/.local/bin"
+    ln -sfn "$MUX_SRC" "$HOME/.local/bin/mux"
+    echo "Linked: .local/bin/mux"
+else
+    echo "Skip: .local/bin/mux (claude_skills repo not found)"
+fi
+
 # Create vim temp directory
 mkdir -p ~/.vim_tmp
 
