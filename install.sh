@@ -23,7 +23,16 @@ links=(
     "htoprc:.config/htop/htoprc"
     "ipython/profile_default/ipython_config.py:.ipython/profile_default/ipython_config.py"
     "ipython/profile_default/startup/ipython_startup.py:.ipython/profile_default/startup/ipython_startup.py"
+    "claude/rules/writing.md:.claude/rules/writing.md"
 )
+
+# ~/.claude/rules holds one symlink per rule file, because rules come from two repos:
+# this one and the claude_skills repo. Replace an older whole-directory symlink with a
+# real directory, so the loop below never writes through it into another repo.
+if [[ -L "$HOME/.claude/rules" ]]; then
+    rm "$HOME/.claude/rules"
+fi
+mkdir -p "$HOME/.claude/rules"
 
 for item in "${links[@]}"; do
     src="${item%%:*}"
@@ -70,6 +79,16 @@ if [[ -e "$MUX_SRC" ]]; then
     echo "Linked: .local/bin/mux"
 else
     echo "Skip: .local/bin/mux (claude_skills repo not found)"
+fi
+
+# Link the worked writing examples from the claude_skills repo. They quote work code and
+# documents, so they stay in that internal repo rather than this public one.
+EXAMPLES_SRC="$HOME/dev/primer/benhammel/claude_skills/rules/writing-examples.md"
+if [[ -e "$EXAMPLES_SRC" ]]; then
+    ln -sfn "$EXAMPLES_SRC" "$HOME/.claude/rules/writing-examples.md"
+    echo "Linked: .claude/rules/writing-examples.md"
+else
+    echo "Skip: .claude/rules/writing-examples.md (claude_skills repo not found)"
 fi
 
 # Create vim temp directory
