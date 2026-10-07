@@ -5,6 +5,62 @@ set -e
 
 DOTFILES="$HOME/dotfiles"
 
+detect_shell() {
+    basename "$SHELL"
+}
+
+detect_os() {
+    case "$(uname)" in
+        Darwin)
+            echo "macos"
+            ;;
+        Linux)
+            if [[ -f /etc/os-release ]]; then
+                # shellcheck disable=SC1091
+                . /etc/os-release
+                case "$ID" in
+                    ubuntu) echo "ubuntu" ;;
+                    rhel|centos) echo "redhat" ;;
+                    *) echo "linux" ;;
+                esac
+            else
+                echo "linux"
+            fi
+            ;;
+        *)
+            echo "unknown"
+            ;;
+    esac
+}
+
+os_specific_setup() {
+    local os_name
+    os_name=$(detect_os)
+    case "$os_name" in
+        macos)
+            echo "macOS detected"
+            if command -v brew >/dev/null 2>&1; then
+                xargs brew install < "$DOTFILES/brew_requirements.txt"
+            fi
+            ;;
+        ubuntu)
+            echo "Ubuntu detected"
+            if command -v apt-get >/dev/null 2>&1; then
+                sudo apt-get update
+            fi
+            ;;
+        redhat)
+            echo "RedHat detected"
+            if command -v yum >/dev/null 2>&1; then
+                sudo yum update -y
+            fi
+            ;;
+        *)
+            echo "OS $os_name not specifically handled"
+            ;;
+    esac
+}
+
 # Files to symlink (source:dest, dest defaults to ~/$source)
 links=(
     ".aliases"
@@ -25,6 +81,12 @@ links=(
     "ipython/profile_default/startup/ipython_startup.py:.ipython/profile_default/startup/ipython_startup.py"
     "claude/rules/writing.md:.claude/rules/writing.md"
 )
+
+# Link the rc file for the login shell
+case "$(detect_shell)" in
+    zsh) links+=("zshrc:.zshrc") ;;
+    *) links+=("bashrc:.bashrc") ;;
+esac
 
 # ~/.claude/rules holds one symlink per rule file, because rules come from two repos:
 # this one and the claude_skills repo. Replace an older whole-directory symlink with a
@@ -93,5 +155,7 @@ fi
 
 # Create vim temp directory
 mkdir -p ~/.vim_tmp
+
+os_specific_setup
 
 echo "Done. Run ./git-setup.sh to configure git (one-time setup)."
