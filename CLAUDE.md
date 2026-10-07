@@ -39,6 +39,7 @@ xargs brew install < ~/dotfiles/brew_requirements.txt
 - `cmux/settings.json` - cmux terminal config, legacy (Ctrl+A chord prefix for tmux-style splits/nav; symlinked to `~/.config/cmux/settings.json`). tmux is the daily driver; cmux is kept working but not primary.
 - `ghostty/config` - Ghostty terminal config (cmux embeds Ghostty; symlinked to `~/.config/ghostty/config`, which Ghostty reads before its Application Support fallback)
 - `.pdbrc` / `.pdbrc.py` - Python debugger configuration
+- `claude/rules/writing.md` - Writing rules Claude Code loads as global instructions (symlinked to `~/.claude/rules/writing.md`). Worked examples quote work code, so they live in the internal claude_skills repo and `install.sh` links them beside it when that repo exists.
 
 ### Neovim Structure
 
