@@ -43,10 +43,11 @@ and in an artifact they govern the copy, not the HTML and CSS around it.
    thought into fragments. Use a link only when the relation is true, so check that the
    clause after "so" follows from the clause before it. A sentence carries one link, and a
    second "so", "which" or "because" starts a new sentence.
-7. **State limits as scope.** Name the limits of your own approach next to the limits of
-   the data or the system. When the reader already knows a limit, state it as the scope of
-   the method, such as "where its results can be trusted", not as a warning. Show candour
-   in the content and never assert it, as in `we're candid about our limits`.
+7. **State limits as scope, never softened.** Name the limits of your own approach next to
+   the limits of the data or the system, and say plainly what fails, such as "the sixth
+   item is dropped even when relevant". When the reader already knows a limit, state it as
+   the scope of the method, such as "where its results can be trusted", not as a warning.
+   Show candour in the content and never assert it, as in `we're candid about our limits`.
 8. **Show a mechanism with a worked example.** When a passage explains how a method
    behaves, such as what a cache evicts or what a training objective keeps, follow the
    claim with one concrete case, such as one request or one user's records, that traces
