@@ -1,4 +1,4 @@
-source /home/bdhammel/.vimrc
+source ~/.vimrc
 
 "=============================================================================
 " Set secure last so that if any part is unset above, it is corrected now

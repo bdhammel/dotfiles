@@ -12,19 +12,33 @@ vim.opt.swapfile = false
 -- Reload files changed outside vim
 vim.opt.autoread = true
 
--- Use system clipboard for copy-pasting
-vim.g.clipboard = {
-  name = 'OSC 52',
-  copy = {
-    ['+'] = require('vim.ui.clipboard.osc52').copy('+'),
-    ['*'] = require('vim.ui.clipboard.osc52').copy('*'),
-  },
-  paste = {
-    ['+'] = require('vim.ui.clipboard.osc52').paste('+'),
-    ['*'] = require('vim.ui.clipboard.osc52').paste('*'),
-  },
-}
+if vim.loop.os_getenv("SSH_CONNECTION") then
+ -- https://github.com/neovim/neovim/discussions/28010#discussioncomment-9877494
+ local function paste()
+   return {
+     vim.fn.split(vim.fn.getreg(""), "\n"),
+     vim.fn.getregtype(""),
+   }
+ end
 
+ vim.g.clipboard = {
+   name = 'OSC 52',
+   copy = {
+     ['+'] = require('vim.ui.clipboard.osc52').copy('+'),
+     ['*'] = require('vim.ui.clipboard.osc52').copy('*'),
+   },
+   -- paste = {
+   --   ['+'] = require('vim.ui.clipboard.osc52').paste('+'),
+   --   ['*'] = require('vim.ui.clipboard.osc52').paste('*'),
+   -- },
+   paste = {
+     ['+'] = paste,
+     ['*'] = paste,
+   },
+ }
+end
+
+-- Use system clipboard for copy-pasting
 vim.opt.clipboard:append({'unnamed', 'unnamedplus'})
 
 -- Tab and indentation settings

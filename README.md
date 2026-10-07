@@ -2,50 +2,28 @@
 
 ## Set up at new location
 
-**one-line command**
-~~~bash
-cd ~ && ./dotfiles/makesymlinks.sh
-~~~
+**1. Install dotfiles (symlinks)**
+```bash
+cd ~/dotfiles && ./install.sh
+```
+
+**2. Source zsh config** — add to `~/.zshrc` if not already present:
+```bash
+if [ -f ~/.zsh_aliases ]; then
+    source ~/.zsh_aliases
+fi
+```
+
+**3. Install brew packages**
+```bash
+xargs brew install < ~/dotfiles/brew_requirements.txt
+```
 
 **import individual file**
 ~~~bash
 $ cd ~
 $ ln -s dotfiles/vim .vim
 ~~~
-
-## Installing packages w/o sudo
-
-You can install into two different user `bin` locations
- - `~/bin`
-
-ensure `~/bin` is exported into `PATH`
-
-```
-   cd /usr/bin
-   wget <url to binary>
-   tar -zxvf download-pkg
-   mv dowloaded-pkg/app app
-```
-
-Packages to install
- - [ripgrep](https://github.com/BurntSushi/ripgrep/releases)
- - [fzf](https://github.com/junegunn/fzf/releases)
- - [fd-find](https://github.com/sharkdp/fd/releases)
- - [yank](https://github.com/mptre/yank/releases)
- - [bat]
- - [tmux](https://github.com/nelsonenzo/tmux-appimage/releases)
-
-### Install NVIM
-
-Get appimage from here: https://github.com/neovim/neovim-releases/releases
-```
-cd /usr/bin
-wget <url to binary>
-Run chmod u+x nvim.appimage
-ln -s nvim.appimage nvim
-```
-
-
 
 ## Setting up Git
 
@@ -61,14 +39,23 @@ See http://stackoverflow.com/questions/7773181/git-keeps-prompting-me-for-passwo
 > https://github.com/username/repo.git
 > git://github.com/username/repo.git
 
-## Misc info
+# Mac Setup
 
-Mapping caps -> <kb>esc</kb>
+## brew
 
-Mac OSX
+install homebrew
+```
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+```
+
+## Mapping caps -> <kb>esc</kb>
+
 ```
 system preferences > keyboard > keyboard > modifier keys
 ```
+
+
+## Misc info
 
 Ubuntu
 ```
@@ -122,23 +109,40 @@ https://blog.gitbutler.com/git-tips-2-new-stuff-in-git/
 
 https://github.com/tmux/tmux/wiki/Clipboard#quick-summary
 
-## Setting up without sudo?
+## Installing packages w/o sudo
 
-install to location `/home/<user>/bin`
+You can install into two different user `bin` locations
+ - `/usr/bin`
+ - `~/bin`
 
-cite: https://medium.com/thelinux/the-correct-way-to-install-the-neovim-42f3076f9b88
+ensure `/usr/bin` is exported into `PATH`
+
 ```
-cd /home/$(whoami)/bin
-curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim.appimage
-chmod u+x nvim.appimage
+   cd /usr/bin
+   wget <url to binary>
+   tar -zxvf download-pkg
+   mv dowloaded-pkg/app app
+   # or
+   ln -s nvim.appimage nvim
 ```
-to get tmux:
-cite: https://github.com/nelsonenzo/tmux-appimage
+
+Packages to install
+ - [ripgrep](https://github.com/BurntSushi/ripgrep/releases)
+ - [tmux](https://api.github.com/repos/nelsonenzo/tmux-appimage/releases/latest)
+ - [nvim](https://github.com/neovim/neovim-releases/releases)
+ - [fzf](https://github.com/junegunn/fzf/releases/)
+ - [fd-find]
+ - [yank](https://github.com/mptre/yank/releases)
+ - [bat]
+
+To know which arch to download, run `name -m`
+•	If output is x86_64, linux_amd64 is correct.
+•	If aarch64 or similar, use linux_arm64.
+
+
+## Quick setup
+
 ```
-curl -s https://api.github.com/repos/nelsonenzo/tmux-appimage/releases/latest \
-| grep "browser_download_url.*appimage" \
-| cut -d : -f 2,3 \
-| tr -d \" \
-| wget -qi - \
-&& chmod +x tmux.appimage
+wget https://raw.githubusercontent.com/bdhammel/dotfiles/master/quick_setup.sh | bash
 ```
+
