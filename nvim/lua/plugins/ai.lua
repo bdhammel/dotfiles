@@ -7,13 +7,15 @@ return {
   },
   opts = {
      adapters = {
-      openai_chat = function()
-        return require("codecompanion.adapters").extend("openai", {
-          schema = {
-            -- model = { default = "o3-mini-2025-01-31" },
-          },
-        })
-      end,
+      http = {
+        openai_chat = function()
+          return require("codecompanion.adapters").extend("openai", {
+            schema = {
+              -- model = { default = "o3-mini-2025-01-31" },
+            },
+          })
+        end,
+      },
     },
     strategies = {
       chat = {

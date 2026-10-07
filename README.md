@@ -2,10 +2,22 @@
 
 ## Set up at new location
 
-**one-line command**
-~~~bash
-cd ~ && ./dotfiles/makesymlinks.sh
-~~~
+**1. Install dotfiles (symlinks)**
+```bash
+cd ~/dotfiles && ./install.sh
+```
+
+**2. Source zsh config** — add to `~/.zshrc` if not already present:
+```bash
+if [ -f ~/.zsh_aliases ]; then
+    source ~/.zsh_aliases
+fi
+```
+
+**3. Install brew packages**
+```bash
+xargs brew install < ~/dotfiles/brew_requirements.txt
+```
 
 **import individual file**
 ~~~bash
@@ -34,10 +46,6 @@ See http://stackoverflow.com/questions/7773181/git-keeps-prompting-me-for-passwo
 install homebrew
 ```
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-```
-
-```
-xargs brew install < ~/dotfiles/brew_requirements.txt
 ```
 
 ## Mapping caps -> <kb>esc</kb>

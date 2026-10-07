@@ -3,10 +3,7 @@ return {
   -- optional for icon support
   config = function()
     -- calling `setup` is optional for customization
-    require("fzf-lua").setup(
-      { "fzf-native" },
-      { defaults = { file_icons = false } }
-    )
+    require('fzf-lua').setup({'fzf-vim'})
 
     -- Function to determine the Git root directory
     local function get_git_root()

@@ -28,3 +28,4 @@
 *.rs    diff=rust
 *.lisp  diff=lisp
 *.el    diff=lisp
+*.pkl   -diff

@@ -73,6 +73,7 @@ return {
           vim.keymap.set('n', 'go', '<cmd>lua vim.lsp.buf.type_definition()<cr>', opts)
           vim.keymap.set('n', 'gr', '<cmd>lua vim.lsp.buf.references()<cr>', opts)
           vim.keymap.set('n', 'gs', '<cmd>lua vim.lsp.buf.signature_help()<cr>', opts)
+          vim.keymap.set('n', 'ge', '<cmd>lua vim.diagnostic.open_float()<cr>', opts)
           vim.keymap.set('n', '<F2>', '<cmd>lua vim.lsp.buf.rename()<cr>', opts)
           vim.keymap.set({'n', 'x'}, '<F3>', '<cmd>lua vim.lsp.buf.format({async = true})<cr>', opts)
           vim.keymap.set('n', '<F4>', '<cmd>lua vim.lsp.buf.code_action()<cr>', opts)
@@ -88,26 +89,70 @@ return {
 
         require('mason-lspconfig').setup({
           ensure_installed = {
-            'basedpyright', 'ruff', 'pyright', 'bashls', 'lua_ls', 'spectral', 'rust_analyzer',
+            'ruff', 'pyright', 'bashls', 'lua_ls', 'rust_analyzer',
+          },
+          handlers = {
+            -- Default handler for servers without custom config
+            function(server_name)
+              require('lspconfig')[server_name].setup({})
+            end,
+
+            -- Custom handler for lua_ls
+            ['lua_ls'] = function()
+              require('lspconfig').lua_ls.setup({
+              settings = {
+                Lua = {
+                  diagnostics = {
+                    globals = { 'vim' }
+                  }
+                }
+              }
+              })
+            end,
+
+            -- Custom handler for pyright
+            ['pyright'] = function()
+              require('lspconfig').pyright.setup({
+              settings = {
+                pright = {
+                  disableOrganizeImports = true,
+                  disableTaggedHints = true,
+                },
+                python = {
+                  -- pythonPath = '/opt/sambanova/bin/python',
+                  analysis = {
+                    -- Ignore all files for analysis to exclusively use Ruff for linting
+                    typeCheckingMode = "basic",
+                    diagnosticMode = "workspace",
+                    diagnosticSeverityOverrides = {
+                        reportUnusedImport = "none",
+                        reportUnusedClass = "none",
+                        reportUnusedFunction = "none",
+                        reportUnusedVariable = "none",
+                    }
+                    -- diagnosticSeverityOverrides = {
+                    --   reportUnusedVariable = "none",
+                    -- }
+                    -- ignore = { '*' },
+                    -- autoSearchPaths = true,
+                    -- -- typeCheckingMode = "off",
+                    -- -- diagnosticMode = "workspace",
+                    -- -- useLibraryCodeForTypes = true,
+                    -- diagnosticSeverityOverrides = {
+                    --     reportUnusedImport = "none",
+                    --     reportUnusedClass = "none",
+                    --     reportUnusedFunction = "none",
+                    --     reportUnusedVariable = "none",
+                    -- }
+                  },
+                }
+              }
+              })
+            end,
           }
         })
 
-        require('mason-lspconfig').setup_handlers({
-
-          require('lspconfig').bashls.setup({}),
-          require('lspconfig').spectral.setup({}),
-
-          require('lspconfig').lua_ls.setup({
-            settings = {
-              Lua = {
-                diagnostics = {
-                  globals = { 'vim' }
-                }
-              }
-            }
-          }),
-
-          vim.api.nvim_create_autocmd("LspAttach", {
+        vim.api.nvim_create_autocmd("LspAttach", {
             group = vim.api.nvim_create_augroup('lsp_attach_disable_ruff_hover', { clear = true }),
             callback = function(args)
               local client = vim.lsp.get_client_by_id(args.data.client_id)
@@ -120,7 +165,7 @@ return {
               end
             end,
             desc = 'LSP: Disable hover capability from Ruff',
-          }),
+          })
 
           -- require('lspconfig').ruff.setup({
           --   init_options = {
@@ -128,46 +173,9 @@ return {
           --       args = {},
           --     }
           --   }
-          -- }),
+          -- })
 
-          require('lspconfig').pyright.setup({
-            settings = {
-              pright = {
-                disableOrganizeImports = true,
-                disableTaggedHints = true,
-              },
-              python = {
-                -- pythonPath = '/opt/sambanova/bin/python',
-                analysis = {
-                  -- Ignore all files for analysis to exclusively use Ruff for linting
-                  typeCheckingMode = "basic",
-                  diagnosticMode = "workspace",
-                  diagnosticSeverityOverrides = {
-                      reportUnusedImport = "none",
-                      reportUnusedClass = "none",
-                      reportUnusedFunction = "none",
-                      reportUnusedVariable = "none",
-                  }
-                  -- diagnosticSeverityOverrides = {
-                  --   reportUnusedVariable = "none",
-                  -- }
-                  -- ignore = { '*' },
-                  -- autoSearchPaths = true,
-                  -- -- typeCheckingMode = "off",
-                  -- -- diagnosticMode = "workspace",
-                  -- -- useLibraryCodeForTypes = true,
-                  -- diagnosticSeverityOverrides = {
-                  --     reportUnusedImport = "none",
-                  --     reportUnusedClass = "none",
-                  --     reportUnusedFunction = "none",
-                  --     reportUnusedVariable = "none",
-                  -- }
-                },
-              }
-            }
-          }),
         lsp_zero.setup()
-        })
       end
     }
   }
