@@ -9,8 +9,9 @@ he does not know names you coined today. When the reader is someone else, such a
 technical team, pitch to their expertise in the same voice.
 
 These rules apply to everything you write: Markdown files, CLAUDE.md and AGENTS.md, PR and
-commit bodies, Jira tickets, plan files, documents written for clients, and chat replies.
-They do not apply inside code fences or inline code.
+commit bodies, Jira tickets, plan files, artifacts and other rendered pages, documents
+written for clients, and chat replies. They do not apply inside code fences or inline code,
+and in an artifact they govern the copy, not the HTML and CSS around it.
 
 ## Voice
 
@@ -42,55 +43,61 @@ They do not apply inside code fences or inline code.
    thought into fragments. Use a link only when the relation is true, so check that the
    clause after "so" follows from the clause before it. A sentence carries one link, and a
    second "so", "which" or "because" starts a new sentence.
-7. **State limits as scope.** Name the limits of your own approach next to the limits of
-   the data or the system. When the reader already knows a limit, state it as the scope of
-   the method, such as "where its results can be trusted", not as a warning. Show candour
-   in the content and never assert it, as in `we're candid about our limits`.
+7. **State limits as scope, never softened.** Name the limits of your own approach next to
+   the limits of the data or the system, and say plainly what fails, such as "the sixth
+   item is dropped even when relevant". When the reader already knows a limit, state it as
+   the scope of the method, such as "where its results can be trusted", not as a warning.
+   Show candour in the content and never assert it, as in `we're candid about our limits`.
 8. **Show a mechanism with a worked example.** When a passage explains how a method
    behaves, such as what a cache evicts or what a training objective keeps, follow the
    claim with one concrete case, such as one request or one user's records, that traces
    it step by step. Writing the example is also how you find a claim that does not hold.
+9. **Describe the subject, not the process.** Write the document as a description of the
+   thing as it is, never as a record of the conversation, the decision or the code history
+   that produced it. Cut `previously`, `we discussed`, `as of PR 1234`, and reflective
+   labels such as `What we settled` or `Outcome`. A decision record still states its
+   decision as a present fact, not the story of how it was reached.
 
 ## Structure
 
-9. **Thesis first.** The first sentence of a file, section or paragraph is the point. Put
-   supporting examples in bold-label bullets after it, and what we do about it last. A
-   one-line map is an acceptable first sentence for a section that holds several kinds of
-   content. Put framing, such as why the document exists, at the end in its own short
-   paragraph, and never open with a lead-in that comments on the writing itself.
-10. **Bold labels for scanning.** Lead a bullet or paragraph with a short bold label so the
+10. **Thesis first.** The first sentence of a file, section or paragraph is the point. Put
+    supporting examples in bold-label bullets after it, and what we do about it last. A
+    one-line map is an acceptable first sentence for a section that holds several kinds of
+    content. Put framing, such as why the document exists, at the end in its own short
+    paragraph, and never open with a lead-in that comments on the writing itself.
+11. **Bold labels for scanning.** Lead a bullet or paragraph with a short bold label so the
     reader can scan, and let the sentences after it flow. Use bullets for points of
     emphasis and paragraphs for arguments, where each sentence builds on the last.
-11. **Lists and tables by job.** Numbered lists for sequences, bullets for unordered sets,
+12. **Lists and tables by job.** Numbered lists for sequences, bullets for unordered sets,
     tables for lookup. Keep asides out of lists.
-12. **Parallel items get parallel form.** When a passage names several questions, options
+13. **Parallel items get parallel form.** When a passage names several questions, options
     or stages of equal weight, give each one its own bold-label bullet with the same shape.
     Never leave the last one as a trailing clause, such as "…, and then extend it to
     mobile".
-13. **Short paragraphs.** One topic per paragraph, at most 5 sentences.
-14. **Headings that inform.** Headings say what the reader can do or learn there. Never
+14. **Short paragraphs.** One topic per paragraph, at most 5 sentences.
+15. **Headings that inform.** Headings say what the reader can do or learn there. Never
     "Overview" or "Notes".
-15. **Summary first, each commitment once.** Put a **Summary** block at the top of any file
+16. **Summary first, each commitment once.** Put a **Summary** block at the top of any file
     over 60 lines, as the file's whole introduction. Never add a "Who this is for" section,
     because that cue belongs in the index that links to the file, a README or a CLAUDE.md.
     The Summary states each scope, condition or promise in one sentence and the body gives
     its detail. The same sentence never repeats in the Summary, a section opening and an
     appendix.
-16. **Plain mechanics.** Active voice, present tense, "you", and imperative mood for steps.
+17. **Plain mechanics.** Active voice, present tense, "you", and imperative mood for steps.
     Bold for emphasis, never ALL CAPS or underline. Never `above`, `below`,
     `aforementioned` or `the former`: name the thing.
 
 ## Self-contained pages
 
-17. **One name per thing.** Use the name the code uses. Gloss a term you coined the first
+18. **One name per thing.** Use the name the code uses. Gloss a term you coined the first
     time it appears, in half a sentence. A **Terms used here** table is optional, and
     usually not worth it.
-18. **Never send the reader away mid-sentence.** State the fact here in one line, then
+19. **Never send the reader away mid-sentence.** State the fact here in one line, then
     link. Ticket ids, section numbers, line numbers and people's remarks are not
     explanations.
-19. **Commands show where they run.** Every command shows the directory it runs from and
+20. **Commands show where they run.** Every command shows the directory it runs from and
     the venv or env file it needs.
-20. **Procedures start ready.** Every procedure has a **Before you begin** block, at most
+21. **Procedures start ready.** Every procedure has a **Before you begin** block, at most
     10 steps, and the expected output after any step whose result is not obvious.
 
 For a new or rewritten document, use the `write-doc` skill. It carries the templates.
@@ -106,6 +113,8 @@ Read the prose once and check these:
 - No sentence is a fragment of a thought that the next sentence finishes.
 - Parallel items have parallel form, and no scope, condition or promise is stated twice.
 - Every explained mechanism has a worked example.
+- The document describes the subject in the present, with no narration of the conversation,
+  the decision or the code history that produced it.
 - No standard term is defined, and no metaphor, idiom, hedge or filler transition remains.
 
 A `PostToolUse` hook runs Vale on every `.md` you write. It flags filler words, hedges,
