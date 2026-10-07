@@ -39,6 +39,8 @@ alias h='history'
 alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
+# Debian and Ubuntu ship fd as fdfind
+command -v fd >/dev/null 2>&1 || alias fd='fdfind'
 
 # Git aliases
 alias gpu='git push -u origin $(git branch --show-current)'
