@@ -34,10 +34,13 @@ and in an artifact they govern the copy, not the HTML and CSS around it.
    verbs read as unsure of the work. Keep `we'd` only for a true conditional whose
    condition is in the same sentence, such as `if the second GPU is approved, we'd run
    both experiments at once`. Put real uncertainty in a stated limit instead.
-5. **No analogies, idioms or filler transitions.** Use precise technical language, such
-   as objective, negatives or pooling, and cut transitions such as `along the way`. A
-   metaphor reads as talking down to a technical reader, and an idiom costs a reader with
-   dyslexia a second pass.
+5. **No everyday analogies, idioms or filler transitions.** Use precise technical
+   language, such as objective, negatives or pooling, and cut transitions such as `along
+   the way`. A metaphor from everyday life, such as a ball rolling downhill, reads as
+   talking down to a technical reader, and an idiom costs a reader with dyslexia a second
+   pass. A comparison to another object in the reader's own field is allowed when the
+   precise statement follows it, such as treating each neuron as a basis vector and then
+   defining the activation space it spans.
 6. **One true link per sentence.** When one idea causes, qualifies or completes another,
    join them in one sentence with "so that", "because" or "which means", and never split a
    thought into fragments. Use a link only when the relation is true, so check that the
@@ -48,56 +51,75 @@ and in an artifact they govern the copy, not the HTML and CSS around it.
    item is dropped even when relevant". When the reader already knows a limit, state it as
    the scope of the method, such as "where its results can be trusted", not as a warning.
    Show candour in the content and never assert it, as in `we're candid about our limits`.
-8. **Show a mechanism with a worked example.** When a passage explains how a method
+8. **Mark an interpretation as one.** State a measurement or a derivation as fact. When a
+   sentence reads meaning into evidence, mark it once as an interpretation, such as "the
+   gap suggests the encoder keeps the home tower", and name the result that would settle
+   it. A plan and a measured number never carry this mark.
+9. **Show a mechanism with a worked example.** When a passage explains how a method
    behaves, such as what a cache evicts or what a training objective keeps, follow the
    claim with one concrete case, such as one request or one user's records, that traces
    it step by step. Writing the example is also how you find a claim that does not hold.
-9. **Describe the subject, not the process.** Write the document as a description of the
-   thing as it is, never as a record of the conversation, the decision or the code history
-   that produced it. Cut `previously`, `we discussed`, `as of PR 1234`, and reflective
-   labels such as `What we settled` or `Outcome`. A decision record still states its
-   decision as a present fact, not the story of how it was reached.
+10. **Build from the simplest case.** Explain a mechanism first on the smallest case that
+    still shows it, such as one number with two towers over two days. Then add one
+    complication per step and name what each step changes, so that the reader always
+    knows which part of the result is new.
+11. **Describe the subject, not the process.** Write the document as a description of the
+    thing as it is, never as a record of the conversation, the decision or the code history
+    that produced it. Cut `previously`, `we discussed`, `as of PR 1234`, and reflective
+    labels such as `What we settled` or `Outcome`. A decision record still states its
+    decision as a present fact, not the story of how it was reached.
 
 ## Structure
 
-10. **Thesis first.** The first sentence of a file, section or paragraph is the point. Put
+12. **Thesis first.** The first sentence of a file, section or paragraph is the point. Put
     supporting examples in bold-label bullets after it, and what we do about it last. A
     one-line map is an acceptable first sentence for a section that holds several kinds of
     content. Put framing, such as why the document exists, at the end in its own short
     paragraph, and never open with a lead-in that comments on the writing itself.
-11. **Bold labels for scanning.** Lead a bullet or paragraph with a short bold label so the
+13. **Start from the reader's account.** When the reader already holds a common account of
+    the subject, state it after the thesis, then name the case it fails to explain, such
+    as "retrieval misses are usually blamed on the embedding model, but 40% of the misses
+    here are documents that were never chunked". The correction then lands on the model
+    the reader already has.
+14. **Bold labels for scanning.** Lead a bullet or paragraph with a short bold label so the
     reader can scan, and let the sentences after it flow. Use bullets for points of
     emphasis and paragraphs for arguments, where each sentence builds on the last.
-12. **Lists and tables by job.** Numbered lists for sequences, bullets for unordered sets,
+15. **Lists and tables by job.** Numbered lists for sequences, bullets for unordered sets,
     tables for lookup. Keep asides out of lists.
-13. **Parallel items get parallel form.** When a passage names several questions, options
+16. **Parallel items get parallel form.** When a passage names several questions, options
     or stages of equal weight, give each one its own bold-label bullet with the same shape.
     Never leave the last one as a trailing clause, such as "…, and then extend it to
     mobile".
-14. **Short paragraphs.** One topic per paragraph, at most 5 sentences.
-15. **Headings that inform.** Headings say what the reader can do or learn there. Never
+17. **Short paragraphs.** One topic per paragraph, at most 5 sentences.
+18. **One line of argument in the main text.** Move derivations, proofs and secondary
+    caveats into a footnote or an appendix, so that each section reads straight through. A
+    limit that changes the reader's decision stays in the main text.
+19. **Headings that inform.** Headings say what the reader can do or learn there. Never
     "Overview" or "Notes".
-16. **Summary first, each commitment once.** Put a **Summary** block at the top of any file
+20. **Summary first, each commitment once.** Put a **Summary** block at the top of any file
     over 60 lines, as the file's whole introduction. Never add a "Who this is for" section,
     because that cue belongs in the index that links to the file, a README or a CLAUDE.md.
     The Summary states each scope, condition or promise in one sentence and the body gives
     its detail. The same sentence never repeats in the Summary, a section opening and an
     appendix.
-17. **Plain mechanics.** Active voice, present tense, "you", and imperative mood for steps.
+21. **Plain mechanics.** Active voice, present tense, "you", and imperative mood for steps.
     Bold for emphasis, never ALL CAPS or underline. Never `above`, `below`,
     `aforementioned` or `the former`: name the thing.
 
 ## Self-contained pages
 
-18. **One name per thing.** Use the name the code uses. Gloss a term you coined the first
+22. **One name per thing.** Use the name the code uses. Gloss a term you coined the first
     time it appears, in half a sentence. A **Terms used here** table is optional, and
     usually not worth it.
-19. **Never send the reader away mid-sentence.** State the fact here in one line, then
+23. **Frame each equation in prose.** Before an equation, say what it computes. Define every
+    symbol directly after it, then say what the result means for the system. Leave the
+    equation out when one sentence states the same fact.
+24. **Never send the reader away mid-sentence.** State the fact here in one line, then
     link. Ticket ids, section numbers, line numbers and people's remarks are not
     explanations.
-20. **Commands show where they run.** Every command shows the directory it runs from and
+25. **Commands show where they run.** Every command shows the directory it runs from and
     the venv or env file it needs.
-21. **Procedures start ready.** Every procedure has a **Before you begin** block, at most
+26. **Procedures start ready.** Every procedure has a **Before you begin** block, at most
     10 steps, and the expected output after any step whose result is not obvious.
 
 For a new or rewritten document, use the `write-doc` skill. It carries the templates.
@@ -112,11 +134,13 @@ Read the prose once and check these:
 - Each sentence holds at most one link, and every "so" or "because" is true.
 - No sentence is a fragment of a thought that the next sentence finishes.
 - Parallel items have parallel form, and no scope, condition or promise is stated twice.
-- Every explained mechanism has a worked example.
+- Every explained mechanism has a worked example that starts from its simplest case.
+- Every equation has prose before and after it, and every symbol is defined.
+- Each interpretation is marked once, and no plan or measured result is hedged.
 - The document describes the subject in the present, with no narration of the conversation,
   the decision or the code history that produced it.
-- No standard term is defined, and no metaphor, idiom, hedge or filler transition remains.
+- No standard term is defined, and no everyday metaphor, idiom or filler transition remains.
 
-A `PostToolUse` hook runs Vale on every `.md` you write. It flags filler words, hedges,
-pointers off the page, ALL CAPS and nested parentheses. Fix what it reports, except a
-`we'd` in a true conditional whose condition is in the same sentence.
+A `PostToolUse` hook runs Vale on every `.md` you write. It flags filler words, hedged
+plans, pointers off the page, ALL CAPS and nested parentheses. Fix what it reports, except
+a `we'd` in a true conditional whose condition is in the same sentence.
