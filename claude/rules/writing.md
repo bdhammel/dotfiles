@@ -122,6 +122,42 @@ and in an artifact they govern the copy, not the HTML and CSS around it.
 26. **Procedures start ready.** Every procedure has a **Before you begin** block, at most
     10 steps, and the expected output after any step whose result is not obvious.
 
+## Figures
+
+27. **Draw the structure, then explain it.** Put a figure before the prose when the content
+    has one of these shapes, because Ben reads a layout faster than he decodes the same
+    facts from sentences.
+    - **Components with connections:** three or more get a box-and-arrow diagram.
+    - **Messages between actors:** three or more actors get a sequence diagram.
+    - **States and transitions:** a state diagram.
+    - **Numbers compared across conditions:** a chart when the reader needs the trend, and a
+      table when the reader needs the values.
+    - **A data shape through stages:** a diagram with the dimensions on its edges, such as
+      `28 days × tokens → 128-d`.
+    - **A before and after:** two panels side by side.
+28. **The caption states the finding.** The sentence before a figure says what to look at.
+    The caption states what the figure shows, such as "the within-day split puts M1 and M2
+    in different halves", never only what it contains, such as "Figure 2: splits". Keep a
+    diagram to about 12 nodes, and split a bigger one into two figures.
+29. **Use the format that renders where the text lands, and look at it.** Pick the format
+    from this table.
+
+    | Where the text lands | Format |
+    |---|---|
+    | Terminal chat reply | A box diagram of at most 8 boxes in a code fence, because the terminal does not render Mermaid |
+    | `.md` file in a git repo | A `mermaid` code block, which GitHub renders and which diffs as text |
+    | Artifact or other rendered page | Inline SVG, following the `artifact-diagramming` skill, and charts following `dataviz` |
+    | Google Doc | A rendered PNG, because the Drive connector does not render Mermaid |
+    | A design worked out together with Ben | A shared board from `/sketch-it` |
+
+    Render every Mermaid figure and read the image before you finish, because the source
+    hides overlapping edges and unreadable labels. The command runs from any directory,
+    needs no venv, and writes one PNG per Mermaid block:
+
+    ```bash
+    npx -y @mermaid-js/mermaid-cli -q -s 2 -e png -i doc.md -o "${CLAUDE_JOB_DIR:-$TMPDIR}/fig.md"
+    ```
+
 For a new or rewritten document, use the `write-doc` skill. It carries the templates.
 Worked before-and-after examples are in `~/.claude/rules/writing-examples.md`.
 
@@ -139,6 +175,8 @@ Read the prose once and check these:
 - Each interpretation is marked once, and no plan or measured result is hedged.
 - The document describes the subject in the present, with no narration of the conversation,
   the decision or the code history that produced it.
+- Every structure from the figure triggers has a figure, its caption states the finding,
+  and you read the rendered image.
 - No standard term is defined, and no everyday metaphor, idiom or filler transition remains.
 
 A `PostToolUse` hook runs Vale on every `.md` you write. It flags filler words, hedged
