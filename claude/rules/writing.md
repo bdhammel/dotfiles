@@ -21,9 +21,11 @@ and in an artifact they govern the copy, not the HTML and CSS around it.
 2. **Give the reason as what the choice buys.** State each choice with the result it buys
    or the risk it removes, such as "caching the index cuts query latency from 2 s to
    50 ms", not a vague benefit such as "caching makes search better". In a plan or
-   proposal, say what each step delivers on its own. Never define standard terms of the
-   reader's field, such as precision, recall, ROC or one-hot encoding, and spell out an
-   acronym only when the reader may not know it.
+   proposal, say what each step delivers on its own. End an analysis on the decision its
+   result supports, in the reader's units, such as "a 23% match rate means analysts
+   review 230 of every 1,000 candidates", not on the bare number. Never define standard
+   terms of the reader's field, such as precision, recall, ROC or one-hot encoding, and
+   spell out an acronym only when the reader may not know it.
 3. **Be concrete.** Name the work by its technical substance, such as "a two-stage
    retrieval pipeline with a cross-encoder reranker", not by its motion, such as `where
    we'd begin and how we'd iterate towards better search`. Use the verb with its actor,
@@ -51,18 +53,30 @@ and in an artifact they govern the copy, not the HTML and CSS around it.
    item is dropped even when relevant". When the reader already knows a limit, state it as
    the scope of the method, such as "where its results can be trusted", not as a warning.
    Show candour in the content and never assert it, as in `we're candid about our limits`.
+   When a default summary misleads, show the output it produces, then the diagnosis, then
+   the corrected result. For example, a posterior mean can land at the centre of a ring of
+   solutions, a point that no sample occupies.
 8. **Mark an interpretation as one.** State a measurement or a derivation as fact. When a
    sentence reads meaning into evidence, mark it once as an interpretation, such as "the
    gap suggests the encoder keeps the home tower", and name the result that would settle
-   it. A plan and a measured number never carry this mark.
+   it. A plan and a measured number never carry this mark. When a number can be both
+   derived and measured, state both next to each other with their ratio, and treat a gap
+   as a finding. Order-of-magnitude agreement is not a check, because it cannot catch a
+   missing factor of 2.
 9. **Show a mechanism with a worked example.** When a passage explains how a method
    behaves, such as what a cache evicts or what a training objective keeps, follow the
    claim with one concrete case, such as one request or one user's records, that traces
    it step by step. Writing the example is also how you find a claim that does not hold.
+   When the claim is about how code behaves, show the observed output of a real run, and
+   include the failing run when the fix is the point, such as the batch-size change that
+   drops accuracy from 63% to 18% before the learning-rate fix restores it.
 10. **Build from the simplest case.** Explain a mechanism first on the smallest case that
     still shows it, such as one number with two towers over two days. Then add one
     complication per step and name what each step changes, so that the reader always
-    knows which part of the result is new.
+    knows which part of the result is new. Carry that one case through the whole
+    document, because a fresh example in each section makes the reader rebuild the
+    setting before they see what changed. The case is a real one from the reader's
+    domain, not a story.
 11. **Describe the subject, not the process.** Write the document as a description of the
     thing as it is, never as a record of the conversation, the decision or the code history
     that produced it. Cut `previously`, `we discussed`, `as of PR 1234`, and reflective
@@ -95,7 +109,8 @@ and in an artifact they govern the copy, not the HTML and CSS around it.
     caveats into a footnote or an appendix, so that each section reads straight through. A
     limit that changes the reader's decision stays in the main text.
 19. **Headings that inform.** Headings say what the reader can do or learn there. Never
-    "Overview" or "Notes".
+    "Overview" or "Notes". A heading can be the reader's question, such as "Why does the
+    mean mislead here?", when the first sentence of the section answers it.
 20. **Summary first, each commitment once.** Put a **Summary** block at the top of any file
     over 60 lines, as the file's whole introduction. Never add a "Who this is for" section,
     because that cue belongs in the index that links to the file, a README or a CLAUDE.md.
@@ -113,7 +128,9 @@ and in an artifact they govern the copy, not the HTML and CSS around it.
     usually not worth it.
 23. **Frame each equation in prose.** Before an equation, say what it computes. Define every
     symbol directly after it, then say what the result means for the system. Leave the
-    equation out when one sentence states the same fact.
+    equation out when one sentence states the same fact. When the method also exists as
+    code, show the smallest code whose lines map onto the equation's terms, such as a
+    `backward` method that returns the derivative just derived.
 24. **Never send the reader away mid-sentence.** State the fact here in one line, then
     link. Ticket ids, section numbers, line numbers and people's remarks are not
     explanations.
@@ -170,9 +187,13 @@ Read the prose once and check these:
 - Each sentence holds at most one link, and every "so" or "because" is true.
 - No sentence is a fragment of a thought that the next sentence finishes.
 - Parallel items have parallel form, and no scope, condition or promise is stated twice.
-- Every explained mechanism has a worked example that starts from its simplest case.
+- Every explained mechanism has a worked example that starts from its simplest case, and
+  one case runs through the whole document.
+- Every claim about how code behaves shows the output of a real run.
 - Every equation has prose before and after it, and every symbol is defined.
 - Each interpretation is marked once, and no plan or measured result is hedged.
+- Every number that is both derived and measured shows both values and their ratio.
+- Every analysis ends on the decision its result supports, in the reader's units.
 - The document describes the subject in the present, with no narration of the conversation,
   the decision or the code history that produced it.
 - Every structure from the figure triggers has a figure, its caption states the finding,
