@@ -40,6 +40,7 @@ xargs brew install < ~/dotfiles/brew_requirements.txt
 - `ghostty/config` - Ghostty terminal config (cmux embeds Ghostty; symlinked to `~/.config/ghostty/config`, which Ghostty reads before its Application Support fallback)
 - `.pdbrc` / `.pdbrc.py` - Python debugger configuration
 - `claude/rules/writing.md` - Writing rules Claude Code loads as global instructions (symlinked to `~/.claude/rules/writing.md`). Worked examples quote work code, so they live in the internal claude_skills repo and `install.sh` links them beside it when that repo exists.
+- `claude/skills/explainer-deck/` - Skill for visual, talk-through slide decks that teach how a method works, with build sequences and a fixed house style for the claude.ai Slides artifact. Not linked by `install.sh` yet, because `~/.claude/skills` is a symlink to the claude_skills repo.
 
 ### Neovim Structure
 
