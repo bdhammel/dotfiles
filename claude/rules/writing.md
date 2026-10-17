@@ -64,8 +64,9 @@ Spend the reader's attention only on what is new to them.
    language, such as objective, negatives or pooling, and cut transitions such as `along
    the way`. An everyday metaphor reads as talking down, and an idiom costs a reader with
    dyslexia a second pass. An in-field comparison is allowed when the precise statement
-   follows it, such as neurons as basis vectors. An everyday analogy, such as momentum as a ball rolling downhill, is allowed
-   only when **Start from the reader's account** states it in order to correct it.
+   follows it, such as neurons as basis vectors. An everyday analogy, such as momentum as
+   a ball rolling downhill, is allowed only when **Start from the reader's account**
+   states it in order to correct it.
 5. **Describe the subject, not the process.** Write the document as a description of the
    thing as it is, never as a record of the conversation, the decision or the code history
    that produced it. Cut `previously`, `we discussed`, `as of PR 1234`, and labels such as
@@ -108,7 +109,7 @@ reader scans.
     join them with "so that", "because" or "which means", and never split a thought into
     fragments. Use a link only when the relation is true. A second "so", "which" or
     "because" starts a new sentence. No sentence runs over 25 words.
-12. **Short paragraphs.** One topic per paragraph, at most 5 sentences.
+12. **Short paragraphs.** One topic per paragraph, at most 7 sentences.
 13. **Bold labels for scanning.** Lead a bullet or paragraph with a short bold label, and
     let the sentences after it flow. Use bullets for points of emphasis and paragraphs for
     arguments, where each sentence builds on the last.
@@ -253,7 +254,7 @@ Read the prose once and check each principle.
   section opens with a lead-in about the writing. Every explained mechanism has a worked
   case that starts from its simplest form. In an explanation, one case runs throughout.
 - **Lower decoding cost:** no sentence exceeds 25 words or holds two links, no paragraph
-  exceeds 5 sentences, and no sentence is a fragment that the next one finishes. Parallel
+  exceeds 7 sentences, and no sentence is a fragment that the next one finishes. Parallel
   items have parallel form. Headings state findings, questions or tasks. Every equation is
   framed and every symbol defined. Every figure trigger has a figure whose caption states
   the finding, and you read the rendered image.
