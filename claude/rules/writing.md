@@ -77,11 +77,12 @@ Spend the reader's attention only on what is new to them.
 Put the point first, then a concrete case, then the generalisation. Order and concreteness
 make technical writing approachable, never an informal register.
 
-6. **Thesis first.** The first sentence of a file, section or paragraph is the point. Put
-   supporting examples in bold-label bullets after it, and what we do about it last. A
-   one-line map is an acceptable first sentence for a section that holds several kinds of
-   content. Put framing, such as why the document exists, at the end in its own short
-   paragraph, and never open with a lead-in that comments on the writing itself.
+6. **Thesis first.** The first sentence of a file, section or paragraph is the point, and
+   it says how it follows from what came before, such as "Anchors help only if evidence
+   links unknown cells to them, and pretraining supplies it". A proposal opens on what it
+   proposes. A one-line map can open a section of mixed content. Put framing, such as why
+   the document exists, at the end in its own short paragraph, and never open with a
+   lead-in that comments on the writing itself.
 7. **Start from the reader's account.** When the reader already holds an account of the
    subject, state it after the thesis, show the case it fails to explain, then give the
    correction. The account can be a belief, such as "retrieval misses come from the
@@ -110,11 +111,15 @@ reader scans.
     fragments. Use a link only when the relation is true. A second "so", "which" or
     "because" starts a new sentence. No sentence runs over 25 words.
 12. **Short paragraphs.** One topic per paragraph, at most 7 sentences.
-13. **Bold labels for scanning.** Lead a bullet or paragraph with a short bold label, and
-    let the sentences after it flow. Use bullets for points of emphasis and paragraphs for
-    arguments, where each sentence builds on the last.
+13. **Bold labels mark parallel items, never an argument.** Lead a bullet or paragraph
+    with a short bold label only when it is one of several items of equal weight, such as
+    trial results or label tests, and let the sentences after it flow. An argument runs as
+    paragraphs whose sentences say why each fact matters to the last, such as "These
+    errors matter because…". A run of labelled two-sentence paragraphs reads as fragments.
 14. **Lists and tables by job.** Numbered lists for sequences, bullets for unordered sets,
-    tables for lookup. Keep asides out of lists, and keep a table cell under 30 words.
+    tables for lookup. Rules that map a case to an outcome get a table with a **Why**
+    column, so that each rule carries its reason. Keep asides out of lists, and keep a
+    table cell under 30 words.
 15. **Parallel items get parallel form.** When a passage names several questions, options
     or stages of equal weight, give each its own bold-label bullet with the same shape.
     Never leave the last one as a trailing clause, such as "…, and then extend it to
@@ -151,10 +156,12 @@ reader scans.
     - **A data shape through stages:** a diagram with the dimensions on its edges, such as
       `28 days × tokens → 128-d`.
     - **A before and after:** two panels side by side.
-22. **The caption states the finding.** The sentence before a figure says what to look at.
-    The caption states what the figure shows, such as "the within-day split puts M1 and M2
-    in different halves", never only what it contains, such as "Figure 2: splits". Keep a
-    diagram to about 12 nodes, and split a bigger one into two figures.
+22. **The caption states the finding.** The sentence before a figure says what to look at,
+    such as "the `E_tower` table appears at both input and output", never how to scan it,
+    such as `read the figure left to right`. The caption states what the figure shows,
+    such as "the within-day split puts M1 and M2 in different halves", never only what it
+    contains, such as "Figure 2: splits". Keep a diagram to about 12 nodes, and split a
+    bigger one into two figures.
 23. **Use the format that renders where the text lands, and look at it.** Pick the format
     from this table.
 
@@ -220,9 +227,10 @@ Convert each result into what the reader does next.
     decision rule it depends on is stated as an assumption.
 33. **Commit to what you propose.** Write the plan in the declarative, "we build" or
     "we train", never `we'd`, `we hope` or `we'd like to`, because conditional verbs read
-    as unsure of the work. Keep `we'd` only for a true conditional whose condition is in
-    the same sentence, such as `if the second GPU is approved, we'd run both experiments
-    at once`. Put real uncertainty in a stated limit instead.
+    as unsure. Keep `we'd` only for a true conditional whose condition is in the same
+    sentence. Never state the outcome of unbuilt work as fact, such as `we locate each
+    tower` before the locator exists, and write "we propose a head that locates…". Put
+    real uncertainty in a stated limit instead.
 34. **Commands show where they run.** Every command shows the directory it runs from and
     the venv or env file it needs.
 35. **Procedures start ready.** Every procedure has a **Before you begin** block, at most
@@ -250,18 +258,20 @@ Read the prose once and check each principle.
 - **Assume expertise:** no standard term is defined, every coined term is glossed, and no
   everyday metaphor, idiom or filler transition remains. The document describes the subject
   in the present, with no narration of how it was produced.
-- **Order for understanding:** the first sentence of each section is the point, and no
-  section opens with a lead-in about the writing. Every explained mechanism has a worked
-  case that starts from its simplest form. In an explanation, one case runs throughout.
+- **Order for understanding:** the first sentence of each section is the point and says
+  how it follows from the section before, and no section opens with a lead-in about the
+  writing. Every explained mechanism has a worked case that starts from its simplest form.
+  In an explanation, one case runs throughout.
 - **Lower decoding cost:** no sentence exceeds 25 words or holds two links, no paragraph
   exceeds 7 sentences, and no sentence is a fragment that the next one finishes. Parallel
-  items have parallel form. Headings state findings, questions or tasks. Every equation is
-  framed and every symbol defined. Every figure trigger has a figure whose caption states
-  the finding, and you read the rendered image.
+  items have parallel form, and bold labels mark only parallel items. Headings state
+  findings, questions or tasks. Every equation is framed and every symbol defined. Every
+  figure trigger has a figure whose caption states the finding, and you read the rendered
+  image.
 - **Keep claims checkable:** each interpretation is marked once, and no plan or measured
-  result is hedged. Every derived-and-measured number shows both values and their ratio,
-  every behaviour claim shows real output, and every parameter-dependent result shows a
-  sweep. Every limit says what fails.
+  result is hedged, and no unbuilt work is described as done. Every derived-and-measured
+  number shows both values and their ratio, every behaviour claim shows real output, and
+  every parameter-dependent result shows a sweep. Every limit says what fails.
 - **End on action:** every analysis ends on the decision its result supports, in the
   reader's units. Every command shows where it runs.
 
