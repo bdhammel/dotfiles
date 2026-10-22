@@ -71,6 +71,8 @@ Spend the reader's attention only on what is new to them.
    thing as it is, never as a record of the conversation, the decision or the code history
    that produced it. Cut `previously`, `we discussed`, `as of PR 1234`, and labels such as
    `What we settled` or `Outcome`. A decision record states its decision as a present fact.
+   Replace a wrong claim, a superseded threshold or a lapsed limit with the current one,
+   and never mention the old value or add text that corrects it.
 
 ## Order for understanding
 
@@ -100,6 +102,9 @@ make technical writing approachable, never an informal register.
 10. **One line of argument in the main text.** Move derivation steps, proofs and secondary
     caveats into a footnote or an appendix, so that each section reads straight through.
     Results, checks and any limit that changes the reader's decision stay in the main text.
+    In a paper, the method sections describe the chosen method in terms that hold on any
+    dataset, and measured counts live in the results. Alternatives, out-of-scope data and
+    sweeps go to appendices that the main text names once.
 
 ## Lower decoding cost
 
@@ -127,7 +132,9 @@ reader scans.
 16. **Headings state the finding.** In an explanation, a heading states what the section
     shows, such as "Cluster sizes in a t-SNE plot mean nothing". A heading can instead be
     the reader's question when the section's first sentence answers it. In a how-to, it
-    names the task. Never "Overview", "Notes", "Details" or "Misc".
+    names the task. A white paper or proposal uses numbered section names, such as
+    "3.1 Trusted cells", and its first sentence states the finding. Never "Overview",
+    "Notes", "Details" or "Misc".
 17. **Summary first, each commitment once.** A file over 60 lines opens with a **Summary**
     block as its whole introduction, and never a "Who this is for" section, because that
     cue belongs in the index that links to the file. The Summary states each scope,
@@ -155,6 +162,8 @@ reader scans.
       table when the reader needs the values.
     - **A data shape through stages:** a diagram with the dimensions on its edges, such as
       `28 days × tokens → 128-d`.
+    - **A model:** its architecture, never a flow chart of steps. Show which inputs run in
+      parallel, which weights are shared and what each stage keeps.
     - **A before and after:** two panels side by side.
 22. **The caption states the finding.** The sentence before a figure says what to look at,
     such as "the `E_tower` table appears at both input and output", never how to scan it,
@@ -173,9 +182,10 @@ reader scans.
     | Google Doc | A rendered PNG, because the Drive connector does not render Mermaid |
     | A design worked out together with Ben | A shared board from `/sketch-it` |
 
-    Render every Mermaid figure and read the image before you finish, because the source
-    hides overlapping edges and unreadable labels. The command runs from any directory,
-    needs no venv, and writes one PNG per Mermaid block:
+    Render every figure and read the image, because the source hides overlaps, distorted
+    distances, panels that differ in more than what they compare, and content crowding an
+    edge. The Mermaid command runs from any directory, needs no venv, and writes one PNG
+    per block:
 
     ```bash
     npx -y @mermaid-js/mermaid-cli -q -s 2 -e png -i doc.md -o "${CLAUDE_JOB_DIR:-$TMPDIR}/fig.md"
@@ -211,7 +221,9 @@ trusting it.
     never assert it, as in `we're candid about our limits`.
 30. **Never send the reader away mid-sentence.** State the fact here in one line, then
     link. Ticket ids, section numbers, line numbers and people's remarks are not
-    explanations.
+    explanations. For an outside reader, describe an internal deliverable by what it does
+    and give its code only in a citation. Restate a finding from work they cannot see as a
+    measurement on their own data.
 
 ## End on action
 
