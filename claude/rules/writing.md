@@ -114,7 +114,9 @@ reader scans.
 11. **One true link per sentence.** When one idea causes, qualifies or completes another,
     join them with "so that", "because" or "which means", and never split a thought into
     fragments. Use a link only when the relation is true. A second "so", "which" or
-    "because" starts a new sentence. No sentence runs over 25 words.
+    "because" starts a new sentence. Aim for sentences under about 25 words, as a
+    guideline rather than a cap: a longer sentence is fine when it carries one connected
+    thought.
 12. **Short paragraphs.** One topic per paragraph, at most 7 sentences.
 13. **Bold labels mark parallel items, never an argument.** Lead a bullet or paragraph
     with a short bold label only when it is one of several items of equal weight, such as
@@ -274,12 +276,12 @@ Read the prose once and check each principle.
   how it follows from the section before, and no section opens with a lead-in about the
   writing. Every explained mechanism has a worked case that starts from its simplest form.
   In an explanation, one case runs throughout.
-- **Lower decoding cost:** no sentence exceeds 25 words or holds two links, no paragraph
-  exceeds 7 sentences, and no sentence is a fragment that the next one finishes. Parallel
-  items have parallel form, and bold labels mark only parallel items. Headings state
-  findings, questions or tasks. Every equation is framed and every symbol defined. Every
-  figure trigger has a figure whose caption states the finding, and you read the rendered
-  image.
+- **Lower decoding cost:** no sentence holds two links, few run past about 25 words, no
+  paragraph exceeds 7 sentences, and no sentence is a fragment that the next one
+  finishes. Parallel items have parallel form, and bold labels mark only parallel items.
+  Headings state findings, questions or tasks. Every equation is framed and every symbol
+  defined. Every figure trigger has a figure whose caption states the finding, and you
+  read the rendered image.
 - **Keep claims checkable:** each interpretation is marked once, and no plan or measured
   result is hedged, and no unbuilt work is described as done. Every derived-and-measured
   number shows both values and their ratio, every behaviour claim shows real output, and
@@ -287,9 +289,10 @@ Read the prose once and check each principle.
 - **End on action:** every analysis ends on the decision its result supports, in the
   reader's units. Every command shows where it runs.
 
-A `PostToolUse` hook runs Vale on every `.md` you write. It flags sentences over 25 words,
-filler words, hedged plans, pointers off the page, ALL CAPS and nested parentheses. Fix what
-it reports, except a `we'd` in a true conditional whose condition is in the same sentence.
+A `PostToolUse` hook runs Vale on every `.md` you write. It flags filler words, hedged
+plans, pointers off the page, ALL CAPS and nested parentheses, but not sentence length.
+Fix what it reports, except a `we'd` in a true conditional whose condition is in the same
+sentence.
 
 For a new or rewritten document, use the `write-doc` skill, which carries the templates.
 Worked before-and-after examples are in `~/.claude/rules/writing-examples.md`.
