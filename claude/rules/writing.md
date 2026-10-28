@@ -63,12 +63,11 @@ Spend the reader's attention only on what is new to them.
    stays with your team`. Never coin a verb from a noun, such as `footnote it` or
    `solutioning`. Never route a point through "the way you'd…".
 4. **No decorative analogies, idioms or filler transitions.** Use precise technical
-   language, such as objective, negatives or pooling, and cut transitions such as `along
-   the way`. An everyday metaphor reads as talking down, and an idiom costs a reader with
-   dyslexia a second pass. An in-field comparison is allowed when the precise statement
-   follows it, such as neurons as basis vectors. An everyday analogy, such as momentum as
-   a ball rolling downhill, is allowed only when **Start from the reader's account**
-   states it in order to correct it.
+   language, such as objective or pooling, and cut `along the way`. An everyday metaphor
+   reads as talking down, and an idiom or phrasal verb, `spin up` for "start", costs a
+   reader with dyslexia a second pass. An in-field comparison is allowed when the precise
+   statement follows it, such as neurons as basis vectors. An everyday analogy is allowed
+   only when **Start from the reader's account** states it in order to correct it.
 5. **Describe the subject, not the process.** Write the document as a description of the
    thing as it is, never as a record of the conversation, the decision or the code history
    that produced it. Cut `previously`, `we discussed`, `as of PR 1234`, and labels such as
@@ -114,11 +113,11 @@ Make every sentence and page cheap to parse, because Ben has severe dyslexia and
 reader scans.
 
 11. **One true link per sentence.** When one idea causes, qualifies or completes another,
-    join them with "so that", "because" or "which means", and never split a thought into
-    fragments. Use a link only when the relation is true. A second "so", "which" or
-    "because" starts a new sentence. Aim for sentences under about 25 words, as a
-    guideline rather than a cap: a longer sentence is fine when it carries one connected
-    thought.
+    join them with "so that", "because" or "which means", never with a semicolon that hides
+    the link, and never split a thought into fragments. Use a link only when the relation
+    is true. A second "so", "which" or "because" starts a new sentence. Aim for sentences
+    under about 25 words, as a guideline rather than a cap: a longer sentence is fine when
+    it carries one connected thought.
 12. **Parse on the first pass.** Finish the subject, verb and object before any caveat, and
     give the caveat its own sentence. Keep the optional "that" in "the file that the
     installer writes". Unpack three or more stacked nouns with prepositions, such as "the
@@ -148,7 +147,8 @@ reader scans.
     section opening and an appendix.
 18. **Plain mechanics.** Active voice, present tense, "you", and imperative mood for steps.
     Bold for emphasis, never ALL CAPS, underline or nested parentheses. Never `above`,
-    `below`, `aforementioned` or `the former`: name the thing.
+    `below`, `aforementioned` or `the former`, and never "it" or "this" for a thing named
+    more than one sentence back: name the thing.
 19. **One name per thing.** Use the name the code uses, and never two names for one
     concept. A **Terms used here** table is optional, and usually not worth it.
 20. **Frame each equation in prose.** Before an equation, say what it computes. Define
@@ -237,7 +237,8 @@ Convert each result into what the reader does next.
 
 31. **Give the reason as what the choice buys.** State each choice with the result it buys
     or the risk it removes, such as "caching the index cuts query latency from 2 s to
-    50 ms", not "caching makes search better". In a plan or proposal, say what each step
+    50 ms", not "caching makes search better". Never claim a quality, such as `robust` or
+    `gracefully`, without the result behind it. In a plan or proposal, say what each step
     delivers on its own.
 32. **End an analysis on the decision** *(explanations)*. Convert the final result into the
     action it supports, in the reader's units, such as "a 23% match rate means analysts
@@ -253,7 +254,8 @@ Convert each result into what the reader does next.
     the venv or env file it needs.
 35. **Procedures start ready.** Every procedure has a **Before you begin** block, at most
     10 steps of at most 20 words each, and the expected output after any step whose result
-    is not obvious.
+    is not obvious. A conditional step puts its condition first: "If the index is missing,
+    run `make reindex`."
 
 ## Change these rules without breaking them
 
@@ -296,8 +298,9 @@ Read the prose once and check each principle.
   reader's units. Every command shows where it runs.
 
 A `PostToolUse` hook runs Vale on every `.md` you write. It flags filler words, hedged
-plans, pointers off the page, ALL CAPS, nested parentheses, verbs coined from nouns and
-human verbs given to code. It cannot see sentence length, noun stacks or a dropped "that".
+plans, unearned quality words, pointers off the page, ALL CAPS, nested parentheses,
+semicolons, phrasal verbs, verbs coined from nouns and human verbs given to code. It cannot
+see sentence length, noun stacks, a distant "it" or a dropped "that".
 Fix what it reports, except a `we'd` in a true conditional whose condition is in the same
 sentence.
 
