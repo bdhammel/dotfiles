@@ -1,17 +1,18 @@
 # How to write for Ben and his readers
 
 **Summary.** Write the way one expert writes to another: technical in what you include,
-approachable in how you order and lay it out. Five principles own every rule here, and
-each one removes a cost the reader would otherwise pay:
+approachable in how you order and lay it out. Every rule here serves one of five
+principles, and each principle removes a cost that the reader would otherwise pay:
 
 - **Assume expertise:** the reader never rereads what they already know.
 - **Order for understanding:** the reader meets a concrete case before the abstraction.
 - **Lower decoding cost:** each sentence and page is cheap to parse.
-- **Keep claims checkable:** the evidence for each claim sits on the page.
-- **End on action:** each result arrives as what the reader does next.
+- **Keep claims checkable:** the evidence for each claim is on the page.
+- **End on action:** each result is stated as the action it supports.
 
-When two rules conflict, the precedence order decides. Rules marked *(explanations)* apply
-only to explanations, proposals, analyses and study write-ups.
+When two rules conflict, follow the precedence order in **Resolve a conflict by moving
+content**. Rules marked *(explanations)* apply only to explanations, proposals, analyses and
+study write-ups.
 
 ## Who reads this and where the rules apply
 
@@ -33,14 +34,14 @@ and in an artifact they govern the copy, not the HTML and CSS around it. The
 Content rules outrank form rules, so a form rule can move evidence to an appendix or a
 table but never cut it.
 
-1. **Keep claims checkable** decides what must appear on the page.
-2. **End on action** decides what the page concludes with.
-3. **Assume expertise** decides what to leave out.
-4. **Order for understanding** decides the sequence.
-5. **Lower decoding cost** decides the form: a sentence, a table, a figure or an appendix.
+1. **Keep claims checkable** determines what must appear on the page.
+2. **End on action** determines what the page concludes with.
+3. **Assume expertise** determines what to leave out.
+4. **Order for understanding** determines the sequence.
+5. **Lower decoding cost** determines the form: a sentence, a table, a figure or an appendix.
 
-For example, **Check a derivation against a measurement** needs a derived value, and
-**One line of argument** wants derivations out of the main text. The derived value, the
+For example, **Check a derivation against a measurement** requires a derived value, and
+**One line of argument** moves derivations out of the main text. The derived value, the
 measured value and their ratio stay in the main text, and the derivation steps move to the
 appendix.
 
@@ -59,7 +60,8 @@ Spend the reader's attention only on what is new to them.
    retrieval pipeline with a cross-encoder reranker", not by its motion, such as `where
    we'd begin and how we'd iterate towards better search`. Use the verb with its actor,
    "your team runs the scripts", not a noun made from it, `the ability to run the scripts
-   stays with your team`. Never route a point through "the way you'd…".
+   stays with your team`. Never coin a verb from a noun, such as `footnote it` or
+   `solutioning`. Never route a point through "the way you'd…".
 4. **No decorative analogies, idioms or filler transitions.** Use precise technical
    language, such as objective, negatives or pooling, and cut transitions such as `along
    the way`. An everyday metaphor reads as talking down, and an idiom costs a reader with
@@ -117,20 +119,22 @@ reader scans.
     "because" starts a new sentence. Aim for sentences under about 25 words, as a
     guideline rather than a cap: a longer sentence is fine when it carries one connected
     thought.
-12. **Short paragraphs.** One topic per paragraph, at most 7 sentences.
-13. **Bold labels mark parallel items, never an argument.** Lead a bullet or paragraph
-    with a short bold label only when it is one of several items of equal weight, such as
-    trial results or label tests, and let the sentences after it flow. An argument runs as
-    paragraphs whose sentences say why each fact matters to the last, such as "These
-    errors matter because…". A run of labelled two-sentence paragraphs reads as fragments.
-14. **Lists and tables by job.** Numbered lists for sequences, bullets for unordered sets,
+12. **Parse on the first pass.** Finish the subject, verb and object before any caveat, and
+    give the caveat its own sentence. Keep the optional "that" in "the file that the
+    installer writes". Unpack three or more stacked nouns with prepositions, such as "the
+    error rate of tower positions". Give code the verbs of code: a function catches an
+    error, it does not `swallow` it. Never coin a one-off compound, such as
+    `reader-patience budget`.
+13. **Short paragraphs.** One topic per paragraph, at most 7 sentences.
+14. **Bold labels mark parallel items, never an argument.** When a passage names several
+    questions, options or results of equal weight, give each its own bullet with a short
+    bold label and the same shape, and never leave the last as a trailing clause, such as
+    "…, and then extend it to mobile". An argument runs as paragraphs whose sentences say
+    why each fact matters to the last, such as "These errors matter because…".
+15. **Lists and tables by job.** Numbered lists for sequences, bullets for unordered sets,
     tables for lookup. Rules that map a case to an outcome get a table with a **Why**
     column, so that each rule carries its reason. Keep asides out of lists, and keep a
     table cell under 30 words.
-15. **Parallel items get parallel form.** When a passage names several questions, options
-    or stages of equal weight, give each its own bold-label bullet with the same shape.
-    Never leave the last one as a trailing clause, such as "…, and then extend it to
-    mobile".
 16. **Headings state the finding.** In an explanation, a heading states what the section
     shows, such as "Cluster sizes in a t-SNE plot mean nothing". A heading can instead be
     the reader's question when the section's first sentence answers it. In a how-to, it
@@ -278,7 +282,9 @@ Read the prose once and check each principle.
   In an explanation, one case runs throughout.
 - **Lower decoding cost:** no sentence holds two links, few run past about 25 words, no
   paragraph exceeds 7 sentences, and no sentence is a fragment that the next one
-  finishes. Parallel items have parallel form, and bold labels mark only parallel items.
+  finishes. No caveat splits a subject from its verb, no noun stack runs past two nouns, and
+  no object or function does what only a person does. Bold labels mark only parallel items,
+  which have parallel form.
   Headings state findings, questions or tasks. Every equation is framed and every symbol
   defined. Every figure trigger has a figure whose caption states the finding, and you
   read the rendered image.
@@ -290,7 +296,8 @@ Read the prose once and check each principle.
   reader's units. Every command shows where it runs.
 
 A `PostToolUse` hook runs Vale on every `.md` you write. It flags filler words, hedged
-plans, pointers off the page, ALL CAPS and nested parentheses, but not sentence length.
+plans, pointers off the page, ALL CAPS, nested parentheses, verbs coined from nouns and
+human verbs given to code. It cannot see sentence length, noun stacks or a dropped "that".
 Fix what it reports, except a `we'd` in a true conditional whose condition is in the same
 sentence.
 
