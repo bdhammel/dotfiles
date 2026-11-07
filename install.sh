@@ -24,6 +24,7 @@ links=(
     "ipython/profile_default/ipython_config.py:.ipython/profile_default/ipython_config.py"
     "ipython/profile_default/startup/ipython_startup.py:.ipython/profile_default/startup/ipython_startup.py"
     "claude/rules/writing.md:.claude/rules/writing.md"
+    "claude/rules/beads.md:.claude/rules/beads.md"
 )
 
 # ~/.claude/rules holds one symlink per rule file, because rules come from two repos:
