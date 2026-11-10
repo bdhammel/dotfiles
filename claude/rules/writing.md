@@ -260,7 +260,7 @@ Convert each result into what the reader does next.
 ## Change these rules without breaking them
 
 Each rule does one principle's job, and this file holds every threshold, so that the
-`write-doc` checklist and Vale never disagree with it.
+`write-doc` checklist never disagrees with it.
 
 - **A new clause joins the rule it serves.** If a clause fits no principle, revise the
   principles before appending it.
@@ -297,12 +297,9 @@ Read the prose once and check each principle.
 - **End on action:** every analysis ends on the decision its result supports, in the
   reader's units. Every command shows where it runs.
 
-A `PostToolUse` hook runs Vale on every `.md` you write. It flags filler words, hedged
-plans, unearned quality words, pointers off the page, ALL CAPS, nested parentheses,
-semicolons, phrasal verbs, verbs coined from nouns and human verbs given to code. It cannot
-see sentence length, noun stacks, a distant "it" or a dropped "that".
-Fix what it reports, except a `we'd` in a true conditional whose condition is in the same
-sentence.
+A `PostToolUse` hook checks every `.md` you write for a missing figure. It warns when a
+file over 60 lines names a mechanism at least five times but holds no Mermaid block, SVG or
+image.
 
 For a new or rewritten document, use the `write-doc` skill, which carries the templates.
 Worked before-and-after examples are in `~/.claude/rules/writing-examples.md`.
