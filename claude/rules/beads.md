@@ -1,12 +1,13 @@
 # How to write beads
 
 **Summary.** A bead, an issue in the `bd` tracker, is a message to an agent that cannot ask
-you questions, so write it for that reader. A bead holds one verifiable outcome that a fresh
-agent can reach in one context, never a single step. Every bead has a brief that Ben reads
-and a detail layer that the agent reads. Run labels say how Claude runs the bead, because
-an effort size measures human work. A close reason states the result itself, so that Ben
-reviews the result without opening a log. The `bead` skill adds the workspace, the tracker
-used for other people's issues, and worked examples from real threads.
+you questions, so write it for that reader. A bead holds one theme's verifiable outcome that
+a fresh agent can reach in one context, never a single step or a lone finding. A finding
+found by chance joins the bead on its theme before it gets one of its own. Every bead has a
+brief that Ben reads and a detail layer that the agent reads. Run labels say how Claude runs
+the bead, because an effort size measures human work. A close reason states the result
+itself, so that Ben reviews the result without opening a log. The `bead` skill adds the
+workspace, the tracker used for other people's issues, and worked examples from real threads.
 
 ## Pick the bead's shape by who reads it
 
@@ -42,7 +43,7 @@ to the detail. That keeps the brief readable cold and keeps the detail complete.
 | Brief | Title | The outcome in plain words, as in the first habit | **Headings state the finding** |
 | Brief | `kind:<kind>` and run labels | One kind from the next table, a `ben:` label, and `wait:` or `mode:` when they apply | Lets Ben filter the board, such as every one-shot he can launch tonight |
 | Brief | `## Summary`, first in the description | One to three sentences: the problem in Ben's terms, what the bead changes, and what that unblocks or decides | **Thesis first**; **Give the reason as what the choice buys** |
-| Brief | `--acceptance` | The definition of done as one check. For an experiment, the decision rule fixed before the run, such as "B ships if recall@10 beats the baseline by 0.05 or more" | **End an analysis on the decision** |
+| Brief | `--acceptance` | The definition of done as one check, or one item per line when the theme carries several. For an experiment, the decision rule fixed before the run, such as "B ships if recall@10 beats the baseline by 0.05 or more" | **End an analysis on the decision** |
 | Brief | `Needs from Ben:` list and the `needs:ben` label | One bullet per question that only Ben can answer, with the options, in the newest dated note or the close reason. Remove the label once he answers | **End on action** |
 | Brief | Close reason | The result, as in "Close a bead with its result" | **Keep claims checkable** |
 | Detail | `## Context`, `## Already known` | Facts with the commit or date they were true at, and what has been ruled out with its evidence | **Point at evidence** |
@@ -71,12 +72,16 @@ bead with ⚠ when it has no kind or `ben:` label, when its summary holds paths,
 commit ids, or when an experiment's result opens without a number. Run `bd lint <id>` before
 you hand a bead to anyone.
 
-## A bead is one outcome that fits one context
+## A bead is one theme that fits one context
 
 A fresh agent must reach the bead's outcome in one context, starting from the bead alone.
 Test the upper bound when you file it: if the bead needs two unrelated acceptance checks or
-more than one PR, it is too big, so split it. Split planned work only at these boundaries,
-because a split anywhere else creates handoffs that cost more than they save.
+more than one PR, it is too big, so split it. A bead is also at least one theme: the outcome
+Ben would name in a status update, such as "every reranker run is reproducible and checks
+its own validation curve". Related checks on one theme are one bead with several acceptance
+items, because each extra bead makes a fresh session read the same code and thread again.
+Split a theme, and planned work, only at these boundaries, because a split anywhere else
+creates handoffs that cost more than they save.
 
 | Split here | Why | Example |
 |---|---|---|
@@ -88,8 +93,30 @@ because a split anywhere else creates handoffs that cost more than they save.
 The steps inside one bead, such as edit, test, lint and commit, are never beads. Track them
 in the session's own task list, or in the bead's notes when they must survive compaction. A
 wait on CI, a review or a deploy is a boundary only when the session ends during the wait or
-another person must act. A small follow-up that you find by chance, such as a one-line bug
-spotted mid-task, is always worth a one-shot bead, because untracked it is forgotten.
+another person must act.
+
+A follow-up that you find by chance, such as a one-line bug spotted mid-task or a point from
+a PR review, is always tracked, because untracked it is forgotten. Track it in the first
+place that fits:
+
+1. **The bead you are working on,** when the finding shares its theme. Add it to that bead's
+   acceptance.
+2. **An open, unclaimed bead on its theme,** which `bd search` under the same epic finds.
+   Append it there.
+3. **A new bead,** one for every finding on that theme, such as all the points from one PR
+   review, never one bead per finding.
+
+Two guards stop a fold from costing more than the split it saves:
+
+- **The upper bound wins.** A finding joins a bead only if it lands in that bead's PR and
+  leaves its run labels unchanged. A finding that adds a second PR, raises the `ben:` level
+  or adds a `wait:` gets its own bead.
+- **Never fold toward more Ben.** A finding that a command decides (`ben:none`) never joins a
+  `ben:plan` or `ben:pair` bead, because the one-shot would then wait for an approval it does
+  not need. When it needs that bead's outcome, add a blocks dependency instead.
+
+When you add an item to a bead's acceptance, append a dated note that names it, so that Ben
+sees that the definition of done grew after he read it.
 
 ## Run labels say how Claude runs a bead
 
@@ -178,7 +205,8 @@ close reason has up to four parts:
    the numbers as an interpretation, and name only the limits that change the decision. Then
    link each deliverable: a PR as `repo#N`, a doc URL or tab, or a run directory.
 3. **Follow-ups:** a `Follow-ups:` line, then one bullet per suggested next step. Each bullet
-   names the bead you filed for it. Write `Follow-ups: none` when there are none.
+   names the bead that carries it, an existing bead on the same theme when there is one.
+   Write `Follow-ups: none` when there are none.
 4. **Needs from Ben:** a `Needs from Ben:` line, then one bullet per open question with its
    options, when the result leaves a decision that only Ben can make.
 
@@ -204,8 +232,9 @@ EOF
 )"
 ```
 
-The board flags every follow-up bullet without a bead id as unfiled, so file a bead for any
-step that you would otherwise only mention. It lists each `Needs from Ben:` bullet in its
+The board flags every follow-up bullet without a bead id as unfiled, so name the bead that
+carries any step you would otherwise only mention. File a new one only when no bead on its
+theme is open. It lists each `Needs from Ben:` bullet in its
 **Waiting on you** inbox. A closed bead counts as awaiting review until Ben adds the
 `reviewed` label with the board's **Mark reviewed** button, so never add that label yourself.
 
