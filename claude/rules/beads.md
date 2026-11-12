@@ -4,8 +4,10 @@
 you questions, so write it for that reader. A bead holds one theme's verifiable outcome that
 a fresh agent can reach in one context, never a single step or a lone finding. A finding
 found by chance joins the bead on its theme before it gets one of its own. Every bead has a
-brief that Ben reads and a detail layer that the agent reads. Run labels say how Claude runs
-the bead, because an effort size measures human work. A close reason states the result
+brief that Ben reads and a detail layer that the agent reads. The brief's `## If skipped`
+lines say what the epic's goal loses if the bead is never done, and a `path:` label sorts
+beads on that. Run labels say how Claude runs the bead, because an effort size measures
+human work. A close reason states the result
 itself, so that Ben reviews the result without opening a log. The `bead` skill adds the
 workspace, the tracker used for other people's issues, and worked examples from real threads.
 
@@ -43,6 +45,7 @@ to the detail. That keeps the brief readable cold and keeps the detail complete.
 | Brief | Title | The outcome in plain words, as in the first habit | **Headings state the finding** |
 | Brief | `kind:<kind>` and run labels | One kind from the next table, a `ben:` label, and `wait:` or `mode:` when they apply | Lets Ben filter the board, such as every one-shot he can launch tonight |
 | Brief | `## Summary`, first in the description | One to three sentences: the problem in Ben's terms, what the bead changes, and what that unblocks or decides | **Thesis first**; **Give the reason as what the choice buys** |
+| Brief | `## If skipped`, directly after the summary, and the `path:` label | Three fixed lines against the epic's goal, as in "State what the goal loses if the bead is skipped" | **Give the reason as what the choice buys** |
 | Brief | `--acceptance` | The definition of done as one check, or one item per line when the theme carries several. For an experiment, the decision rule fixed before the run, such as "B ships if recall@10 beats the baseline by 0.05 or more" | **End an analysis on the decision** |
 | Brief | `Needs from Ben:` list and the `needs:ben` label | One bullet per question that only Ben can answer, with the options, in the newest dated note or the close reason. Remove the label once he answers | **End on action** |
 | Brief | Close reason | The result, as in "Close a bead with its result" | **Keep claims checkable** |
@@ -67,10 +70,57 @@ decision the same across 5 seeds and reports the spread across seeds. The launch
 needs that before it cites a reranker number." The early-stopping metric, the file and line,
 and the run directory belong in the detail.
 
-`bd lint <id>` reports a missing `## Summary` or acceptance check. The board also marks a
-bead with ⚠ when it has no kind or `ben:` label, when its summary holds paths, flags or
-commit ids, or when an experiment's result opens without a number. Run `bd lint <id>` before
+`bd lint <id>` reports a missing `## Summary`, `## If skipped` or acceptance check. The board
+also marks a bead with ⚠ when it has no kind, `ben:` or `path:` label, when its summary
+holds paths, flags or commit ids, or when an experiment's result opens without a number. Run `bd lint <id>` before
 you hand a bead to anyone.
+
+## State what the goal loses if the bead is skipped
+
+A bead's importance is a statement about its epic's goal, so every bead except an epic says
+what that goal loses if the bead is never done. An agent that finds a defect writes up the
+defect, and a real defect can still leave the goal untouched, because its harm may need a
+condition that no run meets today. The `## If skipped` section holds three fixed lines, so
+that Ben reads every bead on one scale.
+
+| Line | Question it answers | What to write |
+|---|---|---|
+| `Goal date:` | Does skipping delay the goal? | `unchanged`, or `slips:` and the open bead or epic acceptance item that waits on this bead |
+| `Goal result:` | Does skipping change the goal's number, or whether it can be quoted? | `unchanged`, or `changes:` and the number or claim that moves |
+| `Worst case:` | What is the largest harm? | The harm in plain words. When it needs a condition, add the condition and `true today: yes` or `true today: no` |
+
+For example, an epic's goal is "CSV export returns within 2 s at 100k rows". The first bead
+moves the export off the event loop, and the second retries a dropped upload:
+
+```markdown
+## If skipped
+- Goal date: slips: the load test (<id>) cannot run while the export blocks the event loop
+- Goal result: unchanged
+- Worst case: one export blocks every other request for its full duration
+
+## If skipped
+- Goal date: unchanged
+- Goal result: unchanged
+- Worst case: an upload dropped mid-export is not retried. Only when the bucket is in
+  another region; true today: no
+```
+
+The first bead is `path:on` and the second is `path:off`. The label follows from the first
+two lines, and these rules stop a bead from claiming more than it can show.
+
+| Rule | Why |
+|---|---|
+| `path:on` when either line changes, and `path:off` when both read `unchanged` | The label is derived from the lines, so it cannot claim more than they do |
+| `slips:` names a bead that a `blocks` link records, or one of the epic's acceptance items | "This has to happen" must point at what waits |
+| `changes:` names the number or claim that moves | A result that only "gets better" moves nothing Ben can check |
+| A shift too small to change the outcome of the goal's check reads `unchanged`, with its size in the worst case, such as "recall reads 1.4% low for every arm alike" | The label sorts on the goal's outcome, and the size stays visible |
+| A `path:off` bead never blocks a `path:on` bead | The link and the label contradict each other, and a script finds the pair |
+| When both lines read `unchanged` and the worst case is `true today: no`, file the bead, run `bd defer <id>`, and append the condition that picks it up as a dated note | The work is recorded once, and nobody has to rule it out again |
+| A bead with no epic measures against the open bead or deliverable it names, and is `path:off` when it names none | Without a goal, nothing can slip |
+
+Write the lines when you file the bead, before the detail, because they decide whether the
+bead is worth its detail. When a later finding changes a line, rewrite the line and the
+label together, and append a dated note that says what changed.
 
 ## A bead is one theme that fits one context
 
@@ -164,6 +214,9 @@ progress, and a session resumes a thread from the epic instead of from chat hist
 - **Labels go on the epic,** because children inherit them at creation: `repo:<name>` when
   the thread lives in one repo, and `area:<slug>` for the long-running area. Run
   `bd label list-all` and reuse an existing area label before you coin one.
+- **The epic states its goal as a check.** Put the goal in the epic's `--acceptance`, as the
+  result the thread exists to produce, because every child's `## If skipped` lines are measured
+  against it. Take the check from the goal itself, and never invent a threshold to fill it.
 - **The epic holds the thread's state.** Its description states the goal, the worktree and
   branch, and links to PRs and docs. At the end of each session, append one dated line, such
   as `bd update <epic> --append-notes "<date>: fold 1 scored; next: open PR"`.
@@ -182,11 +235,12 @@ so that `bd ready --parent <epic>` shows the next piece. Write each child's desc
 the session that will start it, because by then the context that filed it is gone.
 
 ```bash
-epic=$(bd create "CSV export is async" -t epic -l repo:<repo>,area:export --silent)
+epic=$(bd create "CSV export is async" -t epic -l repo:<repo>,area:export \
+     --acceptance "an export of 100k rows returns within 2 s on dev" --silent)
 a=$(bd create "export_csv runs off the event loop, with route, tests and PR" --parent "$epic" \
-     -l kind:feature,ben:none --acceptance "make test exits 0 and the PR is open" --silent)
+     -l kind:feature,ben:none,path:on --acceptance "make test exits 0 and the PR is open" --silent)
 b=$(bd create "Load-test the async export on dev" --parent "$epic" --deps "$a" \
-     -l kind:experiment,ben:review,wait:short --acceptance "p95 export latency is reported for 1k, 10k and 100k rows" --silent)
+     -l kind:experiment,ben:review,wait:short,path:on --acceptance "p95 export latency is reported for 1k, 10k and 100k rows" --silent)
 bd update "$a" --claim
 bd close "$a" --reason "PR <repo>#123 at 3f2c1ab; asyncio.to_thread offload; 202 + job id"
 ```
@@ -256,6 +310,9 @@ as Ben. Then pass the subagent the id with these instructions:
 ## Summary
 <The goal in one to three sentences, written for Ben as well as the subagent.>
 
+## If skipped
+<The three lines from "State what the goal loses if the bead is skipped".>
+
 ## Scope
 In: <files, modules, question>. Out: <what not to touch or chase>.
 
@@ -277,7 +334,7 @@ description to `${CLAUDE_JOB_DIR:-$TMPDIR}/bead-<slug>.md`, then file it:
 
 ```bash
 bd create "<outcome title>" -t task|bug|chore -p <0-4> \
-  -l repo:<repo>,kind:<kind>,ben:<none|review|plan|pair>[,wait:<short|long>][,mode:<ultrathink|ultracode>] \
+  -l repo:<repo>,kind:<kind>,path:<on|off>,ben:<none|review|plan|pair>[,wait:<short|long>][,mode:<ultrathink|ultracode>] \
   --acceptance "<runnable check>" \
   --body-file "${CLAUDE_JOB_DIR:-$TMPDIR}/bead-<slug>.md" --silent
 ```
@@ -291,6 +348,11 @@ The reader has no memory of this session, so anchor every claim to something it 
 ```markdown
 ## Summary
 <One to three plain sentences: what changes and why it matters.>
+
+## If skipped
+- Goal date: <unchanged, or slips: the bead or epic acceptance item that waits>
+- Goal result: <unchanged, or changes: the number or claim that moves>
+- Worst case: <the largest harm, with its condition and "true today: yes" or "no">
 
 ## Context
 <Where this came up and why it matters. State the commit or date the facts were true at,
