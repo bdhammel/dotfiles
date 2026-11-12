@@ -111,7 +111,7 @@ two lines, and these rules stop a bead from claiming more than it can show.
 | Rule | Why |
 |---|---|
 | `path:on` when either line changes, and `path:off` when both read `unchanged` | The label is derived from the lines, so it cannot claim more than they do |
-| `slips:` names a bead that a `blocks` link records, or one of the epic's acceptance items | "This has to happen" must point at what waits |
+| `slips:` names a `path:on` bead that a `blocks` link records, or one of the epic's acceptance items | "This has to happen" must point at what waits, and a bead that only an off-path bead waits on is off the path too |
 | `changes:` names the number or claim that moves | A result that only "gets better" moves nothing Ben can check |
 | A shift too small to change the outcome of the goal's check reads `unchanged`, with its size in the worst case, such as "recall reads 1.4% low for every arm alike" | The label sorts on the goal's outcome, and the size stays visible |
 | A `path:off` bead never blocks a `path:on` bead | The link and the label contradict each other, and a script finds the pair |
