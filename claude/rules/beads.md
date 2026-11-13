@@ -4,10 +4,10 @@
 you questions, so write it for that reader. A bead holds one theme's verifiable outcome that
 a fresh agent can reach in one context, never a single step or a lone finding. A finding
 found by chance joins the bead on its theme before it gets one of its own. Every bead has a
-brief that Ben reads and a detail layer that the agent reads. The brief's `## If skipped`
-lines say what the epic's goal loses if the bead is never done, and a `path:` label sorts
-beads on that. Run labels say how Claude runs the bead, because an effort size measures
-human work. A close reason states the result
+brief that Ben reads and a detail layer that the agent reads. A bead's priority ranks it
+against its epic's MVP, and the brief's `## If skipped` lines say what that MVP loses if the
+bead is never done and why the bead has its priority. Run labels say how Claude runs the
+bead, because an effort size measures human work. A close reason states the result
 itself, so that Ben reviews the result without opening a log. The `bead` skill adds the
 workspace, the tracker used for other people's issues, and worked examples from real threads.
 
@@ -45,7 +45,7 @@ to the detail. That keeps the brief readable cold and keeps the detail complete.
 | Brief | Title | The outcome in plain words, as in the first habit | **Headings state the finding** |
 | Brief | `kind:<kind>` and run labels | One kind from the next table, a `ben:` label, and `wait:` or `mode:` when they apply | Lets Ben filter the board, such as every one-shot he can launch tonight |
 | Brief | `## Summary`, first in the description | One to three sentences: the problem in Ben's terms, what the bead changes, and what that unblocks or decides | **Thesis first**; **Give the reason as what the choice buys** |
-| Brief | `## If skipped`, directly after the summary, and the `path:` label | Three fixed lines against the epic's goal, as in "State what the goal loses if the bead is skipped" | **Give the reason as what the choice buys** |
+| Brief | Priority, and `## If skipped` directly after the summary | P0 to P3 from "Priority ranks a bead against its epic's MVP", and four fixed lines that justify it, as in "State what the goal loses if the bead is skipped" | **Give the reason as what the choice buys** |
 | Brief | `--acceptance` | The definition of done as one check, or one item per line when the theme carries several. For an experiment, the decision rule fixed before the run, such as "B ships if recall@10 beats the baseline by 0.05 or more" | **End an analysis on the decision** |
 | Brief | `Needs from Ben:` list and the `needs:ben` label | One bullet per question that only Ben can answer, with the options, in the newest dated note or the close reason. Remove the label once he answers | **End on action** |
 | Brief | Close reason | The result, as in "Close a bead with its result" | **Keep claims checkable** |
@@ -71,56 +71,103 @@ needs that before it cites a reranker number." The early-stopping metric, the fi
 and the run directory belong in the detail.
 
 `bd lint <id>` reports a missing `## Summary`, `## If skipped` or acceptance check. The board
-also marks a bead with ⚠ when it has no kind, `ben:` or `path:` label, when its summary
-holds paths, flags or commit ids, or when an experiment's result opens without a number. Run `bd lint <id>` before
-you hand a bead to anyone.
+also marks a bead with ⚠ when it has no kind or `ben:` label, when its priority disagrees
+with its `## If skipped` lines, when its summary holds paths, flags or commit ids, or when an
+experiment's result opens without a number. Run `bd lint <id>` before you hand a bead to
+anyone.
+
+## Priority ranks a bead against its epic's MVP
+
+An epic's MVP is the least work that completes the epic as its goal defines it, and the
+epic's `--acceptance` check states it. The MVP is the only scope that an epic writes down,
+because the fuller version of an epic changes while the work runs. Claude judges everything
+beyond the MVP bead by bead. Every bead except an epic takes one priority from this table.
+
+| Priority | The bead is | Why |
+|---|---|---|
+| P0 | Needed by the MVP: the epic's acceptance check cannot pass without it | The MVP is the one scope Ben has fixed, so this work cannot be skipped |
+| P1 | Needed before Ben would call the epic done, such as a supporting experiment or the UI that makes a feature usable | The MVP passes without it, but the epic is not finished in Ben's terms |
+| P2 | An improvement to an epic that is already done | This is the part of the epic that changes most as the work runs |
+| P3 | A papercut or minor housekeeping | The epic's completion does not depend on it |
+
+To place a bead below P0, ask "Would Ben call the epic done without this?" No means P1. Yes
+means P2, or P3 when the bead is a papercut or housekeeping. These rules keep the priority
+current without asking Ben for every move.
+
+| Rule | Why |
+|---|---|
+| Pass `-p` to every `bd create`, for a bead or an epic | `bd` files an issue without `-p` at P2, which claims a judgment that nobody made |
+| A bead's priority is at least as high as the priority of every bead it blocks | The work that needs the blocked bead needs its blocker too, and a script finds a pair that breaks this |
+| Claude re-judges a bead's priority when it claims the bead and in `/bead-review`, and appends a dated note when the priority moves | The fuller version of an epic changes as the work runs, so a priority set at filing goes stale |
+| A re-judgment that would move a bead into or out of P0 goes to Ben as a `Needs from Ben:` item, and Claude makes every other move itself | A P0 move changes what the MVP needs, which is scope |
+| A bead with no epic is judged against the bead or deliverable it names, and is P3 when it names none | Without an MVP, no work can need it |
+
+An epic takes its priority from a shorter scale, because it ranks a whole thread against
+Ben's deliveries rather than against an MVP. Work runs in epic order first and bead order
+second, so a P0 bead of a P0 epic comes before a P0 bead of a P1 epic.
+
+| Epic priority | The thread serves | Why |
+|---|---|---|
+| P0 | A major delivery, such as a customer deliverable or a company-wide program | Ben's critical path runs through these threads |
+| P1 | Any other work for the company | It matters, but it is off Ben's critical path |
+| P2 | Tooling and housekeeping | It changes how the work runs, not what the company delivers |
+
+An epic is never P3. Its description holds a `## Priority` section directly after its
+summary, with one line that names the delivery, such as "P0, because the customer's D1 gate
+reads this encoder". Claude proposes the priority when it files the epic, and a P0 epic, or
+a move into or out of P0, goes to Ben. When the delivery has a date, set it with
+`bd update <epic> --due <date>`.
 
 ## State what the goal loses if the bead is skipped
 
-A bead's importance is a statement about its epic's goal, so every bead except an epic says
-what that goal loses if the bead is never done. An agent that finds a defect writes up the
-defect, and a real defect can still leave the goal untouched, because its harm may need a
-condition that no run meets today. The `## If skipped` section holds three fixed lines, so
-that Ben reads every bead on one scale.
+Every bead except an epic justifies its priority with what the epic's MVP loses if the bead
+is never done. An agent that finds a defect writes up the defect, and a real defect can
+still leave the MVP untouched, because its harm may need a condition that no run meets
+today. The `## If skipped` section holds four fixed lines, so that Ben reads every bead on
+one scale.
 
 | Line | Question it answers | What to write |
 |---|---|---|
-| `Goal date:` | Does skipping delay the goal? | `unchanged`, or `slips:` and the open bead or epic acceptance item that waits on this bead |
-| `Goal result:` | Does skipping change the goal's number, or whether it can be quoted? | `unchanged`, or `changes:` and the number or claim that moves |
+| `Goal date:` | Does skipping delay the MVP? | `unchanged`, or `slips:` and the open P0 bead or the epic's acceptance check that waits on this bead |
+| `Goal result:` | Does skipping change the MVP's number, or whether it can be quoted? | `unchanged`, or `changes:` and the number or claim that moves |
 | `Worst case:` | What is the largest harm? | The harm in plain words. When it needs a condition, add the condition and `true today: yes` or `true today: no` |
+| `Priority:` | Why does the bead have its priority? | The priority, then `because` and the reason in one clause |
 
-For example, an epic's goal is "CSV export returns within 2 s at 100k rows". The first bead
-moves the export off the event loop, and the second retries a dropped upload:
+For example, an epic's acceptance check is "an export of 100k rows returns within 2 s on
+dev". The first bead moves the export off the event loop, and the second retries a dropped
+upload:
 
 ```markdown
 ## If skipped
-- Goal date: slips: the load test (<id>) cannot run while the export blocks the event loop
-- Goal result: unchanged
+- Goal date: unchanged
+- Goal result: changes: no export of 100k rows returns within 2 s while it blocks the event loop
 - Worst case: one export blocks every other request for its full duration
+- Priority: P0, because the acceptance check cannot pass while the export blocks the event loop
 
 ## If skipped
 - Goal date: unchanged
 - Goal result: unchanged
 - Worst case: an upload dropped mid-export is not retried. Only when the bucket is in
   another region; true today: no
+- Priority: P2, because the export is done without a retry, which only hardens it
 ```
 
-The first bead is `path:on` and the second is `path:off`. The label follows from the first
-two lines, and these rules stop a bead from claiming more than it can show.
+The first bead is P0 because its result line moves the acceptance check. The second is P2,
+and its worst case is not true today, so it is deferred. These rules stop a bead from
+claiming more than its lines show.
 
 | Rule | Why |
 |---|---|
-| `path:on` when either line changes, and `path:off` when both read `unchanged` | The label is derived from the lines, so it cannot claim more than they do |
-| `slips:` names a `path:on` bead that a `blocks` link records, or one of the epic's acceptance items | "This has to happen" must point at what waits, and a bead that only an off-path bead waits on is off the path too |
+| P0 when `Goal date` or `Goal result` changes, and P1 to P3 when both read `unchanged` | The lines read against the acceptance check, so the priority cannot claim more of the MVP than they show |
+| `slips:` names an open P0 bead that a `blocks` link records, or the epic's acceptance check | "This has to happen" must point at what waits, and a bead that only a P1 bead waits on does not delay the MVP |
 | `changes:` names the number or claim that moves | A result that only "gets better" moves nothing Ben can check |
-| A shift too small to change the outcome of the goal's check reads `unchanged`, with its size in the worst case, such as "recall reads 1.4% low for every arm alike" | The label sorts on the goal's outcome, and the size stays visible |
-| A `path:off` bead never blocks a `path:on` bead | The link and the label contradict each other, and a script finds the pair |
+| A shift too small to change the outcome of the acceptance check reads `unchanged`, with its size in the worst case, such as "recall reads 1.4% low for every arm alike" | The priority sorts on the check's outcome, and the size stays visible |
 | When both lines read `unchanged` and the worst case is `true today: no`, file the bead, run `bd defer <id>`, and append the condition that picks it up as a dated note | The work is recorded once, and nobody has to rule it out again |
-| A bead with no epic measures against the open bead or deliverable it names, and is `path:off` when it names none | Without a goal, nothing can slip |
 
 Write the lines when you file the bead, before the detail, because they decide whether the
 bead is worth its detail. When a later finding changes a line, rewrite the line and the
-label together, and append a dated note that says what changed.
+priority together, and append a dated note that says what changed. When the new line would
+move the bead into or out of P0, ask Ben first, as the priority rules say.
 
 ## A bead is one theme that fits one context
 
@@ -214,9 +261,10 @@ progress, and a session resumes a thread from the epic instead of from chat hist
 - **Labels go on the epic,** because children inherit them at creation: `repo:<name>` when
   the thread lives in one repo, and `area:<slug>` for the long-running area. Run
   `bd label list-all` and reuse an existing area label before you coin one.
-- **The epic states its goal as a check.** Put the goal in the epic's `--acceptance`, as the
-  result the thread exists to produce, because every child's `## If skipped` lines are measured
-  against it. Take the check from the goal itself, and never invent a threshold to fill it.
+- **The epic states its MVP as a check.** Put the MVP in the epic's `--acceptance`, as the
+  least result that completes the thread, because every child's priority and `## If skipped`
+  lines are measured against it. Take the check from the goal itself, and never invent a
+  threshold to fill it. Write no fuller version, because Claude judges the rest bead by bead.
 - **The epic holds the thread's state.** Its description states the goal, the worktree and
   branch, and links to PRs and docs. At the end of each session, append one dated line, such
   as `bd update <epic> --append-notes "<date>: fold 1 scored; next: open PR"`.
@@ -235,12 +283,12 @@ so that `bd ready --parent <epic>` shows the next piece. Write each child's desc
 the session that will start it, because by then the context that filed it is gone.
 
 ```bash
-epic=$(bd create "CSV export is async" -t epic -l repo:<repo>,area:export \
+epic=$(bd create "CSV export is async" -t epic -p 1 -l repo:<repo>,area:export \
      --acceptance "an export of 100k rows returns within 2 s on dev" --silent)
-a=$(bd create "export_csv runs off the event loop, with route, tests and PR" --parent "$epic" \
-     -l kind:feature,ben:none,path:on --acceptance "make test exits 0 and the PR is open" --silent)
-b=$(bd create "Load-test the async export on dev" --parent "$epic" --deps "$a" \
-     -l kind:experiment,ben:review,wait:short,path:on --acceptance "p95 export latency is reported for 1k, 10k and 100k rows" --silent)
+a=$(bd create "export_csv runs off the event loop, with route, tests and PR" --parent "$epic" -p 0 \
+     -l kind:feature,ben:none --acceptance "make test exits 0 and the PR is open" --silent)
+b=$(bd create "Load-test the async export on dev" --parent "$epic" --deps "$a" -p 1 \
+     -l kind:experiment,ben:review,wait:short --acceptance "p95 export latency is reported for 1k, 10k and 100k rows" --silent)
 bd update "$a" --claim
 bd close "$a" --reason "PR <repo>#123 at 3f2c1ab; asyncio.to_thread offload; 202 + job id"
 ```
@@ -311,7 +359,7 @@ as Ben. Then pass the subagent the id with these instructions:
 <The goal in one to three sentences, written for Ben as well as the subagent.>
 
 ## If skipped
-<The three lines from "State what the goal loses if the bead is skipped".>
+<The four lines from "State what the goal loses if the bead is skipped".>
 
 ## Scope
 In: <files, modules, question>. Out: <what not to touch or chase>.
@@ -333,15 +381,15 @@ Deferred work gets the full description, a `repo` label and the run labels. Writ
 description to `${CLAUDE_JOB_DIR:-$TMPDIR}/bead-<slug>.md`, then file it:
 
 ```bash
-bd create "<outcome title>" -t task|bug|chore -p <0-4> \
-  -l repo:<repo>,kind:<kind>,path:<on|off>,ben:<none|review|plan|pair>[,wait:<short|long>][,mode:<ultrathink|ultracode>] \
+bd create "<outcome title>" -t task|bug|chore -p <0-3> \
+  -l repo:<repo>,kind:<kind>,ben:<none|review|plan|pair>[,wait:<short|long>][,mode:<ultrathink|ultracode>] \
   --acceptance "<runnable check>" \
   --body-file "${CLAUDE_JOB_DIR:-$TMPDIR}/bead-<slug>.md" --silent
 ```
 
-`repo` is the main repo's name, never a worktree's. Priority 2 is the default, 0 is critical
-and 4 is backlog. Add `--deps discovered-from:<id>` when the follow-up came out of another
-bead. Report one line, such as "Tracked **<id>** — <title>", then return to the core work.
+`repo` is the main repo's name, never a worktree's. Set the priority by "Priority ranks a
+bead against its epic's MVP". Add `--deps discovered-from:<id>` when the follow-up came out
+of another bead. Report one line, such as "Tracked **<id>** — <title>", then return to the core work.
 
 The reader has no memory of this session, so anchor every claim to something it can check.
 
@@ -350,9 +398,10 @@ The reader has no memory of this session, so anchor every claim to something it 
 <One to three plain sentences: what changes and why it matters.>
 
 ## If skipped
-- Goal date: <unchanged, or slips: the bead or epic acceptance item that waits>
+- Goal date: <unchanged, or slips: the P0 bead or epic acceptance check that waits>
 - Goal result: <unchanged, or changes: the number or claim that moves>
 - Worst case: <the largest harm, with its condition and "true today: yes" or "no">
+- Priority: <P0 to P3>, because <the reason in one clause>
 
 ## Context
 <Where this came up and why it matters. State the commit or date the facts were true at,
