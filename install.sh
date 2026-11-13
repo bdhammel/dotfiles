@@ -24,11 +24,10 @@ links=(
     "ipython/profile_default/ipython_config.py:.ipython/profile_default/ipython_config.py"
     "ipython/profile_default/startup/ipython_startup.py:.ipython/profile_default/startup/ipython_startup.py"
     "claude/rules/writing.md:.claude/rules/writing.md"
-    "claude/rules/beads.md:.claude/rules/beads.md"
 )
 
-# ~/.claude/rules holds one symlink per rule file, because rules come from two repos:
-# this one and the claude_skills repo. Replace an older whole-directory symlink with a
+# ~/.claude/rules holds one symlink per rule file, because rules come from three repos:
+# this one, the claude_skills repo, and beadwork, whose own install.sh links beads.md. Replace an older whole-directory symlink with a
 # real directory, so the loop below never writes through it into another repo.
 if [[ -L "$HOME/.claude/rules" ]]; then
     rm "$HOME/.claude/rules"
