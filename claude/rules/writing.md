@@ -66,3 +66,22 @@ asks for a recommendation on every decision put to him.
    - Recommendation: no. Why: the 12k-step run already beats the baseline by 0.13 recall@10,
      so a longer run can widen the margin but cannot change the decision to ship.
 ```
+
+**Actions for Ben.** Ask Ben to do a step only when you cannot or should not do the step
+yourself: a sign-in that needs his browser, a permission you lack, such as a post in a channel
+you may not use, or a change to his own setup that he did not ask for. Do every other step
+yourself. When a chat reply needs such a step, put a `## 👉👉 Actions for you` block after the
+horizontal rule and directly above the decisions block, or alone when the reply has no
+decisions, so that every ask sits at the end of the reply. Number each action and write it in
+bold as the exact step, such as a command to run with `!`. Under each action, say why only Ben
+can do it, what it unblocks, and whether it blocks the work or can wait.
+
+```markdown
+---
+
+## 👉👉 Actions for you
+
+1. **Run `! git -C ~/dotfiles switch master && git -C ~/dotfiles merge --ff-only origin/master`.**
+   - Why: the checkout is behind master, and catching up also changes your live shell config,
+     so the timing is yours. Nothing waits on it.
+```
