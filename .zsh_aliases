@@ -97,3 +97,8 @@ if command -v fzf >/dev/null 2>&1; then
     eval "$(fzf --zsh)"
 fi
 
+# Secrets and API keys stay in a local file that no repo tracks.
+if [ -f ~/.zshrc.local ]; then
+    source ~/.zshrc.local
+fi
+
