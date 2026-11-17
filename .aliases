@@ -1,4 +1,36 @@
-# Shared exports (used by both bash and zsh)
+# Shared shell setup, sourced through the ~/.aliases link by .zsh_aliases and .bash_aliases.
+
+# The repo's location, read from the ~/.aliases link that install.sh creates, so that the
+# repo can live anywhere.
+if [ -z "${DOTFILES-}" ]; then
+    DOTFILES="$(dirname "$(readlink "$HOME/.aliases" 2>/dev/null || echo "$HOME/dotfiles/.aliases")")"
+fi
+export DOTFILES
+
+# PATH. Homebrew comes first, so that every later line, and the rc file that sources this
+# one, finds brew's tools on any Mac or Linux prefix.
+for brew_bin in /opt/homebrew/bin/brew /usr/local/bin/brew /home/linuxbrew/.linuxbrew/bin/brew; do
+    if [ -x "$brew_bin" ]; then
+        eval "$("$brew_bin" shellenv)"
+        break
+    fi
+done
+unset brew_bin
+
+# uv, pipx and the mux shim install into ~/.local/bin.
+export PATH="$HOME/.local/bin:$PATH"
+
+# nvm from its own installer (~/.nvm) or from Homebrew.
+export NVM_DIR="${NVM_DIR:-$HOME/.nvm}"
+for nvm_sh in "$NVM_DIR/nvm.sh" "${HOMEBREW_PREFIX:-/opt/homebrew}/opt/nvm/nvm.sh"; do
+    if [ -s "$nvm_sh" ]; then
+        . "$nvm_sh"
+        [ -s "$NVM_DIR/bash_completion" ] && . "$NVM_DIR/bash_completion"
+        break
+    fi
+done
+unset nvm_sh
+
 export EDITOR='nvim'
 export VISUAL='nvim'
 export GIT_EDITOR='nvim'
@@ -65,7 +97,7 @@ grmwt() {
 alias grmlck='rm -f "$(git rev-parse --git-path index.lock)"'
 
 alias web_finder="python3 -m http.server --bind $HOSTNAME"
-alias yank='yank | sed -r "s/\x1B\[([0-9]{1,3}(;[0-9]{1,3})*)?[mGKHf]//g; s/\x0f//g" | ${DOTFILES:-$HOME/dotfiles}/osc52.sh'
+alias yank='yank | sed -r "s/\x1B\[([0-9]{1,3}(;[0-9]{1,3})*)?[mGKHf]//g; s/\x0f//g" | "$DOTFILES/osc52.sh"'
 alias vim='nvim'
 alias vo='vim -c "FzfLua files"'
 alias vimdiff='nvim -d'
@@ -86,6 +118,15 @@ else
     export CLICOLOR=1
     alias ls="ls"
     alias ll="ls -lht"
+
+    # Chrome with remote debugging on its own persistent profile, so that the chrome-devtools
+    # MCP can attach at --browser-url=http://127.0.0.1:9222. Chrome ignores the debug port
+    # when the same profile is already running, so this one gets its own.
+    chrome-debug() {
+        /Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome \
+            --remote-debugging-port=9222 \
+            --user-data-dir="$HOME/.chrome-debug-profile" "$@"
+    }
 fi
 
 # Options to fzf command
@@ -120,7 +161,7 @@ _fzf_comprun() {
 
 # Spellcheck - uses LLM for context-aware spelling correction
 # Set SP_MODEL env var to switch providers (e.g. "openai:gpt-4o-mini")
-sp() { uv run ~/dotfiles/spellchecker/sp.py "$@" | yank }
+sp() { uv run "$DOTFILES/spellchecker/sp.py" "$@" | yank; }
 alias tmux-reset='tmux set-window-option -u window-status-style && tmux set-window-option -u window-status-current-style'
 
 # Pager
@@ -136,6 +177,6 @@ setup_venv() {
     source .venv/bin/activate
     python -m ensurepip --upgrade
     python -m pip install --upgrade pip uv
-    rehash
+    hash -r
     uv pip install ipython pdbp
 }
