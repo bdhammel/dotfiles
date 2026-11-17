@@ -180,6 +180,15 @@
   //     "showModifierHoldHints" : true
   //   },
 
+  // cmux injects Claude Code hooks through its own Claude wrapper. It writes
+  // nothing to ~/.claude/settings.json, so false here is the only way to stop them.
+  // We moved back to tmux in benhammel commit 1ca3039, and bin/mux now handles
+  // attention and progress. The injected prompt-submit hook only ever failed.
+  // It dialled a dead cmux.sock, cost 560ms, and logged one error on every prompt.
+  "automation": {
+    "claudeCodeIntegration": false
+  },
+
   // tmux-style Ctrl+A prefix chords (see ~/dotfiles/.tmux.conf for the tmux original)
   "shortcuts": {
     "bindings": {

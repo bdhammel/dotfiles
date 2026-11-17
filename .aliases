@@ -118,8 +118,6 @@ _fzf_comprun() {
   esac
 }
 
-alias claude="claude --dangerously-skip-permissions --verbose"
-
 # Spellcheck - uses LLM for context-aware spelling correction
 # Set SP_MODEL env var to switch providers (e.g. "openai:gpt-4o-mini")
 sp() { uv run ~/dotfiles/spellchecker/sp.py "$@" | yank }
