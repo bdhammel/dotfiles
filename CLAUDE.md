@@ -1,58 +1,48 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+This repo is Ben's public dotfiles: shell, Neovim, tmux, git, terminal and Claude Code
+config. The repo is public, so never commit work names, paths, hosts, identities or secrets here.
+Work config belongs in the private `claude_skills` repo, and identity and secrets stay in
+`~/.gitconfig` and `~/.zshrc.local`.
 
-## Repository Overview
+## Commands
 
-This is a personal dotfiles repository for managing shell configurations (bash/zsh), vim/neovim, git, tmux, and related development tools.
-
-## Setup Commands
+Each command runs from the repo root and needs no venv.
 
 ```bash
-# Full installation - creates symlinks for all dotfiles
-./install.sh
-
-# One-time git configuration (run after install.sh)
-./git-setup.sh
-
-# Minimal setup for remote/shared machines (downloads basic vimrc and tmux.conf)
-./quick_setup.sh
-
-# Install brew packages on macOS
-xargs brew install < ~/dotfiles/brew_requirements.txt
+./install.sh --check    # list missing or drifted links and hooks; exits 1 on any
+./install.sh            # link and hook; a second run prints nothing
+./bootstrap.sh --check  # install.sh --check, brew bundle check, and the sibling repos
 ```
 
-## File Structure
+Test a change to `install.sh` against a throwaway home, never the real one, because a run
+from a worktree repoints every live link at that worktree:
+`HOME=$(mktemp -d) ./install.sh`.
 
-- **install.sh** - Creates symlinks from `~/dotfiles/*` to `~/*` (backs up existing files)
-- **git-setup.sh** - Configures global git settings (editor, aliases, diff tools)
-- **quick_setup.sh** - Lightweight setup for remote machines without cloning the full repo
+## Layout
 
-### Configuration Files
+| Path | Linked to | Role |
+|---|---|---|
+| `bootstrap.sh` | | New-machine entry point: Homebrew, `Brewfile`, `install.sh`, tmux plugins, beadwork, claude_skills, `:Lazy restore` |
+| `install.sh` | | Links the files below, hooks `~/.zshrc`, `~/.bashrc` and `~/.gitconfig`, clones tpm |
+| `quick_setup.sh` | | Minimal setup for a machine you do not own, fetched with curl |
+| `Brewfile` | | General tools. The work tools are in claude_skills |
+| `.aliases` | `~/.aliases` | Shared by bash and zsh: `DOTFILES`, `PATH` (Homebrew, `~/.local/bin`, nvm), aliases, `gwt` |
+| `.zsh_aliases`, `.bash_aliases` | `~/` | Shell-specific setup. Each sources `~/.aliases`, and `.zsh_aliases` sources `~/.zshrc.local` last |
+| `git/config` | included by `~/.gitconfig` | Shared git settings and aliases |
+| `.gitignore_global`, `gitattributes_global` | `~/` | Read through `core.excludesfile` and `core.attributesfile` in `git/config` |
+| `nvim/` | `~/.config/nvim` | Neovim with lazy.nvim. `lazy-lock.json` pins plugin versions, and `spell/` holds added words |
+| `.tmux.conf` | `~/` | tmux, the daily driver, which renders the Claude Code progress bar from `@claude_progress` |
+| `cmux/settings.json`, `ghostty/config` | `~/.config/` | cmux (kept working, not primary) and the Ghostty config it embeds |
+| `claude/rules/writing.md` | `~/.claude/rules/` | Writing rules loaded in every session |
+| `claude/keybindings.json`, `claude/statusline.sh` | `~/.claude/` | Claude Code key bindings and status line |
 
-- `.aliases` - Shared shell aliases and functions (sourced by both bash and zsh)
-- `.bash_aliases` / `.zsh_aliases` - Shell-specific aliases
-- `.vimrc` - Traditional vim config
-- `nvim/` - Neovim config (lua-based, uses lazy.nvim for plugin management)
-- `.tmux.conf` - tmux configuration (the primary multiplexer; also renders the
-  Claude Code progress bar via the `@claude_progress` window option)
-- `cmux/settings.json` - cmux terminal config, legacy (Ctrl+A chord prefix for tmux-style splits/nav; symlinked to `~/.config/cmux/settings.json`). tmux is the daily driver; cmux is kept working but not primary.
-- `ghostty/config` - Ghostty terminal config (cmux embeds Ghostty; symlinked to `~/.config/ghostty/config`, which Ghostty reads before its Application Support fallback)
-- `.pdbrc` / `.pdbrc.py` - Python debugger configuration
-- `claude/rules/writing.md` - Writing rules Claude Code loads as global instructions (symlinked to `~/.claude/rules/writing.md`). Worked examples quote work code, so they live in the internal claude_skills repo and `install.sh` links them beside it when that repo exists.
+## Conventions
 
-### Neovim Structure
-
-The neovim config at `nvim/` is modular:
-- `init.lua` - Entry point, loads other modules
-- `lua/lazy_manager.lua` - Plugin manager setup
-- `lua/settings.lua` - Editor settings
-- `lua/appearance.lua` - Theme/UI settings
-- `lua/plugins/*.lua` - Individual plugin configurations
-
-## Key Conventions
-
-- Default editor is neovim (`vim` is aliased to `nvim`)
-- `cd` is aliased to `pushd` for directory stack navigation; use `up` to pop
-- Python virtualenvs are required (`PIP_REQUIRE_VIRTUALENV=true`)
-- Git worktree helper: `gwt <branch-name>` creates a worktree and opens it as a new tmux session (or cmux workspace under cmux), via the `mux` shim
+- `vim` is aliased to `nvim`. `basic_vimrc` is the only Vim config, for remote machines.
+- `cd` is aliased to `pushd`, and `up` pops.
+- Python needs a virtualenv (`PIP_REQUIRE_VIRTUALENV=true`).
+- `gwt <name>` creates the worktree and branch `benh/<name>` next to the repo root and
+  opens it through the `mux` shim, which claude_skills installs.
+- A link that `install.sh` no longer creates goes in its `retired` list, so that old
+  machines lose the link on their next run.

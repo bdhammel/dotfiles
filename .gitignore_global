@@ -74,6 +74,7 @@ docs/_build/
 # github
 *.orig
 worktree
+worktrees
 
 # misc
 tags
@@ -88,10 +89,11 @@ wandb/
 ### Collected from https://github.com/github/gitignore/tree/master/Global
 
 
-# https://github.com/PrimerAI/getting-started/blob/main/config-files/gitignore 
-# copy and set from the above repo like this:
-# cp ~/dev/getting-started/config-files/gitignore ~/.gitignore
-# git config --global core.excludesfile ~/.gitignore
+# Merged from https://github.com/PrimerAI/getting-started/blob/main/config-files/gitignore.
+# git/config points core.excludesfile at this file through the ~/.gitignore_global link.
+
+# python
+venv*
 
 ## macOS
 

@@ -1,37 +1,60 @@
-#!/bin/bash
+#!/usr/bin/env bash
+# Minimal setup for a machine you do not own: a basic vimrc, this repo's tmux config, and vi
+# mode plus a few aliases in ~/.bashrc. It never overwrites an existing file, and a re-run
+# adds nothing twice.
+#
+#   curl -fsSL https://raw.githubusercontent.com/bdhammel/dotfiles/master/quick_setup.sh | bash
+set -u
 
-# Check if ~/.vimrc exists, if not, download it
-if [ ! -f ~/.vimrc ]; then
-    wget https://raw.githubusercontent.com/bdhammel/dotfiles/master/basic_vimrc -O ~/.vimrc
-    echo "Downloaded .vimrc"
-else
-    echo ".vimrc already exists, skipping download."
-fi
+RAW="https://raw.githubusercontent.com/bdhammel/dotfiles/master"
 
-# Check tmux version and download appropriate config
-if command -v tmux &> /dev/null; then
-    tmux_version=$(tmux -V | grep -o -E '[0-9]+\.[0-9]+')
-    if (( $(echo "$tmux_version >= 3.0" | bc -l) )); then
-        wget https://raw.githubusercontent.com/bdhammel/dotfiles/refs/heads/master/tmux.conf_3 -O ~/.tmux.conf
-        echo "Downloaded tmux.conf for tmux version 3 or higher"
+# fetch <repo path> <target>: download into a temp file and move it into place only when the
+# download succeeds, so that a failed download never leaves an empty target.
+fetch() {
+    local tmp
+    if [ -e "$2" ]; then
+        echo "Skip: $2 exists"
+        return 0
+    fi
+    tmp="$(mktemp)"
+    if curl -fsSL "$RAW/$1" -o "$tmp" 2>/dev/null || wget -q "$RAW/$1" -O "$tmp" 2>/dev/null; then
+        mv "$tmp" "$2"
+        echo "Downloaded: $2"
     else
-        wget https://raw.githubusercontent.com/bdhammel/dotfiles/refs/heads/master/tmux.conf_2 -O ~/.tmux.conf
-        echo "Downloaded tmux.conf for tmux version less than 3"
+        rm -f "$tmp"
+        echo "Failed: $RAW/$1"
+    fi
+}
+
+fetch basic_vimrc "$HOME/.vimrc"
+
+# .tmux.conf uses extended-keys and terminal-features, which need tmux 3.2 or later.
+if command -v tmux >/dev/null 2>&1; then
+    version="$(tmux -V | sed -E 's/[^0-9]*([0-9]+)\.([0-9]+).*/\1 \2/')"
+    major="${version% *}"
+    minor="${version#* }"
+    if [ "$major" -gt 3 ] || { [ "$major" -eq 3 ] && [ "$minor" -ge 2 ]; }; then
+        fetch .tmux.conf "$HOME/.tmux.conf"
+    else
+        echo "Skip: .tmux.conf (needs tmux 3.2 or later, found $(tmux -V))"
     fi
 else
-    echo "tmux is not installed, skipping tmux configuration download."
+    echo "Skip: .tmux.conf (tmux is not installed)"
 fi
 
-# Set vi key bindings for the current shell session
+marker="# >>> dotfiles quick_setup >>>"
+if grep -qF "$marker" "$HOME/.bashrc" 2>/dev/null; then
+    echo "Skip: ~/.bashrc already has the quick_setup block"
+else
+    cat >> "$HOME/.bashrc" <<EOF
+
+$marker
 set -o vi
-echo "Set vi key bindings."
-
-# Ensure vi mode is set in future shell sessions by adding to ~/.bashrc
-echo "set -o vi" >> ~/.bashrc
-
-# Set up basic aliases
-echo 'alias grep="grep --color=auto"' >> ~/.bashrc
-echo 'alias ls="ls --color"' >> ~/.bashrc
-echo 'alias ll="ls -lhtU --time-style long-iso"' >> ~/.bashrc
-echo 'alias la="ll -a"' >> ~/.bashrc
-echo "Added basic aliases to ~/.bashrc"
+alias grep="grep --color=auto"
+alias ls="ls --color"
+alias ll="ls -lhtU --time-style long-iso"
+alias la="ll -a"
+# <<< dotfiles quick_setup <<<
+EOF
+    echo "Added: vi mode and aliases to ~/.bashrc (open a new shell to use them)"
+fi

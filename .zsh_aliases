@@ -88,9 +88,17 @@ zstyle ':completion:*' use-cache on
 zstyle ':completion:*' cache-path ~/.zsh/cache
 autoload -Uz compinit && compinit
 
-if [ -f ~/dotfiles/.aliases ]; then
-    source ~/dotfiles/.aliases
+if [ -f ~/.aliases ]; then
+    source ~/.aliases
 fi
 
-eval "$(/opt/homebrew/bin/fzf --zsh)"
+# fzf key bindings and completion; .aliases has put Homebrew on PATH.
+if command -v fzf >/dev/null 2>&1; then
+    eval "$(fzf --zsh)"
+fi
+
+# Secrets and API keys stay in a local file that no repo tracks.
+if [ -f ~/.zshrc.local ]; then
+    source ~/.zshrc.local
+fi
 

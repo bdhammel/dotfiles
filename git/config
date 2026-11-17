@@ -1,0 +1,47 @@
+# Shared git settings. install.sh includes this file from the first line of ~/.gitconfig, so
+# any key set in ~/.gitconfig overrides the value here. Keep the identity, credentials and
+# machine-specific settings, such as git-lfs filters and maintenance repos, in ~/.gitconfig.
+
+[core]
+	editor = nvim
+	excludesfile = ~/.gitignore_global
+	attributesfile = ~/.gitattributes_global
+[color]
+	ui = auto
+[diff]
+	tool = nvimdiff
+[difftool]
+	prompt = false
+[difftool "nvimdiff"]
+	cmd = "nvim -d \"$LOCAL\" \"$REMOTE\""
+[merge]
+	tool = nvimdiff
+[mergetool]
+	keepBackup = false
+[init]
+	defaultBranch = main
+[pull]
+	rebase = false
+[fetch]
+	prune = true
+[push]
+	default = simple
+[branch]
+	sort = -committerdate
+[submodule]
+	recurse = true
+[rerere]
+	enabled = true
+	autoUpdate = true
+[alias]
+	st = status
+	co = checkout
+	ci = commit
+	br = branch
+	lg = log --oneline --graph --decorate --all
+	graph = log --oneline --branches --graph --decorate
+	unstage = reset HEAD --
+	last = log -1 HEAD
+	fpush = push --force-with-lease
+	# git ignores an alias named after a built-in command, so "blame" never applied
+	bl = blame -w -C -C -C
