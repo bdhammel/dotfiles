@@ -46,3 +46,23 @@ before the prose that explains it.
 
 When two rules conflict, move content instead of cutting it. Evidence can move to a table or
 an appendix, but evidence never leaves the page.
+
+**Decisions for Ben.** Protect Ben's time by putting a decision to him only when only he can
+make it: approving spend or a GPU-day, touching a client deliverable, clearing a security or
+compliance gate, or choosing scope. Make every other decision yourself with a safe, reversible
+default, and state the default in the reply as an assumption he can override. When a chat
+reply needs a decision from Ben, end the reply with a horizontal rule and a
+`## ❓❓ Decisions for you` heading, so that the decisions are the last thing on screen and
+stand apart from earlier lists. Number each question and put it in bold, so that Ben can
+answer with "1 yes, 2 no". Under each question, give your recommendation and why, because Ben
+asks for a recommendation on every decision put to him.
+
+```markdown
+---
+
+## ❓❓ Decisions for you
+
+1. **Run the 24k-step training, which costs one GPU-day?**
+   - Recommendation: no. Why: the 12k-step run already beats the baseline by 0.13 recall@10,
+     so a longer run can widen the margin but cannot change the decision to ship.
+```
