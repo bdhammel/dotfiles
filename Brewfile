@@ -6,6 +6,7 @@ tap "dicklesworthstone/tap"
 
 # Editor, terminal and shell
 brew "neovim"
+brew "tree-sitter-cli"   # nvim-treesitter's main branch compiles parsers with it
 brew "tmux"
 brew "fzf"        # key bindings and completion in .zsh_aliases
 brew "fd"         # fzf path and directory candidates

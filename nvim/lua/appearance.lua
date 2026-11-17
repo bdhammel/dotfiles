@@ -3,6 +3,10 @@ vim.cmd('syntax on')
 vim.g.netrw_banner = 0
 
 vim.opt.number = true
+vim.o.termguicolors = true
+vim.o.background = 'dark'
+-- The sign column stays open, so that diagnostics never shift the text sideways.
+vim.opt.signcolumn = 'yes'
 vim.opt.cmdheight = 2
 vim.opt.textwidth = 0
 vim.opt.wrapmargin = 0
@@ -18,7 +22,4 @@ vim.cmd.colorscheme 'visual_studio_code'
 vim.g.lightline = {
   colorscheme = 'selenized_black'
 }
-
--- vim.cmd.colorscheme 'github_dark_colorblind'
--- vim.cmd.colorscheme 'nightfox'
 
