@@ -21,12 +21,12 @@ If nothing is misspelled, output exactly: No misspellings found.
 Do not add explanations, commentary, or extra formatting.\
 """
 
-DEFAULT_MODEL = "bedrock:us.anthropic.claude-haiku-4-5-20251001-v1:0"
+DEFAULT_MODEL = "bedrock:us.anthropic.claude-haiku-5-5"
 
 SP_MODEL_ALIASES = {
-    "haiku": "bedrock:us.anthropic.claude-haiku-4-5-20251001-v1:0",
-    "sonnet": "bedrock:us.anthropic.claude-sonnet-4-6",
-    "opus": "bedrock:us.anthropic.claude-opus-4-6-v1",
+    "haiku": "bedrock:us.anthropic.claude-haiku-5-5",
+    "sonnet": "bedrock:us.anthropic.claude-sonnet-5-5",
+    "opus": "bedrock:us.anthropic.claude-opus-5-5",
 }
 
 
