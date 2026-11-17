@@ -1,75 +1,48 @@
 # How to write for Ben and his readers
 
-Write the way one expert writes to another: direct, technical and easy to scan. Ben is the
-first reader of most of what you write. He is an expert on this codebase and has severe
-dyslexia. Fragmented prose is harder for him to follow, not easier, so make text readable
-through structure, such as the point first, bold labels and bullets for emphasis, and let
-each sentence carry a complete, connected thought. He knows the domain better than you, and
-he does not know names you coined today. When the reader is someone else, such as a client's
-technical team, pitch to their expertise in the same voice.
+These rules apply to all prose you write: documents, Claude Docs, PR and commit bodies,
+beads, Jira tickets and chat replies. Code and inline code are exempt. The `writing-review`
+skill holds the detailed checklist and the worked examples. Before you deliver a document,
+such as a Markdown file, a Claude Doc or a Google Doc, run the `writing-review` skill on the
+document and fix what the skill reports. Chat replies, commit messages, PR bodies and beads skip the review.
 
-These rules apply to everything you write: Markdown files, CLAUDE.md and AGENTS.md, PR and
-commit bodies, Jira tickets, plan files, documents written for clients, and chat replies.
-They do not apply inside code fences or inline code.
+**The reader.** Write for a reader who is an expert in the field and has never seen your
+work, such as the referee of a journal paper. That reader knows the field's methods and
+standard terms, so never explain them. That reader has not seen your experiments, your data
+or your working session, so name each of them in full. Ben is the first reader of most of
+what you write. He knows the domain better than you do. He has severe dyslexia, so connected
+sentences and clear structure help him, and fragments make text harder for him to read.
+He reads a figure or a table faster than the same facts in sentences, so draw any structure
+before the prose that explains it.
 
-## Voice
+1. **Describe the subject literally.** Cut analogies, idioms and filler. Describe the subject
+   as it is now, never the conversation or the history that produced it.
+2. **Name everything explicitly.** Name each thing by what it is, never by an ID from the
+   work, so write "the experiment on data scaling", never "the experiment" or "run 7b". Use
+   one name for each thing, and coin as few terms as you can. Never use "this", "that",
+   "these", "those", "it" or "which" on its own to refer back to an idea or an earlier
+   sentence. Name the referent instead, as in "this hyperparameter sweep shows", not "this
+   shows".
+3. **Subject and conclusion first, example next.** The first sentence of a document names its
+   subject in words the reader knew before opening the document, such as "This document
+   compares two retrieval pipelines on support-ticket search". The second sentence states the
+   conclusion. Each later section and paragraph opens on its conclusion and says how that
+   conclusion follows from the paragraph before. When you explain how a method works, follow
+   the conclusion with one worked example on the smallest real input that shows the method at
+   work, such as one support ticket passing through both pipelines. Then give the general
+   rule.
+4. **One connected thought per sentence.** When one idea causes, qualifies or completes
+   another, join the two ideas with the word that names the relation, such as "because" or
+   "so that". Never join two ideas with a semicolon, and never split one thought into
+   fragments. Finish the subject, verb and object before any aside. Give a definition its own
+   sentence, and put a short label in parentheses.
+5. **Keep claims checkable.** Put the evidence next to each claim: the number, the output of
+   a real run, or the source. Mark an interpretation as one, and state each limit plainly as
+   what fails. Never describe unbuilt work as done.
+6. **End on the answer to the question asked.** Close each result by answering the question
+   the work was run to answer, in the reader's units, such as "a 23% match rate means
+   analysts review 230 of every 1,000 candidates". Recommend a decision only when the reader
+   asked for one.
 
-1. **Write as a peer.** The default register is one technical team writing to another.
-   Compact technical prose is fine for dense material such as arithmetic or specs. Never
-   adopt a teaching tone that walks the reader through what they already know.
-2. **State the choice and the reason.** Never define standard terms of the reader's field,
-   such as precision, recall, ROC, one-hot encoding or false-discovery rate. Spell out an
-   acronym only when the reader may not know it.
-3. **No analogies or idioms.** Use precise technical language, such as objective, negatives
-   or pooling. A metaphor reads as talking down to a technical reader, and an idiom costs a
-   reader with dyslexia a second pass.
-4. **Say what you do directly.** Never route a point through "the way you'd…", and keep
-   asides out of lists.
-5. **Join linked ideas.** When one idea causes, qualifies or completes another, put them in
-   one sentence with "so that", "because" or "which means". Never split a thought into
-   fragments. Split a sentence only when it holds two separate ideas.
-6. **Be candid.** Name the limits of your own approach next to the limits of the data or
-   the system. In a proposal or plan, say what each step delivers on its own.
-
-## Structure
-
-7. **Thesis first.** The first sentence of a file, section or paragraph is the point. Put
-   supporting examples in bold-label bullets after it, and what we do about it last. Put
-   framing, such as why the document exists, at the end rather than the start.
-8. **Bold labels for scanning.** Lead a bullet or paragraph with a short bold label so the
-   reader can scan, and let the sentences after it flow. Use bullets for points of emphasis
-   and paragraphs for arguments, where each sentence builds on the last.
-9. **Lists and tables by job.** Numbered lists for sequences, bullets for unordered sets,
-   tables for lookup.
-10. One topic per paragraph, at most 4 sentences.
-11. Headings say what the reader can do or learn there. Never "Overview" or "Notes".
-12. A **Summary** block at the top of any file over 60 lines. That block is the file's whole
-    introduction. Never add a "Who this is for" section. The one-line cue about who opens
-    the file belongs in the index that links to it, a README or a CLAUDE.md.
-13. Active voice, present tense, "you", and imperative mood for steps. Bold for emphasis,
-    never ALL CAPS or underline. Never `above`, `below`, `aforementioned` or `the former`:
-    name the thing.
-
-## Self-contained pages
-
-14. One name per thing, the name the code uses. Gloss a term you coined the first time it
-    appears, in half a sentence. A **Terms used here** table is optional, and usually not
-    worth it.
-15. Never send the reader away mid-sentence. State the fact here in one line, then link.
-    Ticket ids, section numbers, line numbers and people's remarks are not explanations.
-16. Every command shows the directory it runs from and the venv or env file it needs.
-17. Every procedure has a **Before you begin** block, at most 10 steps, and the expected
-    output after any step whose result is not obvious.
-
-For a new or rewritten document, use the `write-doc` skill. It carries the templates.
-
-## Before you finish
-
-Read the prose once and check these:
-
-- The first sentence of each section is the point.
-- No sentence is a fragment of a thought that the next sentence finishes.
-- No standard term is defined, and no metaphor or idiom remains.
-
-A `PostToolUse` hook runs Vale on every `.md` you write. It flags filler words, pointers off
-the page, ALL CAPS and nested parentheses. Fix what it reports.
+When two rules conflict, move content instead of cutting it. Evidence can move to a table or
+an appendix, but evidence never leaves the page.
