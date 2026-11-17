@@ -17,19 +17,20 @@ for brew_bin in /opt/homebrew/bin/brew /usr/local/bin/brew /home/linuxbrew/.linu
 done
 unset brew_bin
 
-# nvm from its own installer (~/.nvm) or from Homebrew.
-export NVM_DIR="${NVM_DIR:-$HOME/.nvm}"
-for nvm_sh in "$NVM_DIR/nvm.sh" "${HOMEBREW_PREFIX:-/opt/homebrew}/opt/nvm/nvm.sh"; do
-    if [ -s "$nvm_sh" ]; then
-        . "$nvm_sh"
-        [ -s "$NVM_DIR/bash_completion" ] && . "$NVM_DIR/bash_completion"
-        break
+# Node from fnm, which switches to the version in a directory's .nvmrc or .node-version on
+# cd. The default version's bin also goes on PATH, so that programs that never run fnm's
+# shell hook, such as the Claude daemon, still find node and npx.
+if command -v fnm >/dev/null 2>&1; then
+    export PATH="${FNM_DIR:-$HOME/.local/share/fnm}/aliases/default/bin:$PATH"
+    if [ -n "${ZSH_VERSION-}" ]; then
+        eval "$(fnm env --use-on-cd --shell zsh)"
+    else
+        eval "$(fnm env --use-on-cd --shell bash)"
     fi
-done
-unset nvm_sh
+fi
 
 # uv, pipx, the mux shim and the native claude installer use ~/.local/bin. It goes on PATH
-# after nvm, so that it comes first and an npm-installed tool of the same name never
+# after fnm, so that it comes first and an npm-installed tool of the same name never
 # shadows it.
 export PATH="$HOME/.local/bin:$PATH"
 
@@ -40,6 +41,17 @@ export GIT_EDITOR='nvim'
 # Colors
 export LSCOLORS=exfxdxDxcxhxhxhxhxExEx
 export GREP_COLOR='1;38;5;136'
+# GNU grep 3.8 and later warns on every call while GREP_COLOR is the only setting.
+export GREP_COLORS='mt=1;38;5;136'
+
+# In bash, fnm switches Node through an alias of cd, which the cd alias below replaces, so
+# these wrappers run fnm's hook themselves. zsh runs the hook on every directory change.
+_fnm_on_cd()
+{
+  if [ -z "${ZSH_VERSION-}" ] && type __fnm_use_if_file_found >/dev/null 2>&1; then
+    __fnm_use_if_file_found
+  fi
+}
 
 pushd()
 {
@@ -49,17 +61,17 @@ pushd()
     DIR="$1"
   fi
 
-  builtin pushd "${DIR}" > /dev/null
+  builtin pushd "${DIR}" > /dev/null && _fnm_on_cd
 }
 
 pushd_builtin()
 {
-  builtin pushd > /dev/null
+  builtin pushd > /dev/null && _fnm_on_cd
 }
 
 popd()
 {
-  builtin popd > /dev/null
+  builtin popd > /dev/null && _fnm_on_cd
 }
 
 alias cd='pushd'
@@ -75,7 +87,6 @@ alias ...='cd ../..'
 alias ....='cd ../../..'
 
 # Git aliases
-alias gpu='git push -u origin $(git branch --show-current)'
 alias gfp='git fetch --prune'
 alias gfm='git fetch && git merge origin/main'
 alias gclean='git clean -fd'
@@ -171,14 +182,13 @@ export PAGER=less
 
 # Python
 export PIP_REQUIRE_VIRTUALENV=true
-export PYTHONBREAKPOINT="pdbpp.set_trace"
+# breakpoint() opens pdbp, which setup_venv installs and .pdbrc.py configures.
+export PYTHONBREAKPOINT="pdbp.set_trace"
 
-# Utility function to set up a Python virtual environment
+# Create .venv with uv and install ipython and pdbp into it. Arguments go to uv venv, such
+# as setup_venv --python 3.12.
 setup_venv() {
-    UV_PYTHON=$(which python) uv venv
-    source .venv/bin/activate
-    python -m ensurepip --upgrade
-    python -m pip install --upgrade pip uv
-    hash -r
+    uv venv "$@" || return
+    . .venv/bin/activate
     uv pip install ipython pdbp
 }

@@ -26,6 +26,8 @@
 	prune = true
 [push]
 	default = simple
+	# A first git push sets the upstream, so no alias needs -u origin <branch>.
+	autoSetupRemote = true
 [branch]
 	sort = -committerdate
 [submodule]

@@ -1,71 +1,97 @@
+-- LSP through Neovim's built-in client. vim.lsp.config() holds the settings for each server,
+-- nvim-lspconfig supplies each server's defaults, mason installs the servers, and
+-- mason-lspconfig enables every installed server with vim.lsp.enable().
 return {
   {
-    {
-      'VonHeikemen/lsp-zero.nvim',
-      branch = 'v4.x',
-      lazy = true,
-      config = false,
-    },
-    {
-      'williamboman/mason.nvim',
-      lazy = false,
-      config = true,
-    },
+    'mason-org/mason.nvim',
+    lazy = false,
+    opts = {},
+  },
 
-    -- Autocompletion
-    {
-      'hrsh7th/nvim-cmp',
-      event = 'InsertEnter',
-      dependencies = {
-        {'L3MON4D3/LuaSnip'},
-      },
-      config = function()
-        local cmp = require('cmp')
-
-        cmp.setup({
-          sources = {
-            {name = 'nvim_lsp'},
-          },
-          window = {
-            completion = cmp.config.window.bordered(),
-            documentation = cmp.config.window.bordered(),
-          },
-          completion = {
-            autocomplete = false
-          },
-          mapping = cmp.mapping.preset.insert({
-            ['<C-Space>'] = cmp.mapping.complete(),
-            ['<CR>'] = cmp.mapping.confirm({select = false}),
-          }),
-          snippet = {
-            expand = function(args)
-              vim.snippet.expand(args.body)
-            end,
-          },
-        })
-      end
+  -- Completion opens only on <C-Space>.
+  {
+    'hrsh7th/nvim-cmp',
+    event = 'InsertEnter',
+    dependencies = {
+      { 'L3MON4D3/LuaSnip' },
     },
+    config = function()
+      local cmp = require('cmp')
 
-    -- LSP
-    {
+      cmp.setup({
+        sources = {
+          { name = 'nvim_lsp' },
+        },
+        window = {
+          completion = cmp.config.window.bordered(),
+          documentation = cmp.config.window.bordered(),
+        },
+        completion = {
+          autocomplete = false,
+        },
+        mapping = cmp.mapping.preset.insert({
+          ['<C-Space>'] = cmp.mapping.complete(),
+          ['<CR>'] = cmp.mapping.confirm({ select = false }),
+        }),
+        snippet = {
+          expand = function(args)
+            vim.snippet.expand(args.body)
+          end,
+        },
+      })
+    end,
+  },
+
+  {
+    'mason-org/mason-lspconfig.nvim',
+    event = { 'BufReadPre', 'BufNewFile' },
+    dependencies = {
+      'mason-org/mason.nvim',
       'neovim/nvim-lspconfig',
-      cmd = {'LspInfo', 'LspInstall', 'LspStart'},
-      event = {'BufReadPre', 'BufNewFile'},
-      dependencies = {
-        {'hrsh7th/cmp-nvim-lsp'},
-        {'williamboman/mason.nvim'},
-        {'williamboman/mason-lspconfig.nvim'},
-      },
-      config = function()
-        local lsp_zero = require('lsp-zero')
+      'hrsh7th/cmp-nvim-lsp',
+    },
+    config = function()
+      require('handlers.hover').setup()
 
-        require('handlers.hover').setup()
+      vim.lsp.config('*', {
+        capabilities = require('cmp_nvim_lsp').default_capabilities(),
+      })
 
-        -- lsp_attach is where you enable features that only work
-        -- if there is a language server active in the file
-        local lsp_attach = function(client, bufnr)
-          local opts = {buffer = bufnr}
+      vim.lsp.config('lua_ls', {
+        settings = {
+          Lua = {
+            diagnostics = { globals = { 'vim' } },
+          },
+        },
+      })
 
+      -- Ruff lints, so pyright type-checks and leaves unused names to Ruff.
+      vim.lsp.config('pyright', {
+        settings = {
+          pyright = {
+            disableOrganizeImports = true,
+            disableTaggedHints = true,
+          },
+          python = {
+            analysis = {
+              typeCheckingMode = 'basic',
+              diagnosticMode = 'workspace',
+              diagnosticSeverityOverrides = {
+                reportUnusedImport = 'none',
+                reportUnusedClass = 'none',
+                reportUnusedFunction = 'none',
+                reportUnusedVariable = 'none',
+              },
+            },
+          },
+        },
+      })
+
+      vim.api.nvim_create_autocmd('LspAttach', {
+        group = vim.api.nvim_create_augroup('user_lsp_attach', { clear = true }),
+        desc = 'LSP keymaps, and hover from pyright instead of Ruff',
+        callback = function(args)
+          local opts = { buffer = args.buf }
           vim.keymap.set('n', 'K', '<cmd>lua vim.lsp.buf.hover()<cr>', opts)
           vim.keymap.set('n', 'gd', '<cmd>tab split | lua vim.lsp.buf.definition()<cr>', opts)
           vim.keymap.set('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<cr>', opts)
@@ -75,108 +101,19 @@ return {
           vim.keymap.set('n', 'gs', '<cmd>lua vim.lsp.buf.signature_help()<cr>', opts)
           vim.keymap.set('n', 'ge', '<cmd>lua vim.diagnostic.open_float()<cr>', opts)
           vim.keymap.set('n', '<F2>', '<cmd>lua vim.lsp.buf.rename()<cr>', opts)
-          vim.keymap.set({'n', 'x'}, '<F3>', '<cmd>lua vim.lsp.buf.format({async = true})<cr>', opts)
+          vim.keymap.set({ 'n', 'x' }, '<F3>', '<cmd>lua vim.lsp.buf.format({async = true})<cr>', opts)
           vim.keymap.set('n', '<F4>', '<cmd>lua vim.lsp.buf.code_action()<cr>', opts)
-        end
 
-        lsp_zero.extend_lspconfig({
-          sign_text = true,
-          lsp_attach = lsp_attach,
-          capabilities = require('cmp_nvim_lsp').default_capabilities()
-        })
+          local client = vim.lsp.get_client_by_id(args.data.client_id)
+          if client and client.name == 'ruff' then
+            client.server_capabilities.hoverProvider = false
+          end
+        end,
+      })
 
-        require('mason').setup({})
-
-        require('mason-lspconfig').setup({
-          ensure_installed = {
-            'ruff', 'pyright', 'bashls', 'lua_ls', 'rust_analyzer',
-          },
-          handlers = {
-            -- Default handler for servers without custom config
-            function(server_name)
-              require('lspconfig')[server_name].setup({})
-            end,
-
-            -- Custom handler for lua_ls
-            ['lua_ls'] = function()
-              require('lspconfig').lua_ls.setup({
-              settings = {
-                Lua = {
-                  diagnostics = {
-                    globals = { 'vim' }
-                  }
-                }
-              }
-              })
-            end,
-
-            -- Custom handler for pyright
-            ['pyright'] = function()
-              require('lspconfig').pyright.setup({
-              settings = {
-                pright = {
-                  disableOrganizeImports = true,
-                  disableTaggedHints = true,
-                },
-                python = {
-                  -- pythonPath = '/opt/sambanova/bin/python',
-                  analysis = {
-                    -- Ignore all files for analysis to exclusively use Ruff for linting
-                    typeCheckingMode = "basic",
-                    diagnosticMode = "workspace",
-                    diagnosticSeverityOverrides = {
-                        reportUnusedImport = "none",
-                        reportUnusedClass = "none",
-                        reportUnusedFunction = "none",
-                        reportUnusedVariable = "none",
-                    }
-                    -- diagnosticSeverityOverrides = {
-                    --   reportUnusedVariable = "none",
-                    -- }
-                    -- ignore = { '*' },
-                    -- autoSearchPaths = true,
-                    -- -- typeCheckingMode = "off",
-                    -- -- diagnosticMode = "workspace",
-                    -- -- useLibraryCodeForTypes = true,
-                    -- diagnosticSeverityOverrides = {
-                    --     reportUnusedImport = "none",
-                    --     reportUnusedClass = "none",
-                    --     reportUnusedFunction = "none",
-                    --     reportUnusedVariable = "none",
-                    -- }
-                  },
-                }
-              }
-              })
-            end,
-          }
-        })
-
-        vim.api.nvim_create_autocmd("LspAttach", {
-            group = vim.api.nvim_create_augroup('lsp_attach_disable_ruff_hover', { clear = true }),
-            callback = function(args)
-              local client = vim.lsp.get_client_by_id(args.data.client_id)
-              if client == nil then
-                return
-              end
-              if client.name == 'ruff' then
-                -- Disable hover in favor of Pyright
-                client.server_capabilities.hoverProvider = false
-              end
-            end,
-            desc = 'LSP: Disable hover capability from Ruff',
-          })
-
-          -- require('lspconfig').ruff.setup({
-          --   init_options = {
-          --     settings = {
-          --       args = {},
-          --     }
-          --   }
-          -- })
-
-        lsp_zero.setup()
-      end
-    }
-  }
+      require('mason-lspconfig').setup({
+        ensure_installed = { 'ruff', 'pyright', 'bashls', 'lua_ls', 'rust_analyzer' },
+      })
+    end,
+  },
 }

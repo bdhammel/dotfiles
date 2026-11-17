@@ -86,7 +86,14 @@ setopt APPEND_HISTORY
 zstyle ':completion:*' accept-exact '*(N)'
 zstyle ':completion:*' use-cache on
 zstyle ':completion:*' cache-path ~/.zsh/cache
-autoload -Uz compinit && compinit
+# The full compinit audits every completion file. It runs when the dump is over a day old,
+# and every other shell reuses the dump with compinit -C.
+autoload -Uz compinit
+if () { setopt local_options extended_glob; [[ -n ${ZDOTDIR:-$HOME}/.zcompdump(#qN.mh-24) ]] }; then
+    compinit -C
+else
+    compinit && touch "${ZDOTDIR:-$HOME}/.zcompdump"
+fi
 
 if [ -f ~/.aliases ]; then
     source ~/.aliases

@@ -63,7 +63,7 @@ its hooks and machine-only settings, and every shared setting lives in a repo.
 flowchart LR
   zshrc["~/.zshrc (local)"] -- "first line" --> zal[".zsh_aliases"]
   zal -- "sources" --> al[".aliases"]
-  al -- "sets" --> env["PATH: Homebrew, ~/.local/bin, nvm<br/>DOTFILES"]
+  al -- "sets" --> env["PATH: Homebrew, ~/.local/bin, fnm<br/>DOTFILES"]
   zal -- "sources last" --> secrets["~/.zshrc.local (local secrets)"]
   zshrc -- "last line" --> primer["claude_skills/shell/primer.zsh"]
   gitconfig["~/.gitconfig (local)"] -- "[include] on the first line" --> gitcfg["git/config"]
@@ -74,7 +74,7 @@ flowchart LR
 
 - **Shell.** `install.sh` adds `[ -f ~/.zsh_aliases ] && source ~/.zsh_aliases` as the
   first line of `~/.zshrc`. `.zsh_aliases` sources `.aliases` through the `~/.aliases`
-  link, and `.aliases` puts Homebrew, `~/.local/bin` and nvm on `PATH` and sets
+  link, and `.aliases` puts Homebrew, `~/.local/bin` and fnm's Node on `PATH` and sets
   `DOTFILES` to this repo's location. Put machine-only lines below the hook. Put secrets
   in `~/.zshrc.local`, which `.zsh_aliases` sources last, so that the secrets stay out of
   every repo. A bash machine gets the same hook for `~/.bash_aliases` in `~/.bashrc`.

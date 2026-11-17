@@ -27,7 +27,7 @@ from a worktree repoints every live link at that worktree:
 | `install.sh` | | Links the files below, hooks `~/.zshrc`, `~/.bashrc` and `~/.gitconfig`, clones tpm |
 | `quick_setup.sh` | | Minimal setup for a machine you do not own, fetched with curl |
 | `Brewfile` | | General tools. The work tools are in claude_skills |
-| `.aliases` | `~/.aliases` | Shared by bash and zsh: `DOTFILES`, `PATH` (Homebrew, `~/.local/bin`, nvm), aliases, `gwt` |
+| `.aliases` | `~/.aliases` | Shared by bash and zsh: `DOTFILES`, `PATH` (Homebrew, `~/.local/bin`, fnm), aliases, `gwt` |
 | `.zsh_aliases`, `.bash_aliases` | `~/` | Shell-specific setup. Each sources `~/.aliases`, and `.zsh_aliases` sources `~/.zshrc.local` last |
 | `git/config` | included by `~/.gitconfig` | Shared git settings and aliases |
 | `.gitignore_global`, `gitattributes_global` | `~/` | Read through `core.excludesfile` and `core.attributesfile` in `git/config` |

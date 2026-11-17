@@ -72,6 +72,11 @@ if command -v brew >/dev/null 2>&1; then
     brew bundle install --no-upgrade --file "$DOTFILES/Brewfile" ||
         echo "Warn: some Brewfile entries failed; run brew bundle check --file $DOTFILES/Brewfile"
 fi
+# Node comes from fnm. The latest LTS release becomes the default, and a repo's .nvmrc picks
+# its own version on cd.
+if command -v fnm >/dev/null 2>&1 && [[ ! -e "${FNM_DIR:-$HOME/.local/share/fnm}/aliases/default" ]]; then
+    fnm install --lts && fnm default lts-latest || echo "Warn: fnm could not install Node"
+fi
 
 # 3. Links and hooks from this repo, then the tmux plugins that .tmux.conf lists.
 "$DOTFILES/install.sh"

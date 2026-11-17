@@ -6,6 +6,7 @@ tap "dicklesworthstone/tap"
 
 # Editor, terminal and shell
 brew "neovim"
+brew "tree-sitter-cli"   # nvim-treesitter's main branch compiles parsers with it
 brew "tmux"
 brew "fzf"        # key bindings and completion in .zsh_aliases
 brew "fd"         # fzf path and directory candidates
@@ -25,8 +26,7 @@ brew "git-lfs"
 
 # Python and Node
 brew "uv"         # sp and setup_venv
-brew "nvm"        # .aliases loads it when ~/.nvm/nvm.sh is absent
-brew "node"       # copilot.vim
+brew "fnm"        # Node versions; .aliases runs its shell hook, and copilot.vim needs Node
 
 # Linters and data tools
 brew "jq"         # Claude Code hooks and statusline.sh
