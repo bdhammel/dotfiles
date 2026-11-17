@@ -11,6 +11,8 @@ vim.opt.linebreak = true
 
 vim.opt.spelllang = 'en_us'
 vim.opt.spell = true
+-- Words added with zg go into this repo, not stdpath('data'), so they reach a new machine.
+vim.opt.spellfile = vim.fn.stdpath('config') .. '/spell/en.utf-8.add'
 
 vim.cmd.colorscheme 'visual_studio_code'
 vim.g.lightline = {
