@@ -26,9 +26,9 @@ links=(
     "claude/rules/writing.md:.claude/rules/writing.md"
 )
 
-# ~/.claude/rules holds one symlink per rule file, because rules come from three repos:
-# this one, the claude_skills repo, and beadwork, whose own install.sh links beads.md. Replace an older whole-directory symlink with a
-# real directory, so the loop below never writes through it into another repo.
+# ~/.claude/rules holds one symlink per rule file, because rules come from two repos: this
+# one and beadwork, whose own install.sh links beads.md. Replace an older whole-directory
+# symlink with a real directory, so the loop below never writes through it into another repo.
 if [[ -L "$HOME/.claude/rules" ]]; then
     rm "$HOME/.claude/rules"
 fi
@@ -81,14 +81,12 @@ else
     echo "Skip: .local/bin/mux (claude_skills repo not found)"
 fi
 
-# Link the worked writing examples from the claude_skills repo. They quote work code and
-# documents, so they stay in that internal repo rather than this public one.
-EXAMPLES_SRC="$HOME/dev/primer/benhammel/claude_skills/rules/writing-examples.md"
-if [[ -e "$EXAMPLES_SRC" ]]; then
-    ln -sfn "$EXAMPLES_SRC" "$HOME/.claude/rules/writing-examples.md"
-    echo "Linked: .claude/rules/writing-examples.md"
-else
-    echo "Skip: .claude/rules/writing-examples.md (claude_skills repo not found)"
+# The worked writing examples load only when the writing-review skill in the claude_skills
+# repo reviews a document, so every session loads just the core rules in writing.md. Remove
+# the link that older installs created.
+if [[ -L "$HOME/.claude/rules/writing-examples.md" ]]; then
+    rm "$HOME/.claude/rules/writing-examples.md"
+    echo "Removed: .claude/rules/writing-examples.md"
 fi
 
 # Create vim temp directory
