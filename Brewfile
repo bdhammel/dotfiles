@@ -25,8 +25,7 @@ brew "git-lfs"
 
 # Python and Node
 brew "uv"         # sp and setup_venv
-brew "nvm"        # .aliases loads it when ~/.nvm/nvm.sh is absent
-brew "node"       # copilot.vim
+brew "fnm"        # Node versions; .aliases runs its shell hook, and copilot.vim needs Node
 
 # Linters and data tools
 brew "jq"         # Claude Code hooks and statusline.sh
